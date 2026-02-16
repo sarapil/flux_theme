@@ -1,0 +1,446 @@
+// ============================================================
+// FLUX Theme - Dark Mode
+// Overrides CSS custom properties when [data-theme="flux-dark"]
+// is set on <html> element.
+// ============================================================
+
+// ─── Dark Mode Surface Colors ───
+$dark-bg-primary: #0F1419;
+$dark-bg-secondary: #161B22;
+$dark-bg-tertiary: #1C2128;
+$dark-bg-elevated: #21262D;
+$dark-bg-card: #1C2128;
+$dark-border: rgba(9, 180, 116, 0.12);
+$dark-border-subtle: rgba(240, 245, 243, 0.06);
+$dark-text-primary: #E8F0EC;
+$dark-text-secondary: rgba(232, 240, 236, 0.7);
+$dark-text-muted: rgba(232, 240, 236, 0.45);
+
+// ─── Dark Theme Custom Properties ───
+[data-theme="flux-dark"] {
+  // Surface overrides
+  --flux-light: #{$dark-bg-secondary};
+  --flux-light-warm: #{$dark-bg-tertiary};
+  --flux-light-cool: #{$dark-bg-primary};
+  --flux-surface: #{$dark-bg-secondary};
+  --flux-surface-raised: #{$dark-bg-elevated};
+  --flux-surface-overlay: rgba(0, 0, 0, 0.6);
+
+  // Text overrides
+  --flux-text: #{$dark-text-primary};
+  --flux-text-muted: #{$dark-text-muted};
+
+  // Semantic adjustments for dark backgrounds
+  --flux-success: #3DDC84;
+  --flux-danger: #F85149;
+  --flux-warning: #3DD99A;
+  --flux-info: #79C0FF;
+
+  // Shadows — stronger for dark mode
+  --flux-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.2);
+  --flux-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.3);
+  --flux-shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.4);
+
+  // Frappe variables
+  --bg-color: #{$dark-bg-secondary} !important;
+  --card-bg: #{$dark-bg-card} !important;
+  --navbar-bg: rgba(15, 20, 25, 0.92) !important;
+  --fg-color: #{$dark-text-primary};
+  --text-color: #{$dark-text-primary};
+  --text-muted: #{$dark-text-muted};
+  --heading-color: #{$dark-text-primary};
+  --border-color: #{$dark-border-subtle};
+  --disabled-text-color: #{$dark-text-muted};
+
+  // ─── Body ───
+  body {
+    background-color: $dark-bg-primary !important;
+    color: $dark-text-primary;
+  }
+
+  // ─── Page Head — darker glassmorphism ───
+  .page-head {
+    background: rgba(22, 27, 34, 0.88) !important;
+    border-bottom: 1px solid $dark-border !important;
+    box-shadow:
+      0 1px 3px rgba(0, 0, 0, 0.3),
+      inset 0 1px 0 rgba(255, 255, 255, 0.04) !important;
+
+    &::after {
+      background: linear-gradient(180deg, rgba(255,255,255,0.03) 0%, transparent 100%);
+    }
+
+    .page-head-content {
+      .title-text,
+      h1 {
+        color: $dark-text-primary !important;
+        text-shadow: none;
+      }
+    }
+
+    .subtitle,
+    .indicator-pill,
+    .page-head-content .text-muted {
+      color: $dark-text-secondary !important;
+    }
+
+    .breadcrumb-area,
+    .like-disabled-input {
+      color: $dark-text-secondary !important;
+      a {
+        color: $dark-text-primary !important;
+        &:hover { color: var(--flux-green) !important; }
+      }
+    }
+
+    .menu-btn-group .btn,
+    .page-icon-group .btn {
+      color: $dark-text-secondary !important;
+      --icon-stroke: #{$dark-text-secondary};
+    }
+  }
+
+  // ─── Main Content Area ───
+  .layout-main-section {
+    background: rgba($dark-bg-secondary, 0.92);
+
+    &.frappe-card {
+      background: rgba($dark-bg-card, 0.95);
+      border: 1px solid $dark-border-subtle !important;
+    }
+  }
+
+  // ─── Cards ───
+  .card,
+  .frappe-card,
+  .widget {
+    background: $dark-bg-card;
+    border: 1px solid $dark-border-subtle;
+
+    &:hover {
+      border-left-color: var(--flux-green);
+    }
+
+    .card-header,
+    .widget-head {
+      border-bottom-color: $dark-border-subtle;
+
+      .card-title,
+      .widget-title {
+        color: $dark-text-primary;
+      }
+    }
+
+    .card-footer,
+    .widget-footer {
+      background: $dark-bg-elevated;
+      border-top-color: $dark-border-subtle;
+    }
+  }
+
+  // ─── Shortcut Cards ───
+  .shortcut-widget-box,
+  .shortcut-card {
+    background: $dark-bg-card;
+    border: 1px solid $dark-border-subtle;
+
+    .widget-label,
+    .shortcut-label {
+      color: $dark-text-primary;
+    }
+
+    &:hover {
+      background: $dark-bg-elevated;
+    }
+  }
+
+  // ─── Tables ───
+  table,
+  .table,
+  .frappe-list,
+  .result {
+    background: $dark-bg-card;
+  }
+
+  tbody,
+  .frappe-list .list-rows {
+    tr,
+    .list-row,
+    .list-row-container {
+      &:nth-child(odd) {
+        background-color: $dark-bg-card;
+      }
+      &:nth-child(even) {
+        background-color: $dark-bg-tertiary;
+      }
+      &:hover {
+        background-color: rgba(9, 180, 116, 0.06);
+      }
+    }
+
+    td,
+    .list-row-col {
+      color: $dark-text-primary;
+      border-bottom-color: $dark-border-subtle;
+    }
+  }
+
+  // ─── Forms ───
+  .form-control,
+  .input-with-feedback,
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  input[type="number"],
+  input[type="tel"],
+  input[type="url"],
+  input[type="search"],
+  input[type="date"],
+  input[type="datetime-local"],
+  input[type="time"],
+  textarea,
+  select {
+    background-color: $dark-bg-tertiary;
+    border-color: rgba(240, 245, 243, 0.1);
+    color: $dark-text-primary;
+
+    &::placeholder {
+      color: $dark-text-muted;
+    }
+
+    &:hover {
+      border-color: rgba(9, 180, 116, 0.25);
+    }
+
+    &:focus {
+      background-color: $dark-bg-elevated;
+    }
+
+    &:disabled,
+    &[readonly],
+    &.disabled {
+      background-color: $dark-bg-primary;
+      color: $dark-text-muted;
+    }
+  }
+
+  // ─── Awesomplete ───
+  .awesomplete > ul {
+    background: $dark-bg-elevated;
+    border-color: $dark-border;
+
+    > li {
+      color: $dark-text-primary;
+
+      &:hover,
+      &[aria-selected="true"] {
+        background-color: rgba(9, 180, 116, 0.12);
+      }
+    }
+  }
+
+  // ─── Modals ───
+  .modal-content {
+    background: $dark-bg-secondary;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  }
+
+  .modal-header {
+    background: $dark-bg-primary;
+  }
+
+  .modal-body {
+    color: $dark-text-primary;
+  }
+
+  .modal-footer {
+    background: $dark-bg-tertiary;
+    border-top-color: $dark-border-subtle;
+  }
+
+  // ─── Buttons — keep green primary, adjust secondary ───
+  .btn-secondary,
+  .btn-default,
+  .btn-light {
+    background-color: $dark-bg-elevated;
+    border-color: rgba(240, 245, 243, 0.15);
+    color: $dark-text-primary;
+
+    &:hover,
+    &:focus {
+      background-color: rgba(9, 180, 116, 0.15);
+      border-color: var(--flux-green);
+      color: var(--flux-green);
+    }
+  }
+
+  // ─── Headings ───
+  h1, h2, h3, h4, h5, h6,
+  .page-title,
+  .section-head,
+  .head,
+  .title-text {
+    color: $dark-text-primary;
+  }
+
+  // ─── Text ───
+  .text-muted {
+    color: $dark-text-muted !important;
+  }
+
+  // ─── Indicator Pills ───
+  .indicator-pill {
+    &.blue, &.indicator-blue {
+      background: rgba(121, 192, 255, 0.15);
+      color: #79C0FF;
+    }
+    &.gray, &.indicator-gray,
+    &.grey, &.indicator-grey {
+      background: rgba(232, 240, 236, 0.1);
+      color: $dark-text-muted;
+    }
+  }
+
+  // ─── Tags ───
+  .tag,
+  .tags-area .tag {
+    background: $dark-bg-elevated;
+    color: $dark-text-primary;
+    border: 1px solid $dark-border-subtle;
+
+    &:hover {
+      background: var(--flux-green);
+      color: var(--flux-dark);
+      border-color: var(--flux-green);
+    }
+  }
+
+  // ─── Timeline ───
+  .timeline .timeline-item {
+    border-left-color: $dark-border;
+  }
+
+  // ─── Avatar ───
+  .standard-image,
+  .avatar-empty {
+    background: $dark-bg-elevated;
+    color: var(--flux-green);
+  }
+
+  // ─── Scrollbar ───
+  &::-webkit-scrollbar-track,
+  ::-webkit-scrollbar-track {
+    background: $dark-bg-primary;
+  }
+  &::-webkit-scrollbar-thumb,
+  ::-webkit-scrollbar-thumb {
+    background: rgba(9, 180, 116, 0.25);
+    &:hover {
+      background: rgba(9, 180, 116, 0.4);
+    }
+  }
+  * {
+    scrollbar-color: rgba(9, 180, 116, 0.25) $dark-bg-primary;
+  }
+
+  // ─── Dropdown Menu ───
+  .dropdown-menu {
+    background: $dark-bg-elevated !important;
+    border: 1px solid $dark-border !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4) !important;
+
+    .dropdown-item,
+    .btn-reset.dropdown-item,
+    button.btn-reset.dropdown-item {
+      color: $dark-text-primary !important;
+
+      &:hover,
+      &:focus {
+        background-color: rgba(9, 180, 116, 0.12) !important;
+        color: var(--flux-green) !important;
+      }
+    }
+
+    .dropdown-divider {
+      border-top-color: $dark-border-subtle;
+    }
+  }
+
+  // ─── Like-disabled-input (Breadcrumbs, Read-only) ───
+  .like-disabled-input,
+  .control-value {
+    color: $dark-text-primary;
+  }
+
+  // ─── Comment Box ───
+  .comment-box,
+  .reply-editor {
+    background: $dark-bg-tertiary;
+    border-color: $dark-border-subtle;
+  }
+
+  // ─── Section Heads ───
+  .form-section .section-head,
+  .section-head {
+    color: $dark-text-primary;
+    border-bottom-color: $dark-border;
+  }
+
+  // ─── Page Container ───
+  .page-container {
+    background-color: transparent !important;
+  }
+
+  // ─── Workspace — keep dark skyline as-is ───
+  #page-Workspaces {
+    .widget-body {
+      background: rgba(15, 20, 25, 0.65) !important;
+      border-color: $dark-border !important;
+    }
+
+    .shortcut-widget-box {
+      background: rgba(15, 20, 25, 0.6) !important;
+      border-color: $dark-border !important;
+    }
+
+    .number-widget-box {
+      background: rgba(15, 20, 25, 0.65) !important;
+      border-color: $dark-border !important;
+    }
+  }
+
+  // ─── Sidebar — deepen slightly ───
+  .layout-side-section {
+    background: linear-gradient(180deg, #0B0F14 0%, #1A2526 60%, #0F1419 100%) !important;
+    border-right-color: $dark-border !important;
+  }
+
+  // ─── Footer ───
+  footer.web-footer,
+  .page-footer {
+    background: $dark-bg-primary;
+  }
+
+  // ─── Print — always use light mode ───
+  @media print {
+    body {
+      background: #FFFFFF !important;
+      color: #000000 !important;
+    }
+    .page-head { background: #FFFFFF !important; }
+  }
+}
+
+// ─── Auto Dark Mode (prefers-color-scheme) ───
+// Only apply if user hasn't explicitly set a preference
+// The JS module handles this by setting [data-theme] on <html>
+// This media query is a fallback for the initial flash
+@media (prefers-color-scheme: dark) {
+  html:not([data-theme="flux-light"]):not([data-theme]) {
+    // Apply minimal critical dark styles to prevent white flash
+    // Full theme is applied by JS setting [data-theme="flux-dark"]
+    body {
+      background-color: $dark-bg-primary !important;
+    }
+  }
+}

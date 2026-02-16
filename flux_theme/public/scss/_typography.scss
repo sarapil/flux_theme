@@ -1,0 +1,221 @@
+// ============================================================
+// FLUX Theme - Typography System
+// ============================================================
+
+// ─── Google Fonts Import ───
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;800&family=Poppins:wght@300;400;600&family=JetBrains+Mono:wght@400&display=swap');
+
+// ─── Font Stack Definitions ───
+$font-display: 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+$font-body: 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+$font-mono: 'JetBrains Mono', 'SF Mono', Monaco, 'Courier New', monospace;
+
+// ─── Base Typography ───
+html {
+  font-size: 13px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: $font-body;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--flux-text);
+  letter-spacing: 0;
+}
+
+// ─── Headings ───
+h1, h2, h3, h4, h5, h6,
+.page-title,
+.section-head,
+.head {
+  font-family: $font-display;
+  color: var(--flux-dark);
+  margin-top: 0;
+}
+
+// Page Title (h1 equivalent)
+h1,
+.page-title,
+.title-text,
+[data-page-container] .page-head .title-text {
+  font-family: $font-display;
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--flux-dark);
+}
+
+// Section Header (h2 equivalent)
+h2,
+.section-head,
+.form-section .section-head,
+.head {
+  font-family: $font-display;
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: var(--flux-dark);
+}
+
+// Dashboard Title
+h3,
+.widget-head .widget-title,
+.dashboard-widget-title {
+  font-family: $font-display;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+// Sub-headers
+h4 {
+  font-family: $font-display;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+h5, h6 {
+  font-family: $font-display;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+// ─── Body Text Classes ───
+.frappe-control,
+.form-control,
+.like-disabled-input,
+p,
+span,
+div,
+label,
+.control-label,
+.help-box {
+  font-family: $font-body;
+}
+
+// Button Labels
+.btn,
+button,
+[type="button"],
+[type="submit"] {
+  font-family: $font-body;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+// Small / Caption Text
+small,
+.small,
+.text-muted,
+.indicator-pill,
+.badge {
+  font-family: $font-body;
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+}
+
+// Form Labels
+.control-label,
+.form-group label,
+.frappe-control > label {
+  font-family: $font-body;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--flux-text-muted);
+  text-transform: none;
+}
+
+// ─── Monospace / Code ───
+code,
+pre,
+.code,
+kbd,
+samp,
+.like-disabled-input[data-fieldtype="Code"],
+.ace_editor {
+  font-family: $font-mono;
+  font-size: 12px;
+  font-weight: 400;
+}
+
+// ─── Links ───
+a {
+  color: var(--flux-green-dark);
+  text-decoration: none;
+  transition: color var(--flux-transition-fast);
+  
+  &:hover {
+    color: var(--flux-green);
+    text-decoration: underline;
+  }
+  
+  &:focus {
+    outline: 2px solid var(--flux-green);
+    outline-offset: 2px;
+  }
+}
+
+// Desk sidebar and navbar links
+.desk-sidebar a,
+.navbar a,
+.nav-link {
+  text-decoration: none;
+  
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+// ─── Text Utilities ───
+.text-green {
+  color: var(--flux-green);
+}
+
+.text-dark {
+  color: var(--flux-dark);
+}
+
+.text-light {
+  color: var(--flux-light);
+}
+
+.text-muted {
+  color: var(--flux-text-muted);
+}
+
+// ─── Breadcrumbs ───
+.breadcrumb,
+.breadcrumb-item {
+  font-family: $font-body;
+  font-size: 11px;
+  color: var(--flux-text-muted);
+  
+  a {
+    color: var(--flux-text-muted);
+    
+    &:hover {
+      color: var(--flux-green);
+    }
+  }
+  
+  .breadcrumb-item + .breadcrumb-item::before {
+    color: var(--flux-green);
+    content: "•";
+  }
+}
+
+// ─── Selection ───
+::selection {
+  background: var(--flux-green);
+  color: var(--flux-dark);
+}
+
+::-moz-selection {
+  background: var(--flux-green);
+  color: var(--flux-dark);
+}

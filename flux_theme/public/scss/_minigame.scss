@@ -1,0 +1,81 @@
+/* ─── FLUX Mini-Game ─── */
+
+.flux-minigame-container {
+  position: fixed;
+  z-index: 9990;
+  bottom: 24px;
+  right: 24px;
+  background: var(--flux-dark, #2D3436);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.35), 0 0 0 1px rgba(221,164,111,0.15);
+  opacity: 0;
+  transform: translateY(20px) scale(0.9);
+  transition: opacity 0.3s, transform 0.3s cubic-bezier(0.175,0.885,0.32,1.275);
+}
+
+.flux-minigame-container.visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.flux-minigame-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 14px;
+  background: rgba(0,0,0,0.2);
+  font-family: var(--flux-font-body, 'Poppins', sans-serif);
+}
+
+.flux-minigame-score {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--flux-green, #09B474);
+}
+
+.flux-minigame-hint {
+  font-size: 11px;
+  color: rgba(255,255,255,0.5);
+}
+
+.flux-minigame-close {
+  background: none;
+  border: none;
+  color: rgba(255,255,255,0.4);
+  font-size: 18px;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.flux-minigame-close:hover {
+  color: #fff;
+}
+
+.flux-minigame-canvas {
+  display: block;
+}
+
+/* RTL */
+[dir="rtl"] .flux-minigame-container {
+  right: auto;
+  left: 24px;
+}
+
+[dir="rtl"] .flux-minigame-header {
+  flex-direction: row-reverse;
+}
+
+/* Dark mode */
+[data-theme="flux-dark"] .flux-minigame-container {
+  background: #0f1720;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .flux-minigame-container {
+    bottom: 12px;
+    right: 12px;
+    left: 12px;
+  }
+}

@@ -1,0 +1,297 @@
+// ============================================================
+// FLUX Theme - Buttons
+// ============================================================
+
+// ─── Button Base ───
+.btn,
+button:not(.close):not(.btn-modal-close),
+[type="button"]:not(.close),
+[type="submit"] {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.02em;
+  border-radius: var(--flux-radius-md);
+  transition: all var(--flux-transition-fast);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  
+  &:focus {
+    @include flux-focus-ring;
+  }
+  
+  &:active {
+    transform: scale(0.97);
+  }
+  
+  &:hover {
+    transform: translateY(-1px);
+  }
+  
+  &:disabled,
+  &.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+  }
+}
+
+// ─── Primary Button (Green) ───
+.btn-primary,
+.btn-primary-dark,
+.primary-btn,
+[data-action="primary"] {
+  background-color: var(--flux-green);
+  border: 1px solid var(--flux-green);
+  color: var(--flux-dark);
+  
+  &:hover,
+  &:focus {
+    background-color: var(--flux-green-light);
+    border-color: var(--flux-green-light);
+    color: var(--flux-dark);
+    box-shadow: var(--flux-shadow-md);
+  }
+  
+  &:active {
+    background-color: var(--flux-green-dark);
+    border-color: var(--flux-green-dark);
+  }
+}
+
+// ─── Secondary Button (Outlined Navy) ───
+.btn-secondary,
+.btn-default,
+.btn-light {
+  background-color: transparent;
+  border: 1px solid var(--flux-dark);
+  color: var(--flux-dark);
+  
+  &:hover,
+  &:focus {
+    background-color: var(--flux-dark);
+    border-color: var(--flux-dark);
+    color: var(--flux-light);
+  }
+  
+  &:active {
+    background-color: var(--flux-dark-deep);
+  }
+}
+
+// ─── Danger Button ───
+.btn-danger {
+  background-color: var(--flux-danger);
+  border: 1px solid var(--flux-danger);
+  color: #fff;
+  
+  &:hover,
+  &:focus {
+    background-color: darken(#EA2424, 10%);
+    border-color: darken(#EA2424, 10%);
+    color: #fff;
+  }
+}
+
+// ─── Success Button ───
+.btn-success {
+  background-color: var(--flux-success);
+  border: 1px solid var(--flux-success);
+  color: #fff;
+  
+  &:hover,
+  &:focus {
+    background-color: darken(#09B474, 10%);
+    border-color: darken(#09B474, 10%);
+    color: #fff;
+  }
+}
+
+// ─── Warning Button ───
+.btn-warning {
+  background-color: var(--flux-green);
+  border: 1px solid var(--flux-green);
+  color: var(--flux-dark);
+  
+  &:hover,
+  &:focus {
+    background-color: var(--flux-green-light);
+    border-color: var(--flux-green-light);
+  }
+}
+
+// ─── Info Button ───
+.btn-info {
+  background-color: var(--flux-dark);
+  border: 1px solid var(--flux-dark);
+  color: var(--flux-light);
+  
+  &:hover,
+  &:focus {
+    background-color: var(--flux-dark-light);
+    border-color: var(--flux-dark-light);
+  }
+}
+
+// ─── Link Button ───
+.btn-link {
+  background: transparent;
+  border: none;
+  color: var(--flux-green);
+  text-decoration: none;
+  padding: 0;
+  
+  &:hover {
+    color: var(--flux-green-dark);
+    text-decoration: underline;
+    transform: none;
+    box-shadow: none;
+  }
+}
+
+// ─── Button Sizes ───
+.btn-xs,
+.btn-extra-small {
+  padding: 4px 8px;
+  font-size: 11px;
+}
+
+.btn-sm,
+.btn-small {
+  padding: 6px 12px;
+  font-size: 12px;
+}
+
+.btn-md,
+.btn-medium {
+  padding: 8px 16px;
+  font-size: 13px;
+}
+
+.btn-lg,
+.btn-large {
+  padding: 12px 24px;
+  font-size: 15px;
+}
+
+// ─── Icon Buttons ───
+.btn-icon,
+.icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  min-width: 32px;
+  min-height: 32px;
+  
+  svg,
+  .icon {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+// ─── Button Groups ───
+.btn-group {
+  .btn {
+    border-radius: 0;
+    
+    &:first-child {
+      border-radius: var(--flux-radius-md) 0 0 var(--flux-radius-md);
+    }
+    
+    &:last-child {
+      border-radius: 0 var(--flux-radius-md) var(--flux-radius-md) 0;
+    }
+  }
+}
+
+// ─── Frappe-specific Button Overrides ───
+.page-actions {
+  .btn-primary {
+    background-color: var(--flux-green);
+    border-color: var(--flux-green);
+    color: var(--flux-dark);
+  }
+  
+  .actions-btn-group .btn,
+  .btn-secondary {
+    background-color: transparent;
+    border-color: var(--flux-dark);
+    color: var(--flux-dark);
+    
+    &:hover {
+      background-color: var(--flux-dark);
+      color: var(--flux-light);
+    }
+  }
+}
+
+// Standard Actions
+.standard-actions {
+  .btn-primary,
+  .primary-btn {
+    background-color: var(--flux-green);
+    border-color: var(--flux-green);
+    color: var(--flux-dark);
+  }
+}
+
+// Comment / Like buttons
+.comment-box .btn,
+.like-action .btn,
+.liked-by .btn {
+  color: var(--flux-text-muted);
+  
+  &:hover {
+    color: var(--flux-green);
+  }
+}
+
+// Add row buttons
+.grid-add-row,
+.btn-open-row,
+.grid-footer .btn {
+  color: var(--flux-green);
+  
+  &:hover {
+    color: var(--flux-green-dark);
+  }
+}
+
+// ─── Dropdown Buttons ───
+.dropdown-toggle {
+  &::after {
+    border-top-color: currentColor;
+  }
+}
+
+.dropdown-menu {
+  background: var(--flux-light);
+  border: 1px solid var(--flux-light-warm);
+  border-radius: var(--flux-radius-md);
+  box-shadow: var(--flux-shadow-lg);
+  
+  .dropdown-item {
+    color: var(--flux-text);
+    padding: 8px 16px;
+    transition: background-color var(--flux-transition-fast);
+    
+    &:hover,
+    &:focus {
+      background-color: var(--flux-light-warm);
+      color: var(--flux-dark);
+    }
+    
+    &.active,
+    &:active {
+      background-color: var(--flux-green);
+      color: var(--flux-dark);
+    }
+  }
+  
+  .dropdown-divider {
+    border-top-color: var(--flux-light-warm);
+  }
+}

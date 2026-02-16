@@ -1,0 +1,380 @@
+// ============================================================
+// FLUX Theme - Form View Enhancements
+// Timeline animations, collapsible sections, branded sidebar
+// ============================================================
+
+// ─── Form Layout ───
+.form-page,
+[data-page-container] .main-section {
+  .form-layout {
+    animation: fluxFormFadeIn 0.4s ease both;
+  }
+}
+
+@keyframes fluxFormFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// ─── Section Collapse Animations ───
+.section-head {
+  position: relative;
+  cursor: pointer;
+  padding: 14px 16px;
+  margin: 0;
+  font-family: var(--flux-font-heading, 'Open Sans', sans-serif);
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.03em;
+  color: var(--flux-dark, #2D3436);
+  border-bottom: 1px solid rgba(9, 180, 116, 0.12);
+  transition: color var(--flux-transition-fast),
+              background var(--flux-transition-fast);
+
+  // Green accent bar on left
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 3px;
+    height: 60%;
+    background: var(--flux-green, #09B474);
+    border-radius: 0 3px 3px 0;
+    opacity: 0;
+    transition: opacity 0.25s ease;
+  }
+
+  &:hover {
+    color: var(--flux-green, #09B474);
+    background: rgba(9, 180, 116, 0.03);
+
+    &::before {
+      opacity: 1;
+    }
+  }
+
+  // Collapse chevron animation
+  .collapse-indicator {
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    color: var(--flux-green, #09B474);
+  }
+
+  &.collapsed .collapse-indicator {
+    transform: rotate(-90deg);
+  }
+}
+
+// Section body collapse transition
+.section-body {
+  overflow: hidden;
+  transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+              opacity 0.3s ease,
+              padding 0.3s ease;
+
+  &.hide {
+    max-height: 0 !important;
+    opacity: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+}
+
+// ─── Form Sidebar ───
+.form-sidebar,
+.layout-side-section .form-sidebar {
+  background: linear-gradient(180deg,
+    rgba(45, 52, 54, 0.03) 0%,
+    rgba(9, 180, 116, 0.03) 100%);
+  border-radius: var(--flux-radius-lg, 6px);
+  padding: 16px;
+  border: 1px solid rgba(9, 180, 116, 0.08);
+
+  // Sidebar section titles
+  .sidebar-label,
+  .form-sidebar-stats .stat-label,
+  .sidebar-menu .sidebar-label {
+    font-family: var(--flux-font-heading, 'Open Sans', sans-serif);
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--flux-green, #09B474);
+    margin-bottom: 8px;
+  }
+
+  // Stats
+  .form-sidebar-stats {
+    .stat-value {
+      color: var(--flux-dark, #2D3436);
+      font-weight: 600;
+    }
+  }
+
+  // Like/Assign/Tags
+  .like-active-item .like-action {
+    color: var(--flux-green, #09B474) !important;
+  }
+
+  .tag-btn {
+    border-color: rgba(9, 180, 116, 0.2);
+    color: var(--flux-text-muted, #6B7280);
+    transition: all var(--flux-transition-fast);
+
+    &:hover {
+      border-color: var(--flux-green, #09B474);
+      color: var(--flux-green, #09B474);
+    }
+  }
+
+  // User assignment avatars
+  .avatar-group .avatar {
+    border: 2px solid var(--flux-light, #F0F5F3);
+    transition: transform 0.2s ease;
+
+    &:hover {
+      transform: scale(1.15);
+      z-index: 2;
+    }
+  }
+}
+
+// ─── Timeline Enhancements ───
+.timeline {
+  position: relative;
+
+  // Vertical line
+  &::before {
+    content: '';
+    position: absolute;
+    left: 18px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(180deg,
+      var(--flux-green, #09B474) 0%,
+      rgba(9, 180, 116, 0.1) 100%);
+    border-radius: 2px;
+  }
+
+  .timeline-item {
+    position: relative;
+    padding-left: 44px;
+    margin-bottom: 16px;
+    opacity: 0;
+    transform: translateX(-12px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+
+    // Animated in by JS (IntersectionObserver)
+    &.flux-timeline-visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    // Always visible fallback (no JS)
+    &:not(.flux-timeline-observed) {
+      opacity: 1;
+      transform: none;
+    }
+
+    // Timeline dot
+    &::before {
+      content: '';
+      position: absolute;
+      left: 12px;
+      top: 8px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--flux-light, #F0F5F3);
+      border: 2px solid var(--flux-green, #09B474);
+      z-index: 1;
+      transition: background 0.25s ease, transform 0.25s ease;
+    }
+
+    &:hover::before {
+      background: var(--flux-green, #09B474);
+      transform: scale(1.2);
+    }
+
+    // Timeline content card
+    .timeline-content,
+    .timeline-message-box {
+      background: var(--flux-light, #F0F5F3);
+      border: 1px solid rgba(9, 180, 116, 0.1);
+      border-radius: var(--flux-radius-md, 4px);
+      padding: 12px 16px;
+      transition: border-color var(--flux-transition-fast),
+                  box-shadow var(--flux-transition-fast);
+
+      &:hover {
+        border-color: rgba(9, 180, 116, 0.25);
+        box-shadow: 0 2px 8px rgba(9, 180, 116, 0.08);
+      }
+    }
+
+    // Author/date
+    .timeline-badge,
+    .comment-header {
+      font-size: 11px;
+      color: var(--flux-text-muted, #6B7280);
+
+      .avatar-small {
+        border: 1px solid rgba(9, 180, 116, 0.2);
+      }
+    }
+  }
+
+  // Staggered animation delay (set by JS)
+  @for $i from 1 through 20 {
+    .timeline-item:nth-child(#{$i}).flux-timeline-visible {
+      transition-delay: #{$i * 0.06}s;
+    }
+  }
+}
+
+// ─── Comment Box ───
+.comment-box {
+  .ql-editor,
+  .comment-input-control .ql-editor {
+    border: 1px solid rgba(9, 180, 116, 0.15);
+    border-radius: var(--flux-radius-md, 4px);
+    min-height: 80px;
+    transition: border-color var(--flux-transition-fast);
+
+    &:focus {
+      border-color: var(--flux-green, #09B474);
+      box-shadow: 0 0 0 3px rgba(9, 180, 116, 0.1);
+    }
+  }
+
+  .btn-comment {
+    background: var(--flux-green, #09B474);
+    border-color: var(--flux-green, #09B474);
+    color: #fff;
+    font-weight: 600;
+
+    &:hover {
+      background: var(--flux-green-dark, #067A4E);
+    }
+  }
+}
+
+// ─── Workflow Status Bar ───
+.form-footer .workflow-button-area {
+  .btn {
+    border-radius: var(--flux-radius-full, 9999px);
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    padding: 8px 20px;
+    transition: all 0.25s ease;
+
+    &:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+  }
+}
+
+// ─── Attachments Area ───
+.form-attachments {
+  .attachment-row {
+    border: 1px solid rgba(9, 180, 116, 0.08);
+    border-radius: var(--flux-radius-md, 4px);
+    padding: 8px 12px;
+    margin-bottom: 6px;
+    transition: all var(--flux-transition-fast);
+
+    &:hover {
+      background: rgba(9, 180, 116, 0.04);
+      border-color: rgba(9, 180, 116, 0.2);
+    }
+
+    .file-name {
+      color: var(--flux-dark, #2D3436);
+      font-weight: 500;
+    }
+  }
+
+  .add-attachment-btn {
+    border: 1px dashed rgba(9, 180, 116, 0.3);
+    border-radius: var(--flux-radius-md, 4px);
+    color: var(--flux-green, #09B474);
+    transition: all var(--flux-transition-fast);
+
+    &:hover {
+      border-color: var(--flux-green, #09B474);
+      background: rgba(9, 180, 116, 0.05);
+    }
+  }
+}
+
+// ─── Breadcrumb Trail (Form Header) ───
+.page-head .page-head-content {
+  .title-area .title-text {
+    font-family: var(--flux-font-heading, 'Open Sans', sans-serif);
+    font-weight: 700;
+    color: var(--flux-dark, #2D3436);
+  }
+
+  .page-subtitle {
+    color: var(--flux-text-muted, #6B7280);
+    font-size: 12px;
+  }
+}
+
+// ─── Save Indicator ───
+.indicator-pill {
+  &.orange,
+  &.yellow {
+    // Unsaved changes — pulse
+    animation: fluxPulseUnsaved 2s ease-in-out infinite;
+  }
+}
+
+@keyframes fluxPulseUnsaved {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+// ─── Dark Mode Adjustments ───
+[data-theme="flux-dark"] {
+  .section-head {
+    color: var(--flux-light, #F0F5F3);
+    border-bottom-color: rgba(9, 180, 116, 0.08);
+
+    &:hover {
+      background: rgba(9, 180, 116, 0.06);
+    }
+  }
+
+  .form-sidebar {
+    background: linear-gradient(180deg,
+      rgba(240, 245, 243, 0.02) 0%,
+      rgba(9, 180, 116, 0.02) 100%);
+    border-color: rgba(9, 180, 116, 0.06);
+  }
+
+  .timeline-item {
+    .timeline-content,
+    .timeline-message-box {
+      background: rgba(240, 245, 243, 0.03);
+      border-color: rgba(9, 180, 116, 0.06);
+    }
+  }
+
+  .form-attachments .attachment-row {
+    border-color: rgba(9, 180, 116, 0.05);
+
+    .file-name {
+      color: var(--flux-light, #F0F5F3);
+    }
+  }
+}

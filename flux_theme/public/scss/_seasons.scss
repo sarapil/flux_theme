@@ -1,0 +1,205 @@
+// ============================================================
+// FLUX Theme — Seasonal Theme Variants
+// Subtle color & decoration overrides based on season/event
+// ============================================================
+
+// ─── Seasonal CSS Custom Properties ───
+:root {
+  --flux-season-accent: var(--flux-green);
+  --flux-season-accent-light: var(--flux-green-light);
+  --flux-season-glow: rgba(9, 180, 116, 0.15);
+}
+
+// ═══════════════════════════════════════════════
+// Ramadan — Green & Green
+// ═══════════════════════════════════════════════
+.flux-season-ramadan {
+  // Subtle green tint on navbar
+  .navbar {
+    background: linear-gradient(135deg, $flux-dark 0%, #1A3025 100%) !important;
+  }
+
+  // Sidebar greeting accent
+  .sidebar-menu .desk-sidebar .standard-sidebar-label {
+    color: var(--flux-season-accent, #09B474);
+  }
+
+  // Green crescent badge near brand
+  .flux-seasonal-badge {
+    position: fixed;
+    top: 8px;
+    right: 70px;
+    z-index: 1050;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    color: $flux-green;
+    animation: fluxSeasonFloat 3s ease-in-out infinite;
+  }
+}
+
+// ═══════════════════════════════════════════════
+// Eid al-Fitr — Celebratory Green
+// ═══════════════════════════════════════════════
+.flux-season-eid {
+  // Extra green shimmer on navbar
+  .navbar::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg,
+      transparent 0%,
+      $flux-green-light 25%,
+      $flux-green 50%,
+      $flux-green-light 75%,
+      transparent 100%
+    );
+    animation: fluxSeasonShimmer 3s ease-in-out infinite;
+  }
+
+  .flux-seasonal-badge {
+    position: fixed;
+    top: 8px;
+    right: 70px;
+    z-index: 1050;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    color: $flux-green;
+    animation: fluxSeasonFloat 3s ease-in-out infinite;
+  }
+}
+
+// ═══════════════════════════════════════════════
+// UAE National Day — Flag Colors
+// ═══════════════════════════════════════════════
+.flux-season-national-day {
+  // Flag stripe at very top of page
+  .flux-national-stripe {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    z-index: 10600;
+    display: flex;
+    pointer-events: none;
+
+    span {
+      flex: 1;
+      display: block;
+    }
+  }
+
+  // Adjust navbar to account for stripe
+  .navbar {
+    margin-top: 3px;
+  }
+
+  // Accent buttons get a subtle flag touch
+  .btn-primary-dark:hover,
+  .btn-primary:hover {
+    box-shadow: 0 0 0 2px rgba(#CE1126, 0.2), 0 0 0 4px rgba(#009739, 0.1);
+  }
+}
+
+// ═══════════════════════════════════════════════
+// Winter — Cool Silver-Blue
+// ═══════════════════════════════════════════════
+.flux-season-winter {
+  // Cooler nav background
+  .navbar {
+    background: linear-gradient(135deg, #1A2536 0%, #2D3436 100%) !important;
+  }
+
+  // Subtle cool tone on cards
+  .card,
+  .frappe-card {
+    border-color: rgba(#8BA7C5, 0.1);
+  }
+
+  // Cool-toned sidebar
+  .desk-sidebar {
+    border-right-color: rgba(#8BA7C5, 0.08);
+  }
+}
+
+// ═══════════════════════════════════════════════
+// Spring — Warm Floral Green
+// ═══════════════════════════════════════════════
+.flux-season-spring {
+  // Warmer surface tones
+  .layout-main-section {
+    background: linear-gradient(180deg, #FFFAF5 0%, var(--flux-light-cool) 100%);
+  }
+}
+
+// ═══════════════════════════════════════════════
+// Summer — Default FLUX (no overrides needed)
+// ═══════════════════════════════════════════════
+
+// ─── Animations ───
+@keyframes fluxSeasonFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+
+@keyframes fluxSeasonShimmer {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+// ─── RTL Adjustments ───
+[dir="rtl"] {
+  .flux-seasonal-badge {
+    right: auto;
+    left: 70px;
+  }
+}
+
+// ─── Dark Mode Overrides ───
+[data-theme="flux-dark"] {
+  &.flux-season-ramadan .navbar {
+    background: linear-gradient(135deg, #0B1A14 0%, #0F1419 100%) !important;
+  }
+
+  &.flux-season-winter .navbar {
+    background: linear-gradient(135deg, #0D1520 0%, #0F1419 100%) !important;
+  }
+
+  &.flux-season-winter {
+    .card,
+    .frappe-card {
+      border-color: rgba(#8BA7C5, 0.06);
+    }
+  }
+
+  &.flux-season-spring .layout-main-section {
+    background: linear-gradient(180deg, #141A20 0%, #0F1419 100%);
+  }
+}
+
+// ─── Mobile ───
+@media (max-width: 767px) {
+  .flux-seasonal-badge {
+    display: none !important;
+  }
+
+  .flux-season-national-day .flux-national-stripe {
+    height: 2px;
+  }
+}
+
+// ─── Reduced Motion ───
+@media (prefers-reduced-motion: reduce) {
+  .flux-seasonal-badge {
+    animation: none !important;
+  }
+
+  .flux-season-eid .navbar::after {
+    animation: none !important;
+  }
+}

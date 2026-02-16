@@ -1,0 +1,1241 @@
+// ============================================================
+// FLUX Theme - Layout (Navbar, Sidebar, Page Structure)
+// Works WITH Frappe's Bootstrap grid — no fixed sidebar hacks
+// ============================================================
+
+// ─── Body Base ───
+body {
+  background-color: #F4F5F6 !important;
+  min-height: 100vh;
+  
+  // Subtle pattern only on desk pages, not login
+  &:not([data-path="login"]) {
+    background-image: url("/assets/flux_theme/svg/brand-pattern.svg");
+    background-repeat: repeat;
+    background-size: 100px 100px;
+  }
+}
+
+// ─── Override Frappe's --navbar-bg CSS variable ───
+// Frappe sets --navbar-bg: white in css_variables.scss and uses
+// background: var(--navbar-bg) in navbar.scss.  We override the variable
+// so the glassmorphism shows through.
+:root {
+  --navbar-bg: #FFFFFF !important;
+  --bg-color: #F4F5F6 !important;   // Neutral light gray — not pure white
+  --card-bg: #FFFFFF !important;   // Cards stay white for contrast
+  // Navbar is white — icons use dark stroke
+}
+
+// ─── Navbar (Dark Glassmorphism) ───
+.sticky-top {
+  // Sticky wrapper itself must be transparent, no spacing
+  background: transparent !important;
+  margin-bottom: 0 !important;
+  padding-bottom: 0 !important;
+
+  .navbar,
+  header.navbar {
+    background: #FFFFFF !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    border-bottom: 1px solid #E8E8E8 !important;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06) !important;
+
+    // White navbar — icons and text use dark colors
+    --icon-stroke: #333333;
+  }
+}
+
+// Fallback: direct header.navbar without .sticky-top wrapper
+header.navbar {
+  background: #FFFFFF !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border-bottom: 1px solid #E8E8E8 !important;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06) !important;
+  --icon-stroke: #333333;
+}
+
+// ─── Global navbar icon + text coloring on white background ───
+.navbar {
+  // All text-muted inside navbar
+  .text-muted {
+    color: #868686 !important;
+  }
+  
+  // All SVG icons (including espresso icons which use fill:var(--icon-stroke))
+  .navbar-nav .nav-link,
+  .navbar-nav .notifications-icon,
+  .navbar-nav .btn-reset {
+    --icon-stroke: #333333;
+    color: #333333 !important;
+  }
+  
+  // Espresso SVG icons that use fill:var(--icon-stroke)
+  .es-icon {
+    --icon-stroke: #333333;
+  }
+}
+
+// ─── Hide Help dropdown + its preceding vertical-bar ───
+.navbar .navbar-nav > .dropdown-help,
+.navbar .navbar-nav > .vertical-bar + .dropdown-help,
+.dropdown-help {
+  display: none !important;
+  visibility: hidden !important;
+}
+// Also hide the vertical-bar that sits right before .dropdown-help
+.dropdown-help.nav-item,
+.navbar-nav > li.dropdown-help {
+  display: none !important;
+}
+// Hide the vertical-bar that immediately precedes .dropdown-help
+.navbar-nav > .vertical-bar:has(+ .dropdown-help) {
+  display: none !important;
+}
+
+// ─── Hide original search bar (JS moves it off-screen) ───
+.navbar .search-bar {
+  // Handled by JS — but ensure Awesomplete dropdown fits the theme
+  .awesomplete > ul {
+    display: none !important; // We mirror results in our overlay
+  }
+}
+
+// ─── FLUX Dark Mode Toggle ───
+.flux-darkmode-toggle {
+  .flux-darkmode-btn {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.04);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    transition: all 0.25s ease;
+    cursor: pointer;
+    padding: 0;
+    margin: 0 4px;
+
+    .flux-darkmode-svg {
+      width: 18px;
+      height: 18px;
+      opacity: 0.85;
+      transition: all 0.3s ease;
+      stroke: #333333;
+      fill: none;
+    }
+
+    &:hover {
+      background: rgba(234, 36, 36, 0.1);
+      border-color: rgba(234, 36, 36, 0.3);
+      transform: scale(1.05);
+
+      .flux-darkmode-svg {
+        opacity: 1;
+        stroke: var(--flux-accent, #EA2424);
+      }
+    }
+  }
+}
+
+// ─── FLUX Sound Toggle ───
+.flux-sound-toggle {
+  .flux-sound-btn {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(240, 245, 243, 0.06);
+    border: 1px solid rgba(240, 245, 243, 0.08);
+    transition: all 0.25s ease;
+    cursor: pointer;
+    padding: 0;
+    margin: 0 4px;
+
+    svg {
+      width: 18px;
+      height: 18px;
+      opacity: 0.85;
+      transition: all 0.3s ease;
+      stroke: var(--flux-light, #F0F5F3);
+    }
+
+    &:hover {
+      background: rgba(9, 180, 116, 0.18);
+      border-color: rgba(9, 180, 116, 0.4);
+      transform: scale(1.05);
+
+      svg {
+        opacity: 1;
+        stroke: var(--flux-green, #09B474);
+      }
+    }
+  }
+}
+
+// ─── FLUX Search Trigger Icon ───
+.flux-search-trigger {
+  order: -1; // Move before other nav items
+  margin-right: auto !important;
+  margin-left: var(--margin-md) !important;
+  display: flex !important;  // Force visible
+  
+  .flux-search-btn {
+    display: flex !important;  // Force visible
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(240, 245, 243, 0.08);
+    border: 1px solid rgba(9, 180, 116, 0.15);
+    transition: all 0.25s ease;
+    cursor: pointer;
+    padding: 0;
+    
+    svg, .flux-search-svg {
+      width: 18px;
+      height: 18px;
+      opacity: 0.85;
+      transition: opacity 0.2s, stroke 0.2s;
+      stroke: var(--flux-light, #F0F5F3) !important;
+      fill: none !important;
+      stroke-width: 1.5;
+    }
+    
+    &:hover {
+      background: rgba(9, 180, 116, 0.18);
+      border-color: rgba(9, 180, 116, 0.4);
+      transform: scale(1.05);
+      
+      svg, .flux-search-svg {
+        opacity: 1;
+        stroke: var(--flux-green, #09B474) !important;
+      }
+    }
+  }
+}
+
+// ─── FLUX Search Overlay / Modal ───
+#flux-search-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease, visibility 0.2s;
+  
+  &.open {
+    opacity: 1;
+    visibility: visible;
+    
+    .flux-search-panel {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  
+  &.closing {
+    opacity: 0;
+    .flux-search-panel {
+      transform: translateY(-10px);
+    }
+  }
+}
+
+.flux-search-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(4px);
+}
+
+.flux-search-panel {
+  position: fixed;
+  top: 60px;
+  left: 50%;
+  transform: translateX(-50%) translateY(-15px);
+  width: min(580px, 92vw);
+  background: rgba(17, 24, 39, 0.96);
+  backdrop-filter: blur(24px);
+  border: 1px solid rgba(9, 180, 116, 0.2);
+  border-radius: 16px;
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(240, 245, 243, 0.04) inset;
+  opacity: 0;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 0.2s ease;
+  overflow: hidden;
+  z-index: 100001;
+}
+
+.flux-search-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 20px;
+  border-bottom: 1px solid rgba(9, 180, 116, 0.1);
+  
+  svg {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+  }
+  
+  #flux-search-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #F0F5F3;
+    font-size: 16px;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 300;
+    letter-spacing: 0.01em;
+    
+    &::placeholder {
+      color: rgba(240, 245, 243, 0.4);
+    }
+  }
+}
+
+.flux-search-kbd {
+  padding: 3px 8px;
+  font-size: 11px;
+  font-family: 'Open Sans', sans-serif;
+  background: rgba(240, 245, 243, 0.08);
+  color: rgba(240, 245, 243, 0.5);
+  border: 1px solid rgba(240, 245, 243, 0.12);
+  border-radius: 6px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.flux-search-results {
+  max-height: 380px;
+  overflow-y: auto;
+  display: none;
+  padding: 8px 0;
+  
+  li {
+    list-style: none;
+    
+    a {
+      display: block;
+      padding: 10px 20px;
+      color: #F0F5F3;
+      text-decoration: none;
+      font-size: 14px;
+      transition: background 0.15s;
+      
+      span {
+        color: #F0F5F3;
+      }
+      
+      .text-muted {
+        color: rgba(240, 245, 243, 0.45) !important;
+        font-size: 12px;
+      }
+      
+      &:hover {
+        background: rgba(9, 180, 116, 0.12);
+      }
+    }
+    
+    &[aria-selected="true"] a,
+    &.selected a {
+      background: rgba(9, 180, 116, 0.18);
+    }
+  }
+  
+  // Custom scrollbar
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: rgba(9, 180, 116, 0.3);
+    border-radius: 10px;
+  }
+}
+
+// ─── Notifications Redesign ───
+.dropdown-notifications.flux-notifications {
+  .notifications-icon {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(240, 245, 243, 0.06);
+    border: 1px solid rgba(240, 245, 243, 0.08);
+    transition: all 0.25s ease;
+    
+    // Override --icon-stroke so fill-based SVG icons become light
+    --icon-stroke: var(--flux-light, #F0F5F3);
+    
+    .es-icon, svg {
+      width: 18px;
+      height: 18px;
+      opacity: 0.9;
+      // Espresso notification icons use fill: var(--icon-stroke)
+      // Set both fill and stroke to cover all icon types
+      --icon-stroke: var(--flux-light, #F0F5F3) !important;
+      color: var(--flux-light, #F0F5F3) !important;
+      fill: var(--flux-light, #F0F5F3) !important;
+      stroke: none !important; // notification icons use fill, not stroke
+      
+      path {
+        fill: var(--flux-light, #F0F5F3) !important;
+      }
+    }
+    
+    &:hover {
+      background: rgba(9, 180, 116, 0.15);
+      border-color: rgba(9, 180, 116, 0.3);
+    }
+  }
+  
+  // Animated bell when unseen notifications
+  &.has-unseen .notifications-icon {
+    background: rgba(9, 180, 116, 0.12);
+    border-color: rgba(9, 180, 116, 0.35);
+    
+    // Pulse ring (unseen dot)
+    &::after {
+      content: "";
+      position: absolute;
+      top: -2px;
+      right: -2px;
+      width: 10px;
+      height: 10px;
+      background: var(--flux-green, #09B474);
+      border-radius: 50%;
+      border: 2px solid rgba(17, 24, 39, 0.9);
+      animation: flux-notif-pulse 2s ease-in-out infinite;
+    }
+    
+    .es-icon, svg {
+      animation: flux-bell-ring 2.5s ease-in-out infinite;
+      --icon-stroke: var(--flux-green, #09B474) !important;
+      color: var(--flux-green, #09B474) !important;
+      fill: var(--flux-green, #09B474) !important;
+      
+      path {
+        fill: var(--flux-green, #09B474) !important;
+      }
+    }
+  }
+  
+  // Also style the .notifications-seen / .notifications-unseen containers
+  .notifications-seen,
+  .notifications-unseen {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  // Notification dropdown panel
+  .notifications-list {
+    background: rgba(17, 24, 39, 0.97) !important;
+    backdrop-filter: blur(20px) !important;
+    border: 1px solid rgba(9, 180, 116, 0.15) !important;
+    border-radius: 12px !important;
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.4) !important;
+    min-width: 360px;
+    padding: 0 !important;
+    overflow: hidden;
+    
+    .notification-list-header {
+      padding: 14px 18px;
+      border-bottom: 1px solid rgba(9, 180, 116, 0.1);
+      
+      .header-items {
+        color: var(--flux-light);
+        font-family: 'Open Sans', sans-serif;
+        font-weight: 500;
+      }
+    }
+    
+    .notification-list-body {
+      max-height: 420px;
+      overflow-y: auto;
+      
+      .notification-item,
+      .activity-item {
+        padding: 12px 18px;
+        border-bottom: 1px solid rgba(240, 245, 243, 0.05);
+        color: var(--flux-light);
+        transition: background 0.15s;
+        
+        &:hover {
+          background: rgba(9, 180, 116, 0.08);
+        }
+        
+        .text-muted {
+          color: rgba(240, 245, 243, 0.45) !important;
+        }
+        
+        a {
+          color: var(--flux-green);
+          
+          &:hover { color: var(--flux-green-light); }
+        }
+      }
+    }
+  }
+}
+
+// Bell ring animation
+@keyframes flux-bell-ring {
+  0%, 100% { transform: rotate(0deg); }
+  5% { transform: rotate(14deg); }
+  10% { transform: rotate(-13deg); }
+  15% { transform: rotate(10deg); }
+  20% { transform: rotate(-8deg); }
+  25% { transform: rotate(5deg); }
+  30% { transform: rotate(-2deg); }
+  35%, 100% { transform: rotate(0deg); }
+}
+
+// Notification dot pulse
+@keyframes flux-notif-pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.25); opacity: 0.7; }
+}
+
+// ─── Chat Icon Redesign ───
+.dropdown-message.flux-chat {
+  .nav-link, .notifications-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(240, 245, 243, 0.06);
+    border: 1px solid rgba(240, 245, 243, 0.08);
+    transition: all 0.25s ease;
+    
+    // Override --icon-stroke so fill-based espresso icons show on dark bg
+    --icon-stroke: var(--flux-light, #F0F5F3) !important;
+    
+    .es-icon, svg {
+      width: 18px;
+      height: 18px;
+      opacity: 0.9;
+      color: var(--flux-light, #F0F5F3) !important;
+      fill: var(--flux-light, #F0F5F3) !important;
+      stroke: none !important;
+      
+      path {
+        fill: var(--flux-light, #F0F5F3) !important;
+      }
+    }
+    
+    &:hover {
+      background: rgba(9, 180, 116, 0.15);
+      border-color: rgba(9, 180, 116, 0.3);
+      
+      --icon-stroke: var(--flux-green, #09B474) !important;
+      
+      .es-icon, svg {
+        opacity: 1;
+        color: var(--flux-green, #09B474) !important;
+        fill: var(--flux-green, #09B474) !important;
+        
+        path {
+          fill: var(--flux-green, #09B474) !important;
+        }
+      }
+    }
+  }
+}
+
+// Navbar Logo
+.navbar-home {
+  display: flex;
+  align-items: center;
+  
+  img {
+    content: url("/assets/flux_theme/images/logo-header.png") !important;
+    height: 28px !important;
+    width: auto !important;
+    object-fit: contain;
+  }
+}
+
+// Navbar Search — handled by flux_navbar.js overlay
+
+// Navbar Links & Icons
+.navbar-nav .nav-item .nav-link {
+  color: #333333 !important;
+  transition: color var(--flux-transition-fast);
+  
+  &:hover {
+    color: var(--flux-accent, #EA2424) !important;
+  }
+}
+
+.navbar .notifications-icon,
+.navbar .dropdown-toggle,
+.navbar .nav-link {
+  color: #333333 !important;
+  
+  &:hover {
+    color: var(--flux-accent, #EA2424) !important;
+  }
+}
+
+// Navbar Avatar
+.navbar .avatar-frame {
+  border: 2px solid #E0E0E0;
+}
+
+// Navbar Breadcrumbs  
+.navbar .breadcrumb-container {
+  .breadcrumb-area,
+  .like-disabled-input {
+    color: #868686;
+  }
+  
+  a {
+    color: #333333;
+    
+    &:hover {
+      color: var(--flux-accent, #EA2424);
+    }
+  }
+}
+
+// ─── Sidebar (Dark Navy — matches login visual identity) ───
+// Frappe uses .layout-side-section as a Bootstrap col-lg-2 (NOT fixed)
+// We style it to feel like the login page — dark dark, green accents, light text
+
+.layout-side-section {
+  background: linear-gradient(180deg, #1A2526 0%, #2D3436 60%, #1a2332 100%) !important;
+  border-right: 1px solid rgba(234, 36, 36, 0.15) !important;
+  min-height: calc(100vh - var(--navbar-height, 56px));
+  position: relative;
+  
+  // Subtle red shimmer accent at top
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(234, 36, 36, 0.4), transparent);
+  }
+
+  .desk-sidebar,
+  .standard-sidebar {
+    background: transparent;
+    padding: 8px 6px;
+    
+    .sidebar-label,
+    .sidebar-section-head {
+      color: rgba(240, 245, 243, 0.4);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 20px 12px 8px;
+    }
+    
+    // ─── Sidebar Items ───
+    .standard-sidebar-item {
+      // Base link styling
+      a,
+      .item-anchor {
+        color: rgba(240, 245, 243, 0.75) !important;
+        border-radius: 8px;
+        padding: 9px 14px;
+        margin: 1px 4px;
+        transition: all 0.2s ease;
+        position: relative;
+        overflow: hidden;
+        font-size: 13px;
+        font-weight: 400;
+        letter-spacing: 0.01em;
+      }
+      
+      .sidebar-item-icon,
+      .sidebar-icon {
+        opacity: 0.6;
+        --icon-stroke: rgba(240, 245, 243, 0.6);
+        svg { stroke: rgba(240, 245, 243, 0.6); }
+      }
+
+      .sidebar-item-label {
+        color: rgba(240, 245, 243, 0.75) !important;
+      }
+      
+      // ─── Hover state ───
+      // Frappe applies :hover on .standard-sidebar-item div, not on <a>
+      &:hover {
+        background-color: rgba(234, 36, 36, 0.12) !important;
+        
+        a,
+        .item-anchor {
+          color: #fff !important;
+          text-decoration: none !important;
+        }
+        
+        .sidebar-item-label {
+          color: #fff !important;
+        }
+        
+        .sidebar-item-icon,
+        .sidebar-icon {
+          opacity: 1;
+          --icon-stroke: #fff;
+          svg { stroke: #fff; }
+        }
+      }
+
+      // ─── Selected / active state ───
+      // Frappe puts .selected on .standard-sidebar-item div
+      &.selected {
+        background-color: rgba(234, 36, 36, 0.18) !important;
+        position: relative;
+        
+        // Red left accent bar
+        &::after {
+          content: "";
+          position: absolute;
+          left: 0;
+          top: 4px;
+          bottom: 4px;
+          width: 3px;
+          background: var(--flux-accent, #EA2424);
+          border-radius: 0 3px 3px 0;
+          z-index: 1;
+        }
+        
+        a,
+        .item-anchor {
+          color: #F0F5F3 !important;
+          font-weight: 600 !important;
+        }
+        
+        .sidebar-item-label {
+          color: #F0F5F3 !important;
+          font-weight: 600 !important;
+        }
+        
+        .sidebar-item-icon,
+        .sidebar-icon {
+          opacity: 1;
+          --icon-stroke: #F0F5F3;
+          svg { stroke: #F0F5F3; }
+        }
+      }
+    }
+  }
+  
+  // Override any Frappe text colors inside sidebar (but NOT selected items)
+  .sidebar-menu {
+    a, span {
+      color: rgba(240, 245, 243, 0.75);
+    }
+    
+    // Selected items must stay bright
+    .standard-sidebar-item.selected a,
+    .standard-sidebar-item.selected span,
+    .standard-sidebar-item.selected .item-anchor,
+    .standard-sidebar-item.selected .sidebar-item-label {
+      color: #F0F5F3 !important;
+    }
+    
+    // Hovered items must stay bright
+    .standard-sidebar-item:hover a,
+    .standard-sidebar-item:hover span,
+    .standard-sidebar-item:hover .item-anchor,
+    .standard-sidebar-item:hover .sidebar-item-label {
+      color: #fff !important;
+    }
+  }
+  
+  // ─── Fix: sidebar-label & sidebar-section on dark bg ───
+  .sidebar-label,
+  .sidebar-section-head {
+    color: rgba(240, 245, 243, 0.45) !important;
+  }
+  
+  // ─── Fix: filter-section on dark bg ───
+  .sidebar-section.filter-section,
+  .filter-section {
+    border-top: 1px solid rgba(234, 36, 36, 0.1);
+    
+    .filter-label,
+    label,
+    span {
+      color: rgba(240, 245, 243, 0.6) !important;
+    }
+    
+    input, select, .form-control {
+      background: rgba(240, 245, 243, 0.06) !important;
+      border-color: rgba(234, 36, 36, 0.15) !important;
+      color: rgba(240, 245, 243, 0.85) !important;
+      
+      &::placeholder {
+        color: rgba(240, 245, 243, 0.35) !important;
+      }
+    }
+  }
+  
+  // ─── Fix: list-sidebar-button on dark bg ───
+  .btn.btn-default.btn-sm.list-sidebar-button,
+  .list-sidebar-button {
+    background: rgba(234, 36, 36, 0.08) !important;
+    border: 1px solid rgba(234, 36, 36, 0.15) !important;
+    color: rgba(240, 245, 243, 0.8) !important;
+    font-size: 12px;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+    
+    &:hover {
+      background: rgba(234, 36, 36, 0.18) !important;
+      border-color: rgba(234, 36, 36, 0.3) !important;
+      color: var(--flux-accent, #EA2424) !important;
+    }
+  }
+}
+
+// ─── High-specificity sidebar selected/hover override ───
+// Ensures nothing in Frappe (global.scss, desktop.scss) can override our text colors
+.layout-side-section .desk-sidebar .desk-sidebar-item.standard-sidebar-item.selected,
+.layout-side-section .standard-sidebar .standard-sidebar-item.selected {
+  background-color: rgba(234, 36, 36, 0.18) !important;
+  
+  a, .item-anchor, .sidebar-item-label, span:not(.sidebar-item-icon):not(.indicator) {
+    color: #F0F5F3 !important;
+    font-weight: 600 !important;
+  }
+}
+
+.layout-side-section .desk-sidebar .desk-sidebar-item.standard-sidebar-item:hover,
+.layout-side-section .standard-sidebar .standard-sidebar-item:hover {
+  background-color: rgba(234, 36, 36, 0.12) !important;
+  
+  a, .item-anchor, .sidebar-item-label, span:not(.sidebar-item-icon):not(.indicator) {
+    color: #fff !important;
+  }
+}
+
+// ─── Page Container — transparent to let body bg show through ───
+.page-container {
+  background-color: transparent !important;
+}
+
+// ─── Page Head (Dark #333333 — matches Flux website) ───
+.page-head {
+  background: #333333 !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border-bottom: 1px solid #444444 !important;
+  border-top: none !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15) !important;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  padding-top: 0 !important;
+  
+  // No metallic sheen on dark header
+  &::after {
+    display: none;
+  }
+  
+  .page-head-content {
+    position: relative;
+    z-index: 1;
+    
+    .title-text,
+    h1 {
+      font-family: 'Open Sans', sans-serif;
+      font-weight: 700;
+      color: #FFFFFF !important;
+      letter-spacing: -0.02em;
+      text-shadow: none;
+    }
+  }
+  
+  // Secondary text on dark
+  .subtitle,
+  .indicator-pill,
+  .page-head-content .text-muted {
+    color: rgba(255, 255, 255, 0.6) !important;
+  }
+  
+  // Breadcrumb on dark
+  .breadcrumb-area,
+  .like-disabled-input {
+    color: rgba(255, 255, 255, 0.6) !important;
+    a {
+      color: rgba(255, 255, 255, 0.8) !important;
+      &:hover { color: #FFFFFF !important; }
+    }
+  }
+  
+  // Action buttons on silver
+  .btn-primary-dark,
+  .btn-primary {
+    background: var(--flux-green, #09B474) !important;
+    border-color: var(--flux-green-dark, #067A4E) !important;
+    color: #FFFFFF !important;
+    font-weight: 600;
+  }
+  
+  // Menu/setting icons on dark
+  .menu-btn-group .btn,
+  .page-icon-group .btn {
+    color: rgba(255, 255, 255, 0.7) !important;
+    --icon-stroke: rgba(255, 255, 255, 0.7);
+    
+    &:hover {
+      color: #FFFFFF !important;
+      --icon-stroke: #FFFFFF;
+    }
+  }
+
+  // All other buttons on page-head
+  .btn-default,
+  .btn-secondary {
+    background: rgba(255, 255, 255, 0.12) !important;
+    border-color: rgba(255, 255, 255, 0.2) !important;
+    color: #FFFFFF !important;
+    
+    &:hover {
+      background: rgba(255, 255, 255, 0.2) !important;
+    }
+  }
+
+  // icon-stroke for all SVGs inside page-head
+  --icon-stroke: rgba(255, 255, 255, 0.8);
+}
+
+// ─── Main Content Area ───
+.layout-main-section {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: var(--flux-radius-lg) !important;
+  
+  // Frappe-card variant (list views, form views)
+  &.frappe-card {
+    background: rgba(255, 255, 255, 0.98);
+    border-radius: var(--flux-radius-lg) !important;
+    border: 1px solid rgba(0, 0, 0, 0.06) !important;
+    box-shadow: var(--flux-shadow-sm) !important;
+  }
+}
+
+// ─── Workspace (Home) Page — Skyline Background ───
+
+// Fixed full-viewport skyline layer (injected by JS into body)
+.flux-workspace-skyline {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+
+  .flux-skyline-svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.9;
+  }
+}
+
+#page-Workspaces {
+  position: relative;
+  z-index: 1;
+
+  .layout-main-section-wrapper {
+    position: relative;
+  }
+
+  .layout-main-section {
+    position: relative;
+    z-index: 1;
+    background: transparent !important;
+
+    &.frappe-card {
+      background: transparent !important;
+      border: none !important;
+      box-shadow: none !important;
+    }
+  }
+}
+
+// ─── Widget Visibility Fixes (workspace dark bg) ───
+#page-Workspaces {
+  // Widget itself — transparent (remove Frappe's var(--card-bg))
+  .widget {
+    background: transparent !important;
+    background-color: transparent !important;
+  }
+
+  // Cards and frappe-cards inside workspace — transparent
+  .card,
+  .frappe-card {
+    background: transparent !important;
+    background-color: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+  }
+
+  // Widget titles on dark skyline
+  .widget-title,
+  .widget-label {
+    color: var(--flux-light, #F0F5F3) !important;
+    font-weight: 600;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  }
+  
+  // Widget body — glassmorphism cards
+  .widget-body {
+    background: rgba(17, 24, 39, 0.55) !important;
+    backdrop-filter: blur(12px) saturate(1.2) !important;
+    -webkit-backdrop-filter: blur(12px) saturate(1.2) !important;
+    border: 1px solid rgba(9, 180, 116, 0.12) !important;
+    border-radius: 10px !important;
+    color: rgba(240, 245, 243, 0.85) !important;
+    
+    a {
+      color: var(--flux-light, #F0F5F3) !important;
+      
+      &:hover {
+        color: var(--flux-green, #09B474) !important;
+      }
+    }
+    
+    .text-muted {
+      color: rgba(240, 245, 243, 0.5) !important;
+    }
+    
+    // Icons inside widgets
+    --icon-stroke: rgba(240, 245, 243, 0.7);
+    .icon svg {
+      stroke: rgba(240, 245, 243, 0.7);
+    }
+  }
+  
+  // Widget footer on dark bg
+  .widget-footer {
+    background: rgba(17, 24, 39, 0.4) !important;
+    border-top: 1px solid rgba(9, 180, 116, 0.08) !important;
+    border-radius: 0 0 10px 10px !important;
+    
+    a, span, .btn-link {
+      color: var(--flux-green, #09B474) !important;
+      font-size: 12px;
+      
+      &:hover {
+        color: var(--flux-green-light, #3DD99A) !important;
+      }
+    }
+  }
+  
+  // Shortcut widgets
+  .shortcut-widget-box {
+    background: rgba(17, 24, 39, 0.5) !important;
+    backdrop-filter: blur(8px) !important;
+    border: 1px solid rgba(9, 180, 116, 0.1) !important;
+    border-radius: 8px !important;
+    transition: all 0.2s ease;
+    
+    &:hover {
+      background: rgba(9, 180, 116, 0.12) !important;
+      border-color: rgba(9, 180, 116, 0.25) !important;
+      transform: translateY(-1px);
+    }
+    
+    .ellipsis {
+      color: rgba(240, 245, 243, 0.85) !important;
+    }
+    
+    .indicator-pill {
+      opacity: 0.85;
+    }
+  }
+  
+  // Number card widgets
+  .number-widget-box {
+    background: rgba(17, 24, 39, 0.55) !important;
+    backdrop-filter: blur(10px) !important;
+    border: 1px solid rgba(9, 180, 116, 0.12) !important;
+    border-radius: 10px !important;
+    
+    .widget-title {
+      color: rgba(240, 245, 243, 0.6) !important;
+      text-shadow: none;
+      font-weight: 500;
+    }
+    
+    .number {
+      color: var(--flux-green, #09B474) !important;
+      font-weight: 700;
+    }
+  }
+  
+  // Widget group heading
+  .widget-group-head,
+  .widget-group-title {
+    color: rgba(240, 245, 243, 0.5) !important;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 11px;
+  }
+}
+
+// ─── Page Body ───
+.page-body {
+  background: transparent;
+}
+
+// ─── Footer ───
+footer.web-footer,
+.page-footer {
+  background: var(--flux-dark);
+  color: var(--flux-light);
+  padding: 16px 24px;
+  
+  a {
+    color: var(--flux-accent, #EA2424);
+    
+    &:hover {
+      color: var(--flux-accent-light, #FF4444);
+    }
+  }
+}
+
+// ─── Desk Page Specific ───
+.desk-page {
+  background: transparent;
+}
+
+// Non-workspace desk pages still get light bg via body background
+
+// ─── Generic Widget Styles (non-workspace pages) ───
+// These apply globally so list views etc. still look good
+.widget-footer {
+  a, span, .btn-link {
+    color: var(--flux-green-dark, #067A4E) !important;
+    
+    &:hover {
+      color: var(--flux-green, #09B474) !important;
+    }
+  }
+}
+
+// ─── Sidebar Toggle Button ───
+.sidebar-toggle-btn {
+  color: #FFFFFF !important;
+  --icon-stroke: #FFFFFF !important;
+
+  svg {
+    stroke: #FFFFFF !important;
+  }
+}
+
+// ─── Mobile Responsive ───
+@media (max-width: 991px) {
+  // Hide sidebar by default on small screens
+  .layout-side-section {
+    display: none !important;
+  }
+
+  // Show sidebar when toggled open via sidebar-toggle-btn
+  .layout-side-section.opened {
+    display: block !important;
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 260px;
+    background: linear-gradient(180deg, #1A2526 0%, #2D3436 100%) !important;
+    box-shadow: 4px 0 24px rgba(0, 0, 0, 0.4);
+    z-index: 1050;
+    border-right: 1px solid rgba(234, 36, 36, 0.15) !important;
+    overflow-y: auto;
+    
+    .standard-sidebar-item a {
+      color: rgba(240, 245, 243, 0.75);
+    }
+  }
+}
+
+// ─── Dark Theme Override ───
+[data-theme="dark"] .page-title .sidebar-toggle-btn {
+  --icon-stroke: #FFFFFF;
+}
+
+// ─── btn-reset dropdown-item → black ───
+.btn-reset.dropdown-item,
+.dropdown-menu .btn-reset.dropdown-item,
+.navbar .dropdown-menu .btn-reset.dropdown-item,
+.navbar .dropdown-menu .dropdown-item,
+button.btn-reset.dropdown-item,
+.dropdown-menu button.dropdown-item {
+  color: #1A1A1A !important;
+  
+  &:hover,
+  &:focus {
+    color: #000000 !important;
+    background-color: #F0F5F3 !important;
+  }
+}
+
+// ─── Dark / Night Theme: waves & stars adjustments ───
+[data-theme="dark"] {
+  #water rect {
+    opacity: 0.85;
+  }
+  #skyline-stars circle {
+    fill: #E8E8E8;
+  }
+  .flux-skyline-svg {
+    opacity: 0.95;
+  }
+  .flux-workspace-skyline .flux-skyline-svg {
+    opacity: 0.95;
+  }
+}
+
+// ─── Responsive Skyline Adjustments ───
+// Tablet portrait
+@media (max-width: 1024px) {
+  .flux-workspace-skyline .flux-skyline-svg {
+    opacity: 0.85;
+  }
+}
+
+// Mobile
+@media (max-width: 768px) {
+  .flux-workspace-skyline .flux-skyline-svg {
+    opacity: 0.75;
+  }
+}
+
+// Very small mobile
+@media (max-width: 480px) {
+  .flux-workspace-skyline .flux-skyline-svg {
+    opacity: 0.65;
+  }
+}

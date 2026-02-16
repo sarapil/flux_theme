@@ -1,0 +1,220 @@
+// ============================================================
+// FLUX Theme — Ambient Sound Panel Styles
+// ============================================================
+
+// ─── Navbar Toggle ───
+.flux-ambient-toggle {
+  .nav-link {
+    position: relative;
+    color: rgba($flux-light, 0.6);
+    transition: color 0.2s ease;
+
+    &:hover {
+      color: $flux-green;
+    }
+
+    &.active {
+      color: $flux-green;
+
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: 4px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 4px;
+        height: 4px;
+        border-radius: 50%;
+        background: $flux-green;
+      }
+    }
+  }
+}
+
+// ─── Picker Panel ───
+.flux-ambient-panel {
+  position: fixed;
+  top: 50px;
+  right: 120px;
+  z-index: 1055;
+  width: 260px;
+  background: $flux-dark;
+  border: 1px solid rgba($flux-green, 0.15);
+  border-radius: 12px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+  padding: 16px;
+  animation: fluxAmbientSlideIn 0.2s ease-out;
+}
+
+@keyframes fluxAmbientSlideIn {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.flux-ambient-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+
+.flux-ambient-panel-title {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: $flux-light;
+}
+
+.flux-ambient-panel-close {
+  background: none;
+  border: none;
+  color: rgba($flux-light, 0.4);
+  font-size: 18px;
+  cursor: pointer;
+  padding: 2px 6px;
+  border-radius: 4px;
+
+  &:hover {
+    color: $flux-light;
+    background: rgba($flux-light, 0.06);
+  }
+}
+
+.flux-ambient-panel-bar {
+  width: 30px;
+  height: 2px;
+  background: linear-gradient(90deg, $flux-green-dark, $flux-green);
+  border-radius: 2px;
+  margin-bottom: 14px;
+}
+
+// ─── Scene Buttons ───
+.flux-ambient-scenes {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.flux-ambient-scene {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 12px 8px;
+  background: rgba($flux-light, 0.04);
+  border: 1px solid rgba($flux-light, 0.06);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: rgba($flux-light, 0.6);
+
+  &:hover {
+    background: rgba($flux-light, 0.08);
+    border-color: rgba($flux-green, 0.15);
+    color: $flux-light;
+  }
+
+  &.active {
+    background: rgba($flux-green, 0.1);
+    border-color: rgba($flux-green, 0.3);
+    color: $flux-green;
+  }
+}
+
+.flux-ambient-scene-icon {
+  font-size: 20px;
+  line-height: 1;
+}
+
+.flux-ambient-scene-name {
+  font-family: 'Poppins', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+// ─── Volume Slider ───
+.flux-ambient-volume {
+  margin-bottom: 12px;
+
+  label {
+    display: block;
+    font-family: 'Poppins', sans-serif;
+    font-size: 11px;
+    color: rgba($flux-light, 0.4);
+    margin-bottom: 6px;
+  }
+}
+
+.flux-ambient-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 4px;
+  background: rgba($flux-light, 0.1);
+  border-radius: 4px;
+  outline: none;
+
+  &::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: $flux-green;
+    cursor: pointer;
+    box-shadow: 0 0 8px rgba($flux-green, 0.3);
+  }
+
+  &::-moz-range-thumb {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: $flux-green;
+    cursor: pointer;
+    border: none;
+  }
+}
+
+// ─── Stop Button ───
+.flux-ambient-stop {
+  width: 100%;
+  padding: 8px;
+  background: rgba($flux-danger, 0.15);
+  border: 1px solid rgba($flux-danger, 0.2);
+  border-radius: 6px;
+  color: rgba($flux-light, 0.7);
+  font-family: 'Poppins', sans-serif;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: rgba($flux-danger, 0.25);
+    color: $flux-light;
+  }
+}
+
+// ─── Dark Mode ───
+[data-theme="flux-dark"] {
+  .flux-ambient-panel {
+    background: #0F1419;
+    border-color: rgba($flux-green, 0.1);
+  }
+}
+
+// ─── RTL ───
+[dir="rtl"] {
+  .flux-ambient-panel {
+    right: auto;
+    left: 120px;
+  }
+}
+
+// ─── Mobile ───
+@media (max-width: 767px) {
+  .flux-ambient-panel {
+    right: 10px;
+    left: 10px;
+    width: auto;
+  }
+}

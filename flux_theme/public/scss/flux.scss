@@ -1,0 +1,315 @@
+// ============================================================
+// FLUX Theme - Master SCSS File
+// Modern Co-Working Space Theme for Frappe 15
+// ============================================================
+
+// Import all partials in dependency order
+@import 'variables';
+@import 'typography';
+@import 'animations';
+@import 'buttons';
+@import 'forms';
+@import 'layout';
+@import 'tables';
+@import 'cards';
+@import 'modals';
+@import 'login';
+@import 'splash';
+@import 'darkmode';
+@import 'rtl';
+@import 'form-enhancements';
+@import 'reports';
+@import 'mobile-nav';
+@import 'transitions';
+@import 'charts';
+@import 'shortcuts';
+@import 'seasons';
+@import 'avatars';
+@import 'print';
+@import 'ambient';
+@import 'interactive-skyline';
+@import 'tour';
+@import 'presets';
+@import 'minigame';
+@import 'welcome-msg';
+
+// ============================================================
+// Additional Global Overrides
+// ============================================================
+
+// ─── Frappe-specific Global Overrides ───
+
+// Indicator Pills
+.indicator-pill {
+  border-radius: var(--flux-radius-full);
+  padding: 2px 8px;
+  font-size: 10px;
+  font-weight: 600;
+  
+  &.green, &.indicator-green {
+    background: rgba(45, 106, 79, 0.15);
+    color: var(--flux-success);
+  }
+  
+  &.red, &.indicator-red {
+    background: rgba(155, 27, 48, 0.15);
+    color: var(--flux-danger);
+  }
+  
+  &.orange, &.indicator-orange,
+  &.yellow, &.indicator-yellow {
+    background: rgba(9, 180, 116, 0.15);
+    color: var(--flux-green-dark);
+  }
+  
+  &.blue, &.indicator-blue {
+    background: rgba(45, 52, 54, 0.15);
+    color: var(--flux-dark);
+  }
+  
+  &.gray, &.indicator-gray,
+  &.grey, &.indicator-grey {
+    background: rgba(107, 114, 128, 0.15);
+    color: var(--flux-text-muted);
+  }
+}
+
+// ─── Timeline / Activity ───
+.timeline {
+  .timeline-item {
+    border-left: 2px solid var(--flux-light-warm);
+    padding-left: 20px;
+    margin-left: 10px;
+    
+    &::before {
+      content: "";
+      position: absolute;
+      left: -6px;
+      top: 0;
+      width: 10px;
+      height: 10px;
+      background: var(--flux-green);
+      border-radius: 50%;
+    }
+  }
+}
+
+// ─── Tags ───
+.tag,
+.tags-area .tag {
+  background: var(--flux-light-warm);
+  color: var(--flux-dark);
+  border-radius: var(--flux-radius-sm);
+  padding: 2px 8px;
+  font-size: 11px;
+  font-weight: 500;
+  
+  &:hover {
+    background: var(--flux-green);
+    color: var(--flux-dark);
+  }
+}
+
+// ─── Avatar ───
+.avatar,
+.avatar-frame {
+  border-radius: var(--flux-radius-full);
+  border: 2px solid var(--flux-green);
+  
+  &.avatar-small {
+    width: 28px;
+    height: 28px;
+  }
+  
+  &.avatar-medium {
+    width: 40px;
+    height: 40px;
+  }
+  
+  &.avatar-large {
+    width: 56px;
+    height: 56px;
+  }
+}
+
+.standard-image,
+.avatar-empty {
+  background: var(--flux-dark);
+  color: var(--flux-green);
+}
+
+// ─── Scrollbar Styling ───
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--flux-light-cool);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--flux-dark-light);
+  border-radius: 4px;
+  
+  &:hover {
+    background: var(--flux-dark);
+  }
+}
+
+// Firefox
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--flux-dark-light) var(--flux-light-cool);
+}
+
+// ─── Focus Visible ───
+:focus-visible {
+  outline: 2px solid var(--flux-green);
+  outline-offset: 2px;
+}
+
+// ─── Skip Link ───
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 0;
+  background: var(--flux-green);
+  color: var(--flux-dark);
+  padding: 8px 16px;
+  z-index: 100000;
+  transition: top var(--flux-transition-fast);
+  
+  &:focus {
+    top: 0;
+  }
+}
+
+// ─── Error Pages ───
+.error-page,
+.page-not-found,
+.page-error {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--flux-dark-deep);
+  
+  .error-card {
+    background: rgba(45, 52, 54, 0.8);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: var(--flux-radius-lg);
+    padding: 48px;
+    text-align: center;
+    max-width: 420px;
+    
+    .error-code {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 72px;
+      font-weight: 700;
+      color: var(--flux-green);
+      line-height: 1;
+      margin-bottom: 16px;
+    }
+    
+    .error-message {
+      font-family: 'Poppins', sans-serif;
+      font-size: 16px;
+      font-weight: 300;
+      color: var(--flux-light);
+      margin-bottom: 24px;
+    }
+    
+    .btn-back {
+      background: transparent;
+      border: 1px solid var(--flux-green);
+      color: var(--flux-green);
+      
+      &:hover {
+        background: var(--flux-green);
+        color: var(--flux-dark);
+      }
+    }
+  }
+}
+
+// ─── Website / Portal Overrides ───
+.web-page,
+.website-page {
+  background: var(--flux-light);
+  
+  .hero-section,
+  .web-hero {
+    background: var(--flux-dark-deep);
+    color: var(--flux-light);
+    padding: 80px 0;
+    position: relative;
+    overflow: hidden;
+    
+    h1 {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 48px;
+      font-weight: 700;
+      color: var(--flux-light);
+      margin-bottom: 16px;
+    }
+    
+    p {
+      font-size: 18px;
+      color: var(--flux-light);
+      opacity: 0.8;
+    }
+    
+    .btn-cta {
+      background: var(--flux-green);
+      color: var(--flux-dark);
+      padding: 16px 32px;
+      font-size: 16px;
+      font-weight: 600;
+      border-radius: var(--flux-radius-md);
+      
+      &:hover {
+        background: var(--flux-green-light);
+        transform: translateY(-2px);
+      }
+    }
+  }
+  
+  .web-footer,
+  footer {
+    background: var(--flux-dark);
+    color: var(--flux-light);
+    padding: 48px 0;
+    
+    a {
+      color: var(--flux-green);
+      
+      &:hover {
+        color: var(--flux-green-light);
+      }
+    }
+  }
+}
+
+// ─── RTL Support ───
+// Moved to _rtl.scss partial
+
+// ─── High Contrast Mode ───
+@media (prefers-contrast: high) {
+  :root {
+    --flux-green: #CC8844;
+    --flux-dark: #000000;
+    --flux-light: #FFFFFF;
+    --flux-text: #000000;
+  }
+  
+  .btn,
+  button {
+    border-width: 2px;
+  }
+  
+  .form-control {
+    border-width: 2px;
+  }
+}

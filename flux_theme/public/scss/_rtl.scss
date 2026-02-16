@@ -1,0 +1,421 @@
+// ============================================================
+// FLUX Theme - RTL (Right-to-Left) Support
+// Comprehensive overrides for Arabic, Hebrew, and Farsi layouts
+// Applied when html[dir="rtl"] or body[dir="rtl"] is set
+// ============================================================
+
+[dir="rtl"] {
+
+  // ─── Typography ───
+  body {
+    text-align: right;
+  }
+
+  h1, h2, h3, h4, h5, h6,
+  .page-title,
+  .section-head,
+  .head,
+  .title-text {
+    text-align: right;
+  }
+
+  // ─── Navbar ───
+  .navbar {
+    direction: rtl;
+
+    .navbar-brand,
+    .navbar-home {
+      margin-left: auto;
+      margin-right: 0;
+    }
+
+    .navbar-nav {
+      flex-direction: row-reverse;
+    }
+
+    .navbar-collapse .navbar-nav {
+      flex-direction: row;
+    }
+
+    // Breadcrumbs
+    .breadcrumb-container {
+      direction: rtl;
+
+      .breadcrumb-area {
+        text-align: right;
+      }
+    }
+  }
+
+  // ─── Search Trigger ───
+  .flux-search-trigger {
+    margin-left: auto !important;
+    margin-right: var(--margin-md) !important;
+  }
+
+  // ─── Dark Mode Toggle ───
+  .flux-darkmode-toggle {
+    .flux-darkmode-btn {
+      margin: 0 4px;
+    }
+  }
+
+  // ─── Search Overlay ───
+  .flux-search-header {
+    direction: rtl;
+
+    #flux-search-input {
+      text-align: right;
+    }
+
+    .flux-search-kbd {
+      margin-left: 0;
+      margin-right: auto;
+    }
+  }
+
+  .flux-search-results {
+    li a {
+      text-align: right;
+      padding: 10px 20px;
+    }
+  }
+
+  // ─── Sidebar ───
+  .layout-side-section {
+    border-right: none !important;
+    border-left: 1px solid rgba(9, 180, 116, 0.1) !important;
+
+    // Green shimmer at top (keep centered)
+    &::before {
+      background: linear-gradient(90deg, transparent, rgba(9, 180, 116, 0.4), transparent);
+    }
+
+    .desk-sidebar,
+    .standard-sidebar {
+      .standard-sidebar-item {
+        a {
+          text-align: right;
+          padding: 9px 14px;
+
+          // Green left border → becomes right border
+          &:hover::before,
+          &.selected::before,
+          &[aria-current="page"]::before {
+            left: auto;
+            right: 0;
+            border-radius: 3px 0 0 3px;
+          }
+
+          .sidebar-icon {
+            margin-left: 8px;
+            margin-right: 0;
+          }
+        }
+      }
+    }
+
+    // Filter section
+    .filter-section {
+      text-align: right;
+    }
+  }
+
+  // ─── Page Head ───
+  .page-head {
+    .page-head-content {
+      direction: rtl;
+      text-align: right;
+
+      .title-area {
+        flex-direction: row-reverse;
+      }
+    }
+
+    // Action buttons
+    .page-actions {
+      direction: rtl;
+
+      .btn-group,
+      .actions-btn-group {
+        direction: rtl;
+      }
+    }
+  }
+
+  // ─── Layout ───
+  .layout-main-section {
+    margin-left: 0;
+    margin-right: 0; // Frappe grid handles this
+  }
+
+  // Page container
+  .page-container {
+    direction: rtl;
+  }
+
+  // ─── Forms ───
+  .frappe-control,
+  .form-group {
+    text-align: right;
+
+    .control-label,
+    .clearfix label {
+      text-align: right;
+    }
+
+    .control-input-wrapper {
+      direction: rtl;
+    }
+  }
+
+  // Text inputs — align text right
+  .form-control,
+  .input-with-feedback,
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  input[type="number"],
+  input[type="tel"],
+  input[type="url"],
+  input[type="search"],
+  textarea {
+    text-align: right;
+    direction: rtl;
+  }
+
+  // Select arrow — flip to left
+  select.form-control,
+  .frappe-control[data-fieldtype="Select"] select {
+    background-position: left 12px center;
+    padding-left: 36px;
+    padding-right: 12px;
+  }
+
+  // Link field
+  .frappe-control[data-fieldtype="Link"] .link-btn,
+  .link-btn {
+    left: 4px;
+    right: auto;
+  }
+
+  // ─── Tables ───
+  table,
+  .table,
+  .frappe-list {
+    direction: rtl;
+    text-align: right;
+  }
+
+  thead,
+  .list-row-head,
+  .frappe-list .list-headers {
+    th,
+    .list-header-subject,
+    .list-row-container.head {
+      text-align: right;
+    }
+  }
+
+  tbody,
+  .frappe-list .list-rows {
+    tr,
+    .list-row,
+    .list-row-container {
+      // Selected state — green border on right instead of left
+      &.selected,
+      &.active,
+      &[aria-selected="true"] {
+        border-left: none;
+        border-right: 3px solid var(--flux-green);
+
+        td:first-child {
+          padding-left: 16px;
+          padding-right: 13px; // Compensate for border
+        }
+      }
+    }
+  }
+
+  // ─── Cards ───
+  .card,
+  .frappe-card,
+  .widget {
+    &:hover {
+      border-left: none;
+      border-right: 3px solid var(--flux-green);
+    }
+  }
+
+  // Shortcut cards
+  .shortcut-widget-box,
+  .shortcut-card {
+    flex-direction: row-reverse;
+    text-align: right;
+  }
+
+  // ─── Modals ───
+  .modal-header {
+    direction: rtl;
+
+    .modal-title {
+      text-align: right;
+    }
+
+    .close,
+    .btn-modal-close,
+    .btn-close {
+      margin-left: 0;
+      margin-right: auto;
+    }
+  }
+
+  .modal-body {
+    direction: rtl;
+    text-align: right;
+  }
+
+  .modal-footer {
+    direction: rtl;
+
+    .btn + .btn {
+      margin-left: 0;
+      margin-right: 8px;
+    }
+  }
+
+  // ─── Notifications ───
+  .dropdown-notifications.flux-notifications {
+    &.has-unseen .notifications-icon::after {
+      right: auto;
+      left: -2px;
+    }
+
+    .notifications-list {
+      .notification-item,
+      .activity-item {
+        text-align: right;
+        direction: rtl;
+      }
+    }
+  }
+
+  // ─── Indicator Pills ───
+  .indicator-pill {
+    direction: rtl;
+  }
+
+  // ─── Timeline ───
+  .timeline {
+    .timeline-item {
+      border-left: none;
+      border-right: 2px solid var(--flux-light-warm);
+      padding-left: 0;
+      padding-right: 20px;
+      margin-left: 0;
+      margin-right: 10px;
+
+      &::before {
+        left: auto;
+        right: -6px;
+      }
+    }
+  }
+
+  // ─── Tags ───
+  .tag-area,
+  .tags-area {
+    direction: rtl;
+  }
+
+  // ─── Avatar ───
+  .avatar-group {
+    flex-direction: row-reverse;
+  }
+
+  // ─── Buttons ───
+  .btn {
+    // Icon buttons — flip icon position
+    .icon {
+      margin-left: 4px;
+      margin-right: 0;
+    }
+  }
+
+  .btn-group {
+    direction: rtl;
+
+    > .btn:first-child:not(:last-child) {
+      border-radius: 0 var(--flux-radius-md) var(--flux-radius-md) 0;
+    }
+
+    > .btn:last-child:not(:first-child) {
+      border-radius: var(--flux-radius-md) 0 0 var(--flux-radius-md);
+    }
+  }
+
+  // ─── Dropdowns ───
+  .dropdown-menu {
+    text-align: right;
+
+    .dropdown-item {
+      text-align: right;
+    }
+  }
+
+  // ─── Workspace (Home) ───
+  #page-Workspaces {
+    direction: rtl;
+
+    .widget-group-head,
+    .widget-group-title {
+      text-align: right;
+    }
+
+    .widget-title,
+    .widget-label {
+      text-align: right;
+    }
+
+    .widget-footer {
+      text-align: right;
+    }
+  }
+
+  // ─── Skip Link ───
+  .skip-link {
+    left: auto;
+    right: 0;
+  }
+
+  // ─── Scrollbar ─── 
+  // Webkit scrollbar stays on the correct side automatically
+
+  // ─── Print ───
+  @media print {
+    body {
+      direction: rtl;
+      text-align: right;
+    }
+  }
+
+  // ─── Mobile Responsive ───
+  @media (max-width: 991px) {
+    .layout-side-section.opened {
+      left: auto;
+      right: 0;
+      border-left: 1px solid rgba(9, 180, 116, 0.1) !important;
+      border-right: none !important;
+      box-shadow: -4px 0 24px rgba(0, 0, 0, 0.4);
+    }
+  }
+
+  // ─── Splash / Loading ───
+  // These are centered overlays — no RTL changes needed
+  // Skyline remains LTR (visual, not text)
+
+  // ─── Focus Ring ───
+  :focus-visible {
+    outline-offset: 2px; // Same for both directions
+  }
+}

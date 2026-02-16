@@ -1,0 +1,414 @@
+// ============================================================
+// FLUX Theme - Modals & Dialogs
+// ============================================================
+
+// ─── Modal Backdrop ───
+.modal-backdrop,
+.frappe-control-dialog.show + .modal-backdrop {
+  background-color: var(--flux-dark-deep);
+  opacity: 0.7;
+}
+
+// ─── Modal Container ───
+.modal,
+.frappe-control-dialog {
+  // Animation
+  &.fade .modal-dialog {
+    transform: scale(0.95);
+    opacity: 0;
+    transition: all var(--flux-transition-base);
+  }
+  
+  &.show .modal-dialog {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+// ─── Modal Dialog ───
+.modal-dialog {
+  max-width: 560px;
+  margin: 1.75rem auto;
+}
+
+.modal-dialog-centered {
+  display: flex;
+  align-items: center;
+  min-height: calc(100% - 3.5rem);
+}
+
+// ─── Modal Content ───
+.modal-content {
+  background: var(--flux-light);
+  border: none;
+  border-radius: var(--flux-radius-lg);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+}
+
+// ─── Modal Header ───
+.modal-header {
+  background: var(--flux-dark);
+  border-bottom: none;
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  
+  .modal-title {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--flux-light);
+    margin: 0;
+  }
+  
+  .close,
+  .btn-modal-close,
+  .btn-close {
+    background: transparent;
+    border: none;
+    color: var(--flux-green);
+    font-size: 24px;
+    line-height: 1;
+    padding: 0;
+    opacity: 0.7;
+    cursor: pointer;
+    transition: opacity var(--flux-transition-fast);
+    
+    &:hover {
+      opacity: 1;
+      color: var(--flux-green);
+    }
+    
+    span {
+      color: inherit;
+    }
+  }
+}
+
+// ─── Modal Body ───
+.modal-body {
+  padding: 24px;
+  color: var(--flux-text);
+  max-height: 70vh;
+  overflow-y: auto;
+  
+  // Form elements inside modal
+  .frappe-control {
+    margin-bottom: 16px;
+  }
+  
+  // Message text
+  p {
+    margin-bottom: 16px;
+    
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+// ─── Modal Footer ───
+.modal-footer {
+  background: var(--flux-light-cool);
+  border-top: 1px solid rgba(0, 0, 0, 0.04);
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  
+  .btn-primary,
+  .btn-modal-primary {
+    background: var(--flux-green);
+    border: 1px solid var(--flux-green);
+    color: var(--flux-dark);
+    
+    &:hover {
+      background: var(--flux-green-light);
+      border-color: var(--flux-green-light);
+    }
+  }
+  
+  .btn-secondary,
+  .btn-modal-secondary,
+  .btn-default {
+    background: transparent;
+    border: 1px solid var(--flux-dark);
+    color: var(--flux-dark);
+    
+    &:hover {
+      background: var(--flux-dark);
+      color: var(--flux-light);
+    }
+  }
+}
+
+// ─── Confirmation Dialog ───
+.msgprint-dialog,
+.confirm-dialog {
+  .modal-content {
+    max-width: 420px;
+  }
+  
+  .modal-body {
+    text-align: center;
+    padding: 32px 24px;
+    
+    .icon-wrapper {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      margin: 0 auto 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      
+      &.success {
+        background: rgba(45, 106, 79, 0.1);
+        color: var(--flux-success);
+      }
+      
+      &.danger,
+      &.error {
+        background: rgba(155, 27, 48, 0.1);
+        color: var(--flux-danger);
+      }
+      
+      &.warning {
+        background: rgba(9, 180, 116, 0.1);
+        color: var(--flux-green);
+      }
+      
+      &.info {
+        background: rgba(45, 52, 54, 0.1);
+        color: var(--flux-dark);
+      }
+    }
+  }
+}
+
+// ─── Quick Entry Dialog ───
+.quick-entry-dialog {
+  .modal-dialog {
+    max-width: 480px;
+  }
+  
+  .frappe-control {
+    margin-bottom: 12px;
+  }
+}
+
+// ─── Link Selector Dialog ───
+.link-selector-dialog {
+  .modal-body {
+    padding: 0;
+  }
+  
+  .link-selector-search {
+    padding: 16px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+    
+    input {
+      background: var(--flux-light-cool);
+    }
+  }
+  
+  .link-selector-results {
+    max-height: 300px;
+    overflow-y: auto;
+    
+    .link-item {
+      padding: 12px 16px;
+      cursor: pointer;
+      transition: background var(--flux-transition-fast);
+      
+      &:hover {
+        background: var(--flux-light-warm);
+      }
+      
+      &.selected {
+        background: var(--flux-light-warm);
+        border-left: 3px solid var(--flux-green);
+      }
+    }
+  }
+}
+
+// ─── Popover ───
+.popover {
+  background: var(--flux-light);
+  border: none;
+  border-radius: var(--flux-radius-md);
+  box-shadow: var(--flux-shadow-lg);
+  
+  .popover-header {
+    background: var(--flux-dark);
+    color: var(--flux-light);
+    border-bottom: none;
+    padding: 10px 14px;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 500;
+    
+    &::before {
+      display: none;
+    }
+  }
+  
+  .popover-body {
+    padding: 12px 14px;
+    color: var(--flux-text);
+  }
+  
+  .arrow::before {
+    border-color: transparent;
+  }
+  
+  &.bs-popover-bottom .arrow::after,
+  &.bs-popover-auto[x-placement^="bottom"] .arrow::after {
+    border-bottom-color: var(--flux-dark);
+  }
+  
+  &.bs-popover-top .arrow::after,
+  &.bs-popover-auto[x-placement^="top"] .arrow::after {
+    border-top-color: var(--flux-light);
+  }
+}
+
+// ─── Tooltip ───
+.tooltip {
+  .tooltip-inner {
+    background: var(--flux-dark);
+    color: var(--flux-light);
+    border-radius: var(--flux-radius-sm);
+    padding: 6px 10px;
+    font-size: 12px;
+    max-width: 200px;
+  }
+  
+  .arrow::before {
+    border-color: transparent;
+  }
+  
+  &.bs-tooltip-bottom .arrow::before,
+  &.bs-tooltip-auto[x-placement^="bottom"] .arrow::before {
+    border-bottom-color: var(--flux-dark);
+  }
+  
+  &.bs-tooltip-top .arrow::before,
+  &.bs-tooltip-auto[x-placement^="top"] .arrow::before {
+    border-top-color: var(--flux-dark);
+  }
+  
+  &.bs-tooltip-left .arrow::before,
+  &.bs-tooltip-auto[x-placement^="left"] .arrow::before {
+    border-left-color: var(--flux-dark);
+  }
+  
+  &.bs-tooltip-right .arrow::before,
+  &.bs-tooltip-auto[x-placement^="right"] .arrow::before {
+    border-right-color: var(--flux-dark);
+  }
+}
+
+// ─── Alert Messages ───
+.alert,
+.frappe-alert {
+  border: none;
+  border-radius: var(--flux-radius-md);
+  padding: 12px 16px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  
+  .alert-icon {
+    flex-shrink: 0;
+  }
+  
+  .alert-message {
+    flex: 1;
+  }
+  
+  &.alert-success {
+    background: rgba(45, 106, 79, 0.1);
+    color: var(--flux-success);
+    border-left: 3px solid var(--flux-success);
+  }
+  
+  &.alert-danger,
+  &.alert-error {
+    background: rgba(155, 27, 48, 0.1);
+    color: var(--flux-danger);
+    border-left: 3px solid var(--flux-danger);
+  }
+  
+  &.alert-warning {
+    background: rgba(9, 180, 116, 0.1);
+    color: var(--flux-green-dark);
+    border-left: 3px solid var(--flux-green);
+  }
+  
+  &.alert-info {
+    background: rgba(45, 52, 54, 0.1);
+    color: var(--flux-dark);
+    border-left: 3px solid var(--flux-dark);
+  }
+}
+
+// ─── Toast Notifications ───
+.toast-container,
+.frappe-toast {
+  position: fixed;
+  top: 70px;
+  right: 20px;
+  z-index: 9999;
+}
+
+.toast {
+  background: var(--flux-light);
+  border: none;
+  border-radius: var(--flux-radius-md);
+  box-shadow: var(--flux-shadow-lg);
+  padding: 0;
+  overflow: hidden;
+  animation: slideInRight var(--flux-transition-base);
+  
+  &::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: var(--flux-green);
+  }
+  
+  .toast-header {
+    background: transparent;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+    padding: 10px 14px;
+    
+    strong {
+      color: var(--flux-dark);
+    }
+  }
+  
+  .toast-body {
+    padding: 12px 14px;
+    padding-left: 18px;
+    color: var(--flux-text);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}

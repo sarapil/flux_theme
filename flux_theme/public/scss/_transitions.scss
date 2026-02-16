@@ -1,0 +1,133 @@
+// ============================================================
+// FLUX Theme - Page Transition Animations
+// Smooth SPA navigation transitions
+// ============================================================
+
+// ─── Page Content Enter Animation ───
+.page-content-enter {
+  animation: fluxPageEnter 0.35s ease both;
+}
+
+@keyframes fluxPageEnter {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// ─── Page Content Exit (applied briefly before route change) ───
+.page-content-exit {
+  animation: fluxPageExit 0.15s ease both;
+}
+
+@keyframes fluxPageExit {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+}
+
+// ─── Slide Left (for forward navigation) ───
+.page-slide-left {
+  animation: fluxSlideLeft 0.3s ease both;
+}
+
+@keyframes fluxSlideLeft {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+// ─── Slide Right (for back navigation) ───
+.page-slide-right {
+  animation: fluxSlideRight 0.3s ease both;
+}
+
+@keyframes fluxSlideRight {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+// ─── Fade Scale (for modal-like page loads) ───
+.page-fade-scale {
+  animation: fluxFadeScale 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+@keyframes fluxFadeScale {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+// ─── List View Row Stagger ───
+.list-row-container,
+.frappe-list .list-row {
+  &.flux-stagger-in {
+    animation: fluxStaggerRow 0.3s ease both;
+  }
+}
+
+@keyframes fluxStaggerRow {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// ─── Widget Stagger (Workspace) ───
+.widget.flux-stagger-in {
+  animation: fluxStaggerWidget 0.4s ease both;
+}
+
+@keyframes fluxStaggerWidget {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+// ─── Reduced Motion ───
+@media (prefers-reduced-motion: reduce) {
+  .page-content-enter,
+  .page-content-exit,
+  .page-slide-left,
+  .page-slide-right,
+  .page-fade-scale,
+  .flux-stagger-in {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

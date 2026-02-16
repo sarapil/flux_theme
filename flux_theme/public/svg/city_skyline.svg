@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 400" preserveAspectRatio="xMidYMax slice">
+  <defs>
+    <!-- Sky Gradient -->
+    <linearGradient id="skyGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#1A2526"/>
+      <stop offset="50%" style="stop-color:#2D3436"/>
+      <stop offset="100%" style="stop-color:#3D4F51"/>
+    </linearGradient>
+    <!-- Water Gradient -->
+    <linearGradient id="waterGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#2D3436"/>
+      <stop offset="100%" style="stop-color:#1A2526"/>
+    </linearGradient>
+    <!-- Building Window Glow -->
+    <filter id="windowGlow">
+      <feGaussianBlur stdDeviation="1" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Sky Background -->
+  <rect width="1920" height="400" fill="url(#skyGradient)"/>
+  
+  <!-- Dubai Skyline Silhouettes -->
+  <g fill="#0D1117" id="skyline">
+    <!-- Emirates Towers (Left) -->
+    <path d="M120,280 L140,80 L160,80 L180,280 Z"/>
+    <path d="M190,280 L205,100 L220,100 L235,280 Z"/>
+    
+    <!-- Dubai Frame -->
+    <path d="M320,280 L320,120 L340,120 L340,100 L380,100 L380,120 L400,120 L400,280 L380,280 L380,140 L340,140 L340,280 Z"/>
+    
+    <!-- Misc Buildings -->
+    <rect x="450" y="180" width="40" height="100"/>
+    <rect x="500" y="150" width="50" height="130"/>
+    <rect x="560" y="200" width="35" height="80"/>
+    
+    <!-- Burj Al Arab (Sail Shape) -->
+    <path d="M650,280 L680,80 Q720,60 760,80 L790,280 Q720,260 650,280"/>
+    
+    <!-- Burj Khalifa (Center - Tallest) -->
+    <path d="M920,280 L940,40 L960,20 L980,40 L1000,280 Z"/>
+    <rect x="945" y="25" width="30" height="5"/>
+    
+    <!-- Cayan Tower (Twisted) -->
+    <path d="M1100,280 L1105,180 L1115,100 L1140,100 L1150,180 L1155,280 Z" transform="skewX(-5)"/>
+    
+    <!-- Princess Tower -->
+    <path d="M1250,280 L1260,60 L1290,60 L1300,280 Z"/>
+    <ellipse cx="1275" cy="60" rx="20" ry="10"/>
+    
+    <!-- Additional Buildings -->
+    <rect x="1350" y="160" width="45" height="120"/>
+    <rect x="1410" y="140" width="55" height="140"/>
+    <rect x="1480" y="180" width="40" height="100"/>
+    
+    <!-- Ain Dubai (Ferris Wheel) -->
+    <circle cx="1650" cy="180" r="80" fill="none" stroke="#0D1117" stroke-width="8"/>
+    <line x1="1650" y1="260" x2="1650" y2="280" stroke="#0D1117" stroke-width="10"/>
+    <!-- Spokes -->
+    <g stroke="#0D1117" stroke-width="2">
+      <line x1="1650" y1="100" x2="1650" y2="260"/>
+      <line x1="1570" y1="180" x2="1730" y2="180"/>
+      <line x1="1593" y1="123" x2="1707" y2="237"/>
+      <line x1="1593" y1="237" x2="1707" y2="123"/>
+    </g>
+    
+    <!-- Right side buildings -->
+    <rect x="1750" y="170" width="50" height="110"/>
+    <rect x="1810" y="150" width="60" height="130"/>
+    <rect x="1880" y="190" width="40" height="90"/>
+  </g>
+  
+  <!-- Ground Line -->
+  <rect x="0" y="278" width="1920" height="4" fill="#0D1117"/>
+  
+  <!-- Water Area -->
+  <rect x="0" y="282" width="1920" height="118" fill="url(#waterGradient)"/>
+  
+  <!-- Static Stars (placeholders - animated by JS) -->
+  <g id="stars" fill="#FFFFFF">
+    <circle cx="100" cy="50" r="1" opacity="0.6"/>
+    <circle cx="250" cy="30" r="1.2" opacity="0.4"/>
+    <circle cx="400" cy="60" r="0.8" opacity="0.7"/>
+    <circle cx="550" cy="25" r="1" opacity="0.5"/>
+    <circle cx="700" cy="45" r="1.5" opacity="0.3"/>
+    <circle cx="850" cy="35" r="1" opacity="0.6"/>
+    <circle cx="1000" cy="55" r="0.8" opacity="0.5"/>
+    <circle cx="1150" cy="20" r="1.2" opacity="0.4"/>
+    <circle cx="1300" cy="50" r="1" opacity="0.7"/>
+    <circle cx="1450" cy="40" r="1.5" opacity="0.3"/>
+    <circle cx="1600" cy="30" r="1" opacity="0.6"/>
+    <circle cx="1750" cy="60" r="0.8" opacity="0.5"/>
+    <circle cx="1850" cy="25" r="1.2" opacity="0.4"/>
+  </g>
+  
+  <!-- Wave Paths (animated by CSS) -->
+  <g id="waves">
+    <path id="wave1" d="M0,320 Q80,310 160,320 T320,320 T480,320 T640,320 T800,320 T960,320 T1120,320 T1280,320 T1440,320 T1600,320 T1760,320 T1920,320 L1920,400 L0,400 Z" fill="#2D3436" opacity="0.4"/>
+    <path id="wave2" d="M0,340 Q60,330 120,340 T240,340 T360,340 T480,340 T600,340 T720,340 T840,340 T960,340 T1080,340 T1200,340 T1320,340 T1440,340 T1560,340 T1680,340 T1800,340 T1920,340 L1920,400 L0,400 Z" fill="#3D4F51" opacity="0.25"/>
+    <path id="wave3" d="M0,360 Q40,355 80,360 T160,360 T240,360 T320,360 T400,360 T480,360 T560,360 T640,360 T720,360 T800,360 T880,360 T960,360 T1040,360 T1120,360 T1200,360 T1280,360 T1360,360 T1440,360 T1520,360 T1600,360 T1680,360 T1760,360 T1840,360 T1920,360 L1920,400 L0,400 Z" fill="#1A2526" opacity="0.15"/>
+  </g>
+  
+  <!-- Building Reflections -->
+  <g id="reflections" transform="translate(0, 560) scale(1, -1)" opacity="0.08">
+    <use href="#skyline"/>
+  </g>
+</svg>

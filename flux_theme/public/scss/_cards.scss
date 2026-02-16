@@ -1,0 +1,394 @@
+// ============================================================
+// FLUX Theme - Cards & Dashboard Widgets
+// ============================================================
+
+// ─── Base Card ───
+.card,
+.frappe-card,
+.widget {
+  background: var(--flux-light);
+  border: none;
+  border-radius: var(--flux-radius-md);
+  box-shadow: var(--flux-shadow-sm);
+  transition: all var(--flux-transition-fast);
+  overflow: hidden;
+  
+  &:hover {
+    box-shadow: var(--flux-shadow-md);
+    border-left: 3px solid var(--flux-green);
+  }
+  
+  .card-header,
+  .widget-head {
+    background: transparent;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+    padding: 16px;
+    
+    .card-title,
+    .widget-title {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--flux-dark);
+      margin: 0;
+    }
+  }
+  
+  .card-body,
+  .widget-body {
+    padding: 16px;
+  }
+  
+  .card-footer,
+  .widget-footer {
+    background: var(--flux-light-cool);
+    border-top: 1px solid rgba(0, 0, 0, 0.04);
+    padding: 12px 16px;
+  }
+}
+
+// ─── Dashboard Layout ───
+.workspace-container,
+.desk-page {
+  background: transparent;
+}
+
+// ─── Shortcut Cards ───
+.shortcut-widget-box,
+.shortcut-card {
+  background: var(--flux-light);
+  border-radius: var(--flux-radius-md);
+  box-shadow: var(--flux-shadow-sm);
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: all var(--flux-transition-fast);
+  cursor: pointer;
+  
+  .widget-icon,
+  .shortcut-icon {
+    width: 40px;
+    height: 40px;
+    background: rgba(9, 180, 116, 0.1);
+    border-radius: var(--flux-radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--flux-green);
+    font-size: 18px;
+    transition: all var(--flux-transition-fast);
+  }
+  
+  .widget-label,
+  .shortcut-label {
+    font-weight: 500;
+    color: var(--flux-dark);
+  }
+  
+  &:hover {
+    box-shadow: var(--flux-shadow-md);
+    transform: translateY(-2px);
+    
+    .widget-icon,
+    .shortcut-icon {
+      background: var(--flux-green);
+      color: var(--flux-dark);
+    }
+  }
+}
+
+// ─── Number Cards ───
+.number-widget-box,
+.number-card {
+  background: var(--flux-dark);
+  border-radius: var(--flux-radius-md);
+  padding: 20px;
+  color: var(--flux-light);
+  
+  .widget-title,
+  .number-card-title {
+    font-size: 12px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    opacity: 0.7;
+    margin-bottom: 8px;
+  }
+  
+  .widget-value,
+  .number-card-value {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--flux-green);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  
+  .widget-subtitle,
+  .number-card-stats {
+    font-size: 11px;
+    opacity: 0.6;
+  }
+  
+  // Stats indicator
+  .stat-indicator {
+    &.indicator-positive {
+      color: var(--flux-success);
+    }
+    
+    &.indicator-negative {
+      color: var(--flux-danger);
+    }
+  }
+}
+
+// ─── Chart Widgets ───
+.chart-widget,
+.frappe-chart {
+  background: var(--flux-light);
+  border-radius: var(--flux-radius-md);
+  padding: 16px;
+  
+  .chart-title {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--flux-dark);
+    margin-bottom: 16px;
+  }
+  
+  // Chart colors
+  .dataset-units circle,
+  .data-point {
+    fill: var(--flux-green);
+  }
+  
+  .line-path,
+  .dataset-path {
+    stroke: var(--flux-green);
+  }
+  
+  .bar {
+    fill: var(--flux-green);
+    
+    &:hover {
+      fill: var(--flux-green-light);
+    }
+  }
+  
+  // Secondary color
+  .dataset-1 {
+    circle,
+    .data-point {
+      fill: var(--flux-dark);
+    }
+    
+    .line-path,
+    .dataset-path {
+      stroke: var(--flux-dark);
+    }
+    
+    .bar {
+      fill: var(--flux-dark);
+    }
+  }
+}
+
+// ─── Onboarding Widget ───
+.onboarding-widget,
+.onboarding-steps {
+  background: var(--flux-dark);
+  border-radius: var(--flux-radius-md);
+  padding: 24px;
+  color: var(--flux-light);
+  
+  .onboarding-title {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 16px;
+  }
+  
+  .onboarding-step {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    
+    &:last-child {
+      border-bottom: none;
+    }
+    
+    .step-indicator {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      
+      &.completed {
+        background: var(--flux-green);
+        color: var(--flux-dark);
+      }
+    }
+    
+    .step-title {
+      flex: 1;
+    }
+  }
+  
+  .btn-primary,
+  .cta-btn {
+    background: var(--flux-green);
+    border: none;
+    color: var(--flux-dark);
+    margin-top: 16px;
+    
+    &:hover {
+      background: var(--flux-green-light);
+    }
+  }
+}
+
+// ─── Quick Links ───
+.quick-list-widget,
+.links-widget {
+  .quick-list-item,
+  .link-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 16px;
+    color: var(--flux-text);
+    transition: all var(--flux-transition-fast);
+    
+    &:hover {
+      background: var(--flux-light-warm);
+      color: var(--flux-green-dark);
+    }
+    
+    .icon {
+      color: var(--flux-green);
+    }
+  }
+}
+
+// ─── Widget Grid ───
+.widget-group {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+// ─── Report Widget ───
+.report-widget {
+  .report-widget-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+    
+    .report-title {
+      font-family: 'Open Sans', sans-serif;
+      font-weight: 500;
+      color: var(--flux-dark);
+    }
+    
+    .btn-view-all {
+      color: var(--flux-green);
+      font-size: 12px;
+      
+      &:hover {
+        color: var(--flux-green-dark);
+      }
+    }
+  }
+}
+
+// ─── Stat Box (inline) ───
+.stat-box,
+.stat-card {
+  background: var(--flux-light-cool);
+  border-radius: var(--flux-radius-md);
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  
+  .stat-icon {
+    width: 32px;
+    height: 32px;
+    background: var(--flux-green);
+    border-radius: var(--flux-radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--flux-dark);
+  }
+  
+  .stat-content {
+    .stat-value {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--flux-dark);
+      line-height: 1;
+    }
+    
+    .stat-label {
+      font-size: 11px;
+      color: var(--flux-text-muted);
+    }
+  }
+}
+
+// ─── Activity Feed ───
+.activity-feed,
+.timeline-items {
+  .activity-item,
+  .timeline-item {
+    display: flex;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+    
+    &:last-child {
+      border-bottom: none;
+    }
+    
+    .activity-icon,
+    .timeline-indicator {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--flux-light-warm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--flux-green);
+      flex-shrink: 0;
+    }
+    
+    .activity-content {
+      flex: 1;
+      
+      .activity-title {
+        font-weight: 500;
+        color: var(--flux-dark);
+      }
+      
+      .activity-time {
+        font-size: 11px;
+        color: var(--flux-text-muted);
+      }
+    }
+  }
+}

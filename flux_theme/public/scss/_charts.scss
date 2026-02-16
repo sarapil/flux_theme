@@ -1,0 +1,264 @@
+// ============================================================
+// FLUX Theme — Dashboard Charts Color Scheme
+// Override ERPNext/Frappe chart colors with FLUX palette
+// ============================================================
+
+// ─── FLUX Chart Palette ───
+// 10 harmonious colors derived from the FLUX brand system
+:root {
+  --flux-chart-0: #09B474;   // Green (primary)
+  --flux-chart-1: #2D3436;   // Navy
+  --flux-chart-2: #3DD99A;   // Green Light
+  --flux-chart-3: #09B474;   // Success Green
+  --flux-chart-4: #067A4E;   // Green Dark / Brown
+  --flux-chart-5: #EA2424;   // Danger Red
+  --flux-chart-6: #3D4F51;   // Navy Light
+  --flux-chart-7: #6B7280;   // Muted
+  --flux-chart-8: #E0EDE7;   // Cream Warm
+  --flux-chart-9: #1A2526;   // Navy Deep
+}
+
+// ─── Frappe Charts Override ───
+// Frappe uses frappe-charts library (SVG-based)
+.frappe-chart {
+  // Container styling
+  .chart-container {
+    font-family: 'Poppins', sans-serif;
+  }
+
+  // Axis labels
+  .chart-label {
+    font-family: 'Poppins', sans-serif;
+    font-size: 11px;
+    fill: var(--flux-text-muted);
+  }
+
+  // Axis lines
+  .axis line,
+  .chart-container line.dashed {
+    stroke: rgba($flux-dark, 0.1);
+  }
+
+  // Legend
+  .graph-svg-tip {
+    background: $flux-dark !important;
+    color: $flux-light !important;
+    border-radius: 6px !important;
+    padding: 8px 12px !important;
+    font-family: 'Poppins', sans-serif !important;
+    font-size: 12px !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2) !important;
+    border: 1px solid rgba($flux-green, 0.15) !important;
+
+    .tooltip-value {
+      font-weight: 600;
+      color: $flux-green;
+    }
+
+    &::before {
+      border-top-color: $flux-dark !important;
+    }
+  }
+}
+
+// ─── Frappe Charts Color Classes ───
+// Override the default color-N classes used by frappe-charts
+@for $i from 0 through 9 {
+  .frappe-chart {
+    .bar.color-#{$i} {
+      fill: var(--flux-chart-#{$i});
+    }
+
+    .dot.color-#{$i} {
+      fill: var(--flux-chart-#{$i});
+    }
+
+    .line.color-#{$i} path {
+      stroke: var(--flux-chart-#{$i});
+    }
+
+    .pie-path.color-#{$i} {
+      fill: var(--flux-chart-#{$i});
+    }
+  }
+}
+
+// ─── ERPNext Dashboard Charts ───
+.dashboard-chart {
+  background: var(--flux-light-cool, #F5FAF8);
+  border: 1px solid rgba($flux-dark, 0.06);
+  border-radius: var(--flux-radius-lg);
+  padding: 20px;
+  transition: box-shadow $flux-transition-base;
+
+  &:hover {
+    box-shadow: $flux-shadow-md;
+  }
+}
+
+// Dashboard chart header
+.chart-header {
+  font-family: 'Open Sans', sans-serif;
+  margin-bottom: 12px;
+
+  .chart-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: $flux-dark;
+  }
+
+  .chart-actions {
+    .btn {
+      font-size: 11px;
+      color: $flux-text-muted;
+
+      &:hover {
+        color: $flux-green;
+      }
+    }
+  }
+}
+
+// ─── Number Cards (Dashboard) ───
+.number-card {
+  background: var(--flux-light-cool, #F5FAF8);
+  border: 1px solid rgba($flux-dark, 0.06);
+  border-radius: var(--flux-radius-lg);
+  padding: 20px;
+  transition: all $flux-transition-base;
+
+  &:hover {
+    box-shadow: $flux-shadow-md;
+    transform: translateY(-1px);
+  }
+
+  .number-card-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: 12px;
+    color: $flux-text-muted;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .number {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 700;
+    color: $flux-dark;
+  }
+
+  .indicator-pill {
+    font-family: 'Poppins', sans-serif;
+    font-size: 11px;
+  }
+}
+
+// ─── Heatmap ───
+.frappe-chart .heatmap-main {
+  rect {
+    rx: 2;
+    ry: 2;
+  }
+
+  // Override heatmap colors to green scale
+  .h-0 { fill: rgba($flux-green, 0.0); }
+  .h-1 { fill: rgba($flux-green, 0.15); }
+  .h-2 { fill: rgba($flux-green, 0.35); }
+  .h-3 { fill: rgba($flux-green, 0.55); }
+  .h-4 { fill: rgba($flux-green, 0.75); }
+  .h-5 { fill: $flux-green; }
+}
+
+// ─── Chart Legends ───
+.frappe-chart .legend-dataset-label,
+.chart-legend .legend-label {
+  font-family: 'Poppins', sans-serif;
+  font-size: 12px;
+  color: $flux-text;
+}
+
+// ─── Dashboard Grid ───
+.dashboard-section {
+  .section-head {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 600;
+    color: $flux-dark;
+    font-size: 15px;
+    border-bottom: 2px solid rgba($flux-green, 0.2);
+    padding-bottom: 8px;
+    margin-bottom: 16px;
+  }
+}
+
+// ─── Chart.js Override (if used) ───
+// Some ERPNext modules use Chart.js directly
+canvas.chart-canvas {
+  border-radius: var(--flux-radius-md);
+}
+
+// ─── Sparklines / Mini Charts ───
+.sparkline-chart {
+  svg {
+    path, line {
+      stroke: $flux-green;
+    }
+
+    circle {
+      fill: $flux-green;
+    }
+  }
+}
+
+// ─── Dark Mode ───
+[data-theme="flux-dark"] {
+  .dashboard-chart {
+    background: #1A2332;
+    border-color: rgba($flux-green, 0.08);
+  }
+
+  .number-card {
+    background: #1A2332;
+    border-color: rgba($flux-green, 0.08);
+
+    .number {
+      color: $flux-light;
+    }
+
+    .number-card-title {
+      color: rgba($flux-light, 0.5);
+    }
+  }
+
+  .chart-header .chart-title {
+    color: $flux-light;
+  }
+
+  .frappe-chart {
+    .chart-label {
+      fill: rgba($flux-light, 0.5);
+    }
+
+    .axis line,
+    .chart-container line.dashed {
+      stroke: rgba($flux-light, 0.08);
+    }
+  }
+
+  .frappe-chart .heatmap-main {
+    .h-0 { fill: rgba($flux-green, 0.0); }
+    .h-1 { fill: rgba($flux-green, 0.12); }
+    .h-2 { fill: rgba($flux-green, 0.28); }
+    .h-3 { fill: rgba($flux-green, 0.45); }
+    .h-4 { fill: rgba($flux-green, 0.65); }
+    .h-5 { fill: $flux-green; }
+  }
+
+  .dashboard-section .section-head {
+    color: $flux-light;
+    border-bottom-color: rgba($flux-green, 0.15);
+  }
+
+  .frappe-chart .legend-dataset-label,
+  .chart-legend .legend-label {
+    color: rgba($flux-light, 0.7);
+  }
+}

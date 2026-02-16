@@ -1,0 +1,216 @@
+{% extends "templates/web.html" %}
+
+{%- block title -%}{{ _("Page Not Found") }} — FLUX{%- endblock -%}
+
+{%- block head_include %}
+<style>
+/* ── FLUX Error Page Styles ── */
+.flux-error-page {
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(175deg, #2D3436 0%, #1A2526 60%, #0B0F15 100%);
+    margin: -30px -15px;
+    padding: 60px 20px;
+}
+
+.flux-error-skyline {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 220px;
+    opacity: 0.08;
+    pointer-events: none;
+}
+
+.flux-error-stars {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    pointer-events: none;
+}
+
+.flux-error-star {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: #09B474;
+    border-radius: 50%;
+    animation: fluxStarTwinkle 3s ease-in-out infinite;
+}
+
+@keyframes fluxStarTwinkle {
+    0%, 100% { opacity: 0.2; }
+    50% { opacity: 0.8; }
+}
+
+.flux-error-card {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    max-width: 520px;
+    padding: 48px 40px;
+    background: rgba(45, 52, 54, 0.6);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(9, 180, 116, 0.15);
+    border-radius: 12px;
+    animation: fluxErrorFadeIn 0.6s ease-out;
+}
+
+@keyframes fluxErrorFadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.flux-error-code {
+    font-size: 96px;
+    font-weight: 800;
+    background: linear-gradient(135deg, #09B474 0%, #3DD99A 50%, #067A4E 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1;
+    margin-bottom: 8px;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.flux-error-title {
+    font-size: 22px;
+    font-weight: 600;
+    color: #F5FAF8;
+    margin-bottom: 12px;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.flux-error-message {
+    font-size: 15px;
+    color: rgba(250, 245, 240, 0.6);
+    line-height: 1.6;
+    margin-bottom: 32px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.flux-error-gold-bar {
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, #067A4E, #09B474, #3DD99A);
+    margin: 0 auto 24px;
+    border-radius: 3px;
+}
+
+.flux-error-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 32px;
+    background: linear-gradient(135deg, #09B474 0%, #067A4E 100%);
+    color: #fff !important;
+    font-weight: 600;
+    font-size: 14px;
+    border-radius: 8px;
+    text-decoration: none !important;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+}
+
+.flux-error-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(9, 180, 116, 0.3);
+}
+
+.flux-error-btn svg {
+    width: 16px;
+    height: 16px;
+}
+
+.flux-error-footer {
+    margin-top: 32px;
+    font-size: 12px;
+    color: rgba(250, 245, 240, 0.3);
+    font-family: 'Poppins', sans-serif;
+}
+
+@media (max-width: 576px) {
+    .flux-error-card { padding: 32px 24px; }
+    .flux-error-code { font-size: 64px; }
+    .flux-error-title { font-size: 18px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .flux-error-card { animation: none; }
+    .flux-error-star { animation: none; opacity: 0.4; }
+}
+</style>
+{% endblock -%}
+
+{% block page_content %}
+<script>window.is_404 = true;</script>
+
+<div class="flux-error-page">
+    <!-- Stars -->
+    <div class="flux-error-stars" id="flux-stars"></div>
+
+    <!-- Skyline silhouette -->
+    <svg class="flux-error-skyline" viewBox="0 0 1200 200" preserveAspectRatio="xMidYMax slice">
+        <defs>
+            <linearGradient id="skyGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#09B474" stop-opacity="0.6"/>
+                <stop offset="100%" stop-color="#067A4E" stop-opacity="0.2"/>
+            </linearGradient>
+        </defs>
+        <path fill="url(#skyGrad)" d="M0,200 L0,140 L40,140 L40,100 L55,100 L55,80 L60,60 L65,80 L70,80 L70,100 L85,100 L85,140
+            L120,140 L120,120 L140,120 L140,90 L145,85 L150,90 L155,90 L155,120 L170,120 L170,140
+            L200,140 L200,110 L210,110 L210,70 L215,40 L220,70 L225,70 L225,110 L240,110 L240,140
+            L280,140 L280,130 L300,130 L300,100 L310,100 L310,60 L315,20 L320,60 L325,60 L325,100 L340,100 L340,130
+            L380,130 L380,140 L420,140 L420,110 L435,110 L435,75 L440,45 L445,75 L450,75 L450,110 L465,110 L465,140
+            L500,140 L500,120 L520,120 L520,85 L530,85 L530,55 L540,30 L550,55 L555,55 L555,85 L570,85 L570,120 L590,120 L590,140
+            L640,140 L640,130 L660,130 L660,95 L670,70 L680,95 L690,95 L690,130
+            L730,130 L730,140 L780,140 L780,115 L800,115 L800,80 L810,50 L820,80 L830,80 L830,115 L850,115 L850,140
+            L900,140 L900,125 L920,125 L920,90 L935,70 L950,90 L960,90 L960,125
+            L1000,125 L1000,140 L1050,140 L1050,110 L1070,110 L1070,75 L1080,55 L1090,75 L1100,75 L1100,110
+            L1150,110 L1150,140 L1200,140 L1200,200 Z"/>
+    </svg>
+
+    <!-- Error Card -->
+    <div class="flux-error-card">
+        <div class="flux-error-code">404</div>
+        <div class="flux-error-gold-bar"></div>
+        <h2 class="flux-error-title">{{ _("This page seems to have vanished") }}</h2>
+        <p class="flux-error-message">
+            {{ _("The page you're looking for doesn't exist or has been moved. Don't worry — let's get you back on track.") }}
+        </p>
+        <a href="/" class="flux-error-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                <polyline points="9 22 9 12 15 12 15 22"/>
+            </svg>
+            {{ _("Back to Home") }}
+        </a>
+        <div class="flux-error-footer">FLUX &mdash; {{ _("modern Co-Working Space") }}</div>
+    </div>
+</div>
+
+<script>
+(function() {
+    // Generate decorative stars
+    var container = document.getElementById('flux-stars');
+    if (!container) return;
+    for (var i = 0; i < 40; i++) {
+        var star = document.createElement('div');
+        star.className = 'flux-error-star';
+        star.style.left = Math.random() * 100 + '%';
+        star.style.top = Math.random() * 70 + '%';
+        star.style.animationDelay = (Math.random() * 5) + 's';
+        star.style.animationDuration = (2 + Math.random() * 3) + 's';
+        star.style.width = star.style.height = (1 + Math.random() * 2) + 'px';
+        container.appendChild(star);
+    }
+})();
+</script>
+{% endblock %}

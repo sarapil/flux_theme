@@ -1,0 +1,391 @@
+// ============================================================
+// FLUX Theme - Tables & List Views
+// ============================================================
+
+// ─── Base Table Styles ───
+table,
+.table,
+.frappe-list,
+.result {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: var(--flux-light);
+  border-radius: var(--flux-radius-md);
+  overflow: hidden;
+}
+
+// ─── Table Header ───
+thead,
+.list-row-head,
+.frappe-list .list-headers {
+  background-color: var(--flux-dark);
+  
+  th,
+  .list-header-subject,
+  .list-row-container.head {
+    background-color: var(--flux-dark);
+    color: var(--flux-light);
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 12px;
+    letter-spacing: 0.02em;
+    padding: 12px 16px;
+    text-align: left;
+    border: none;
+    white-space: nowrap;
+    
+    // Sort indicators
+    .sort-indicator,
+    &.sortable::after {
+      color: var(--flux-green);
+    }
+    
+    &:hover {
+      background-color: var(--flux-dark-light);
+    }
+  }
+}
+
+// ─── Table Body ───
+tbody,
+.frappe-list .list-rows {
+  tr,
+  .list-row,
+  .list-row-container {
+    transition: all var(--flux-transition-fast);
+    
+    // Alternating row colors
+    &:nth-child(odd) {
+      background-color: var(--flux-light);
+    }
+    
+    &:nth-child(even) {
+      background-color: var(--flux-light-warm);
+    }
+    
+    // Hover state
+    &:hover {
+      background-color: rgba(9, 180, 116, 0.04);
+      
+      td,
+      .list-row-checkbox,
+      .level-left {
+        background-color: transparent;
+      }
+    }
+    
+    // Selected state
+    &.selected,
+    &.active,
+    &[aria-selected="true"] {
+      background-color: var(--flux-light-warm);
+      border-left: 3px solid var(--flux-green);
+      
+      td:first-child {
+        padding-left: 13px; // Compensate for border
+      }
+    }
+  }
+  
+  td,
+  .list-row-col,
+  .level-left {
+    padding: 12px 16px;
+    border: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+    color: var(--flux-text);
+    font-size: 13px;
+    vertical-align: middle;
+    
+    a {
+      color: var(--flux-green-dark);
+      
+      &:hover {
+        color: var(--flux-green);
+      }
+    }
+  }
+}
+
+// ─── List View Specific ───
+.frappe-list {
+  background: var(--flux-light);
+  border-radius: var(--flux-radius-md);
+  box-shadow: var(--flux-shadow-sm);
+  overflow: hidden;
+  
+  // List header
+  .list-headers {
+    .list-header-subject {
+      background: var(--flux-dark);
+      color: var(--flux-light);
+    }
+  }
+  
+  // List rows
+  .list-row {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+    
+    &:last-child {
+      border-bottom: none;
+    }
+    
+    .level-left {
+      color: var(--flux-text);
+    }
+    
+    .like-disabled-input {
+      background: transparent;
+    }
+  }
+  
+  // Checkbox column
+  .list-row-checkbox,
+  .list-header-checkbox {
+    width: 40px;
+    padding: 12px;
+    
+    input[type="checkbox"] {
+      appearance: none;
+      width: 16px;
+      height: 16px;
+      border: 2px solid var(--flux-dark);
+      border-radius: 3px;
+      cursor: pointer;
+      transition: all var(--flux-transition-fast);
+      
+      &:checked {
+        background: var(--flux-green);
+        border-color: var(--flux-green);
+        
+        &::after {
+          content: "";
+          display: block;
+          width: 4px;
+          height: 8px;
+          border: solid var(--flux-dark);
+          border-width: 0 2px 2px 0;
+          transform: rotate(45deg);
+          margin: 1px auto;
+        }
+      }
+    }
+  }
+}
+
+// ─── Filters Bar ───
+.filter-section,
+.list-filters,
+.filter-bar {
+  background: var(--flux-dark-light);
+  padding: 12px 16px;
+  border-radius: var(--flux-radius-md);
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  
+  .filter-button,
+  .btn-filter {
+    background: transparent;
+    border: 1px solid rgba(240, 245, 243, 0.3);
+    color: var(--flux-light);
+    
+    &:hover {
+      background: rgba(240, 245, 243, 0.1);
+      border-color: var(--flux-green);
+    }
+    
+    &.active {
+      background: var(--flux-green);
+      color: var(--flux-dark);
+      border-color: var(--flux-green);
+    }
+  }
+  
+  .clear-filters,
+  .btn-clear {
+    background: var(--flux-green);
+    border: none;
+    color: var(--flux-dark);
+    
+    &:hover {
+      background: var(--flux-green-light);
+    }
+  }
+}
+
+// ─── Pagination ───
+.pagination,
+.list-paging,
+.page-length {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 16px;
+  justify-content: center;
+  
+  .page-item,
+  .btn-paging {
+    .page-link,
+    button {
+      background: var(--flux-dark);
+      border: none;
+      color: var(--flux-light);
+      padding: 8px 14px;
+      border-radius: var(--flux-radius-md);
+      font-size: 13px;
+      transition: all var(--flux-transition-fast);
+      
+      &:hover {
+        background: var(--flux-dark-light);
+        color: var(--flux-green);
+      }
+    }
+    
+    &.active .page-link,
+    &.active button {
+      background: var(--flux-green);
+      color: var(--flux-dark);
+    }
+    
+    &.disabled .page-link,
+    &.disabled button {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+}
+
+// ─── Report Builder Tables ───
+.report-builder,
+.query-report {
+  .datatable {
+    background: var(--flux-light);
+    border-radius: var(--flux-radius-md);
+    overflow: hidden;
+    
+    .dt-header {
+      background: var(--flux-dark);
+      
+      .dt-cell__content {
+        color: var(--flux-light);
+      }
+    }
+    
+    .dt-row {
+      &:nth-child(odd) {
+        background: var(--flux-light);
+      }
+      
+      &:nth-child(even) {
+        background: var(--flux-light-warm);
+      }
+      
+      &:hover {
+        background: rgba(9, 180, 116, 0.04);
+      }
+    }
+    
+    .dt-cell {
+      border-color: rgba(0, 0, 0, 0.04);
+    }
+  }
+}
+
+// ─── Child Table / Grid ───
+.frappe-control[data-fieldtype="Table"] {
+  .form-grid {
+    background: var(--flux-light);
+    border-radius: var(--flux-radius-md);
+    border: 1px solid #E5DDD5;
+    overflow: hidden;
+    
+    .grid-heading-row {
+      background: var(--flux-dark);
+      
+      .grid-row {
+        background: var(--flux-dark);
+      }
+      
+      .static-area {
+        color: var(--flux-light);
+        font-weight: 600;
+      }
+    }
+    
+    .grid-body {
+      .grid-row {
+        &:nth-child(odd) {
+          background: var(--flux-light);
+        }
+        
+        &:nth-child(even) {
+          background: var(--flux-light-warm);
+        }
+        
+        &:hover {
+          background: rgba(9, 180, 116, 0.04);
+        }
+        
+        &.grid-row-open {
+          background: var(--flux-light-warm);
+          border-left: 3px solid var(--flux-green);
+        }
+      }
+    }
+    
+    .grid-footer {
+      background: var(--flux-light-cool);
+      border-top: 1px solid #E5DDD5;
+      
+      .grid-add-row {
+        color: var(--flux-green);
+        
+        &:hover {
+          color: var(--flux-green-dark);
+        }
+      }
+    }
+  }
+}
+
+// ─── Sort Indicators ───
+.sort-indicator {
+  &.sort-asc::after,
+  &.sort-desc::after {
+    color: var(--flux-green);
+  }
+}
+
+[data-sort]::after {
+  color: var(--flux-green);
+  opacity: 0.5;
+}
+
+[data-sort]:hover::after,
+[data-sort].sorted::after {
+  opacity: 1;
+}
+
+// ─── Empty State ───
+.no-result,
+.empty-state,
+.nothing-to-show {
+  padding: 48px;
+  text-align: center;
+  color: var(--flux-text-muted);
+  
+  .empty-state-icon {
+    color: var(--flux-green);
+    opacity: 0.5;
+    margin-bottom: 16px;
+  }
+  
+  p {
+    margin: 0;
+    font-size: 14px;
+  }
+}

@@ -1,0 +1,417 @@
+// ============================================================
+// FLUX Theme - Animations & Keyframes
+// ============================================================
+
+// ─── Transition Utilities ───
+.flux-transition-fast {
+  transition: all var(--flux-transition-fast);
+}
+
+.flux-transition-base {
+  transition: all var(--flux-transition-base);
+}
+
+.flux-transition-slow {
+  transition: all var(--flux-transition-slow);
+}
+
+// ─── Fade Animations ───
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// ─── Slide Animations ───
+@keyframes slideInFromRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInFromLeft {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInFromBottom {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInFromTop {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+// ─── Scale Animations ───
+@keyframes scaleIn {
+  from {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes scaleOut {
+  from {
+    transform: scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+@keyframes heartbeat {
+  0%, 100% {
+    transform: scale(1);
+  }
+  14% {
+    transform: scale(1.1);
+  }
+  28% {
+    transform: scale(1);
+  }
+  42% {
+    transform: scale(1.1);
+  }
+  70% {
+    transform: scale(1);
+  }
+}
+
+// ─── Rotation Animations ───
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes spinReverse {
+  from {
+    transform: rotate(360deg);
+  }
+  to {
+    transform: rotate(0deg);
+  }
+}
+
+// ─── Green Shimmer Effect ───
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.flux-shimmer {
+  background: linear-gradient(
+    90deg,
+    var(--flux-green-dark) 0%,
+    var(--flux-green-light) 50%,
+    var(--flux-green-dark) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+// ─── Glow Pulse ───
+@keyframes glowPulse {
+  0%, 100% {
+    box-shadow: 0 0 5px rgba(9, 180, 116, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(9, 180, 116, 0.5);
+  }
+}
+
+// ─── Star Twinkle (for skyline) ───
+@keyframes twinkle {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+}
+
+// ─── Water Wave Animation (slow, fluid) ───
+@keyframes waveMotion {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-25%);
+  }
+}
+
+// ─── Page Content Animation ───
+.page-content-enter {
+  animation: fadeInUp 0.3s ease forwards;
+}
+
+// ─── Tab Underline Slide ───
+@keyframes underlineSlide {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+.tab-active-indicator {
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--flux-green);
+    transform-origin: left;
+    animation: underlineSlide 0.2s ease forwards;
+  }
+}
+
+// ─── Success Flash ───
+@keyframes successFlash {
+  0% {
+    background-color: transparent;
+  }
+  50% {
+    background-color: rgba(9, 180, 116, 0.2);
+  }
+  100% {
+    background-color: transparent;
+  }
+}
+
+.flux-success-flash {
+  animation: successFlash 0.5s ease;
+}
+
+// ─── Loading Dots ───
+@keyframes loadingDots {
+  0%, 80%, 100% {
+    transform: scale(0.6);
+    opacity: 0.5;
+  }
+  40% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.flux-loading-dots {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+  
+  span {
+    width: 8px;
+    height: 8px;
+    background: var(--flux-green);
+    border-radius: 50%;
+    animation: loadingDots 1.4s infinite ease-in-out;
+    
+    &:nth-child(1) { animation-delay: -0.32s; }
+    &:nth-child(2) { animation-delay: -0.16s; }
+    &:nth-child(3) { animation-delay: 0s; }
+  }
+}
+
+// ─── Progress Bar Animation ───
+@keyframes progressIndeterminate {
+  0% {
+    left: -35%;
+    right: 100%;
+  }
+  60% {
+    left: 100%;
+    right: -90%;
+  }
+  100% {
+    left: 100%;
+    right: -90%;
+  }
+}
+
+.flux-progress-indeterminate {
+  position: relative;
+  overflow: hidden;
+  
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    background: var(--flux-green);
+    animation: progressIndeterminate 2.1s cubic-bezier(0.65, 0.815, 0.735, 0.395) infinite;
+  }
+}
+
+// ─── Custom Loading Spinner ───
+.flux-spinner {
+  width: 40px;
+  height: 40px;
+  position: relative;
+  
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border: 3px solid transparent;
+  }
+  
+  &::before {
+    border-top-color: var(--flux-green);
+    animation: spin 1s linear infinite;
+  }
+  
+  &::after {
+    border-right-color: var(--flux-green-light);
+    animation: spinReverse 1.5s linear infinite;
+  }
+}
+
+// ─── Hover Lift Effect ───
+.flux-hover-lift {
+  transition: transform var(--flux-transition-fast), box-shadow var(--flux-transition-fast);
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--flux-shadow-md);
+  }
+}
+
+// ─── Ripple Effect ───
+@keyframes ripple {
+  0% {
+    transform: scale(0);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+.flux-ripple {
+  position: relative;
+  overflow: hidden;
+  
+  &::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    padding-bottom: 100%;
+    background: rgba(9, 180, 116, 0.3);
+    border-radius: 50%;
+    transform: scale(0);
+    opacity: 0;
+    pointer-events: none;
+  }
+  
+  &:active::after {
+    animation: ripple 0.6s ease-out;
+  }
+}
+
+// ─── Notification Badge Bounce ───
+@keyframes badgeBounce {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+}
+
+.flux-badge-bounce {
+  animation: badgeBounce 0.3s ease;
+}
+
+// ─── Star Shimmer (realistic, slow, opacity-only) ───
+@keyframes starShimmer {
+  0%, 100% { opacity: 0.2; }
+  30% { opacity: 0.6; }
+  50% { opacity: 0.85; }
+  70% { opacity: 0.5; }
+}

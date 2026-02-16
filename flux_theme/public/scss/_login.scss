@@ -1,0 +1,522 @@
+// ============================================================
+// FLUX Theme - Login & Auth Pages
+// modern branded login with modern city skyline background
+// Targets Frappe's actual login HTML structure
+// ============================================================
+
+// ─── Login Page Body ───
+body[data-path="login"] {
+  background: #1A2526 !important;
+  background-image: none !important;
+  overflow-x: hidden;
+  
+  // Hide default Frappe footer on login
+  footer,
+  .web-footer {
+    display: none !important;
+  }
+}
+
+// ─── Main Section on Login ───
+body[data-path="login"] .main-section {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  background: linear-gradient(
+    170deg,
+    #0a0f1a 0%,
+    #1A2526 25%,
+    #2D3436 60%,
+    #1a2332 100%
+  );
+  
+  // Skyline silhouette at bottom (CSS-only fallback)
+  &::after {
+    content: "";
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 280px;
+    background: linear-gradient(to top, rgba(13, 17, 23, 0.95) 0%, transparent 100%);
+    pointer-events: none;
+    z-index: 0;
+  }
+}
+
+// ─── Skyline Container (injected by JS) ───
+#flux-login-skyline {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.45;
+  overflow: hidden;
+
+  .flux-skyline-svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+// ─── Green Particles Canvas (injected by JS) ───
+#flux-login-particles {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+// ─── Login Section (wrapper) ───
+body[data-path="login"] .for-login {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 40px 20px;
+}
+
+// ─── Page Card Head (Logo + Title) ───
+body[data-path="login"] .page-card-head {
+  text-align: center;
+  margin-bottom: 32px;
+  
+  // Logo
+  .app-logo {
+    content: url("/assets/flux_theme/images/logo-login.png") !important;
+    max-height: 72px !important;
+    width: auto !important;
+    display: block !important;
+    margin: 0 auto 20px !important;
+    filter: drop-shadow(0 4px 20px rgba(9, 180, 116, 0.3));
+    animation: fluxLogoFloat 3s ease-in-out infinite;
+  }
+  
+  // "Login to FLUX" title
+  h4 {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: #F0F5F3 !important;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin: 0;
+    
+    // Green underline accent
+    &::after {
+      content: "";
+      display: block;
+      width: 60px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #09B474, transparent);
+      margin: 12px auto 0;
+    }
+  }
+}
+
+// Logo float animation
+@keyframes fluxLogoFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+// ─── Login Card (Glass Morphism) ───
+body[data-path="login"] .login-content.page-card {
+  background: rgba(45, 52, 54, 0.65) !important;
+  backdrop-filter: blur(24px) saturate(150%) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(150%) !important;
+  border: 1px solid rgba(9, 180, 116, 0.15) !important;
+  border-radius: 16px !important;
+  padding: 36px 32px !important;
+  width: 100%;
+  max-width: 420px !important;
+  box-shadow: 
+    0 24px 48px rgba(0, 0, 0, 0.4),
+    0 0 0 1px rgba(240, 245, 243, 0.05),
+    inset 0 1px 0 rgba(240, 245, 243, 0.05) !important;
+  animation: fluxCardReveal 0.6s ease-out;
+  margin: 0 auto;
+}
+
+@keyframes fluxCardReveal {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+// ─── Form Inputs ───
+body[data-path="login"] {
+  .page-card-body {
+    .form-group {
+      margin-bottom: 20px;
+      position: relative;
+    }
+    
+    // Labels
+    label,
+    .form-label {
+      color: rgba(240, 245, 243, 0.6) !important;
+      font-size: 11px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    
+    // Input fields (email, password)
+    .form-control,
+    input[type="text"],
+    input[type="email"],
+    input[type="password"] {
+      background: rgba(240, 245, 243, 0.04) !important;
+      border: none !important;
+      border-bottom: 2px solid rgba(240, 245, 243, 0.15) !important;
+      border-radius: 0 !important;
+      color: #F0F5F3 !important;
+      padding: 12px 36px 12px 0 !important;
+      font-size: 15px !important;
+      font-weight: 400;
+      transition: border-color 0.3s ease, background 0.3s ease !important;
+      
+      &::placeholder {
+        color: rgba(240, 245, 243, 0.3) !important;
+      }
+      
+      &:focus {
+        outline: none !important;
+        background: rgba(240, 245, 243, 0.06) !important;
+        border-bottom-color: #09B474 !important;
+        box-shadow: 0 2px 0 0 rgba(9, 180, 116, 0.4) !important;
+      }
+      
+      // Autofill
+      &:-webkit-autofill,
+      &:-webkit-autofill:hover,
+      &:-webkit-autofill:focus {
+        -webkit-text-fill-color: #F0F5F3 !important;
+        -webkit-box-shadow: 0 0 0px 1000px #2D3436 inset !important;
+        border-bottom: 2px solid rgba(240, 245, 243, 0.15) !important;
+        transition: background-color 5000s ease-in-out 0s;
+      }
+    }
+    
+    // Field icons
+    .field-icon {
+      color: rgba(240, 245, 243, 0.4);
+    }
+    
+    // Show password toggle
+    .toggle-password {
+      color: rgba(240, 245, 243, 0.5) !important;
+      font-size: 12px;
+      cursor: pointer;
+      
+      &:hover {
+        color: #09B474 !important;
+      }
+    }
+    
+    // Forgot password
+    .forgot-password-message {
+      text-align: right;
+      margin-top: -4px;
+      
+      a {
+        color: #09B474 !important;
+        font-size: 12px;
+        text-decoration: none !important;
+        font-weight: 400;
+        letter-spacing: 0.02em;
+        transition: color 0.2s ease;
+        
+        &:hover {
+          color: #3DD99A !important;
+        }
+      }
+    }
+  }
+}
+
+// ─── Login Button ───
+body[data-path="login"] .page-card-actions {
+  margin-top: 8px;
+  
+  .btn-login,
+  .btn-primary {
+    background: linear-gradient(135deg, #09B474 0%, #3DD99A 50%, #09B474 100%) !important;
+    background-size: 200% 100% !important;
+    border: none !important;
+    color: #1A2526 !important;
+    width: 100%;
+    padding: 14px 24px !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    border-radius: 8px !important;
+    transition: all 0.3s ease !important;
+    position: relative;
+    overflow: hidden;
+    
+    &:hover {
+      background-position: 100% 0 !important;
+      transform: translateY(-2px) !important;
+      box-shadow: 0 8px 24px rgba(9, 180, 116, 0.35) !important;
+    }
+    
+    &:active {
+      transform: translateY(0) scale(0.98) !important;
+    }
+    
+    // Shimmer effect
+    &::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 50%;
+      height: 100%;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.3),
+        transparent
+      );
+      animation: fluxButtonShimmer 3s ease-in-out infinite;
+    }
+  }
+}
+
+@keyframes fluxButtonShimmer {
+  0%, 100% { left: -100%; }
+  50% { left: 150%; }
+}
+
+// ─── Social Login / Divider ───
+body[data-path="login"] {
+  .social-logins {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(240, 245, 243, 0.08);
+    
+    .login-divider {
+      color: rgba(240, 245, 243, 0.3) !important;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 16px;
+    }
+  }
+  
+  .btn-login-option {
+    background: transparent !important;
+    border: 1px solid rgba(240, 245, 243, 0.15) !important;
+    color: rgba(240, 245, 243, 0.8) !important;
+    border-radius: 8px !important;
+    padding: 10px 16px !important;
+    transition: all 0.2s ease !important;
+    
+    &:hover {
+      border-color: #09B474 !important;
+      background: rgba(9, 180, 116, 0.05) !important;
+      color: #09B474 !important;
+    }
+  }
+  
+  .btn-login-with-email-link {
+    background: transparent !important;
+    border: 1px solid rgba(240, 245, 243, 0.15) !important;
+    color: rgba(240, 245, 243, 0.7) !important;
+    border-radius: 8px !important;
+    
+    &:hover {
+      border-color: #09B474 !important;
+      color: #09B474 !important;
+    }
+  }
+}
+
+// ─── Sign Up / Footer Text ───
+body[data-path="login"] .sign-up-message {
+  color: rgba(240, 245, 243, 0.5) !important;
+  margin-top: 24px;
+  font-size: 13px;
+  
+  a {
+    color: #09B474 !important;
+    text-decoration: none !important;
+    font-weight: 500;
+    
+    &:hover {
+      color: #3DD99A !important;
+      text-decoration: underline !important;
+    }
+  }
+}
+
+// ─── Error / Alert Messages ───
+body[data-path="login"] {
+  .alert {
+    background: rgba(155, 27, 48, 0.15) !important;
+    border: 1px solid rgba(155, 27, 48, 0.25) !important;
+    color: #FF8A8A !important;
+    border-radius: 8px !important;
+    padding: 12px 16px !important;
+    font-size: 13px;
+    backdrop-filter: blur(8px);
+  }
+  
+  // Login shake animation on error
+  .invalid-login {
+    animation: fluxShake 0.5s ease-in-out;
+  }
+}
+
+@keyframes fluxShake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-10px); }
+  40% { transform: translateX(10px); }
+  60% { transform: translateX(-6px); }
+  80% { transform: translateX(6px); }
+}
+
+// ─── Forgot Password Section ───
+body[data-path="login"] .for-forgot {
+  .page-card-head h4 {
+    font-size: 16px;
+    letter-spacing: 0.04em;
+  }
+  
+  .page-card {
+    background: rgba(45, 52, 54, 0.65) !important;
+    backdrop-filter: blur(24px) !important;
+    border: 1px solid rgba(9, 180, 116, 0.15) !important;
+    border-radius: 16px !important;
+    box-shadow: 0 24px 48px rgba(0, 0, 0, 0.4) !important;
+    padding: 36px 32px !important;
+    max-width: 420px !important;
+    margin: 0 auto;
+    
+    .form-control {
+      background: rgba(240, 245, 243, 0.04) !important;
+      border: none !important;
+      border-bottom: 2px solid rgba(240, 245, 243, 0.15) !important;
+      border-radius: 0 !important;
+      color: #F0F5F3 !important;
+      
+      &:focus {
+        border-bottom-color: #09B474 !important;
+        box-shadow: none !important;
+      }
+    }
+    
+    .btn-primary {
+      background: linear-gradient(135deg, #09B474 0%, #3DD99A 50%, #09B474 100%) !important;
+      border: none !important;
+      color: #1A2526 !important;
+      border-radius: 8px !important;
+      font-weight: 600 !important;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+  }
+  
+  .sign-up-message,
+  a {
+    color: rgba(240, 245, 243, 0.5) !important;
+  }
+}
+
+// ─── Signup Section ───
+body[data-path="login"] .for-signup {
+  .page-card-head h4 {
+    font-size: 16px;
+  }
+  
+  .page-card {
+    background: rgba(45, 52, 54, 0.65) !important;
+    backdrop-filter: blur(24px) !important;
+    border: 1px solid rgba(9, 180, 116, 0.15) !important;
+    border-radius: 16px !important;
+    box-shadow: 0 24px 48px rgba(0, 0, 0, 0.4) !important;
+    padding: 36px 32px !important;
+    max-width: 420px !important;
+    margin: 0 auto;
+  }
+}
+
+// ─── Email Link Login ───
+body[data-path="login"] .for-login-with-email-link {
+  .page-card {
+    background: rgba(45, 52, 54, 0.65) !important;
+    backdrop-filter: blur(24px) !important;
+    border: 1px solid rgba(9, 180, 116, 0.15) !important;
+    border-radius: 16px !important;
+    box-shadow: 0 24px 48px rgba(0, 0, 0, 0.4) !important;
+    padding: 36px 32px !important;
+    max-width: 420px !important;
+    margin: 0 auto;
+  }
+}
+
+// ─── "Powered by" / Bottom Brand ───
+#flux-login-brand {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 20;
+  text-align: center;
+  
+  .brand-text {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 11px;
+    color: rgba(240, 245, 243, 0.25);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+}
+
+// ─── Responsive ───
+@media (max-width: 480px) {
+  body[data-path="login"] .login-content.page-card {
+    padding: 28px 24px !important;
+    margin: 0 12px;
+    border-radius: 12px !important;
+  }
+  
+  body[data-path="login"] .page-card-head .app-logo {
+    max-height: 56px !important;
+  }
+}
+
+// ─── Reduced Motion ───
+@media (prefers-reduced-motion: reduce) {
+  body[data-path="login"] {
+    .app-logo {
+      animation: none !important;
+    }
+    
+    .login-content.page-card {
+      animation: none !important;
+    }
+    
+    .btn-login::after {
+      animation: none !important;
+    }
+  }
+}

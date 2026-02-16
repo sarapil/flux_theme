@@ -1,0 +1,242 @@
+// ============================================================
+// FLUX Theme - Print Styles
+// ============================================================
+
+@media print {
+  // ─── Reset Background to White ───
+  *,
+  *::before,
+  *::after {
+    background: white !important;
+    color: black !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+  
+  body {
+    background: white !important;
+    background-image: none !important;
+    font-size: 12pt;
+    line-height: 1.4;
+  }
+  
+  // ─── Hide Non-Essential Elements ───
+  .navbar,
+  .desk-sidebar,
+  .layout-side-section,
+  .page-actions,
+  .flux-splash-overlay,
+  .flux-skyline-container,
+  #flux-stars-canvas,
+  #flux-effects-container,
+  .toast-container,
+  .modal-backdrop,
+  footer,
+  .page-footer,
+  .btn:not(.btn-print),
+  button:not(.btn-print),
+  .no-print {
+    display: none !important;
+  }
+  
+  // ─── Page Layout Reset ───
+  .layout-main-section,
+  .main-section,
+  .page-container {
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    
+    &::before {
+      display: none !important;
+    }
+  }
+  
+  // ─── Print Header with Logo ───
+  .print-header {
+    display: block !important;
+    text-align: center;
+    margin-bottom: 20pt;
+    padding-bottom: 10pt;
+    border-bottom: 1pt solid #09B474;
+    
+    img {
+      max-height: 50pt;
+      width: auto;
+    }
+  }
+  
+  // ─── Typography ───
+  h1, h2, h3, h4, h5, h6,
+  .page-title,
+  .title-text {
+    color: #2D3436 !important;
+    page-break-after: avoid;
+    orphans: 3;
+    widows: 3;
+  }
+  
+  h1 {
+    font-size: 18pt;
+  }
+  
+  h2 {
+    font-size: 14pt;
+  }
+  
+  h3 {
+    font-size: 12pt;
+  }
+  
+  p, li, td, th {
+    orphans: 3;
+    widows: 3;
+  }
+  
+  // ─── Tables ───
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    
+    th, td {
+      border: 0.5pt solid #ccc !important;
+      padding: 6pt 8pt;
+      text-align: left;
+    }
+    
+    th {
+      background: #f5f5f5 !important;
+      font-weight: bold;
+    }
+    
+    tr {
+      page-break-inside: avoid;
+    }
+  }
+  
+  // ─── Links ───
+  a {
+    color: #2D3436 !important;
+    text-decoration: underline;
+    
+    &[href]::after {
+      content: " (" attr(href) ")";
+      font-size: 9pt;
+      color: #666;
+    }
+    
+    &[href^="#"]::after,
+    &[href^="javascript:"]::after {
+      content: "";
+    }
+  }
+  
+  // ─── Images ───
+  img {
+    max-width: 100% !important;
+    page-break-inside: avoid;
+  }
+  
+  // ─── Form Fields (Read-only display) ───
+  .form-control,
+  .like-disabled-input,
+  input,
+  select,
+  textarea {
+    border: none !important;
+    padding: 0 !important;
+    background: transparent !important;
+    min-height: auto !important;
+    
+    &::placeholder {
+      color: transparent !important;
+    }
+  }
+  
+  // ─── Green Accent Lines ───
+  .section-head,
+  .form-section .section-head {
+    border-bottom: 1pt solid #09B474 !important;
+    padding-bottom: 4pt;
+    margin-bottom: 8pt;
+  }
+  
+  // ─── Page Breaks ───
+  .page-break,
+  .print-page-break {
+    page-break-after: always;
+  }
+  
+  .avoid-break,
+  .no-page-break {
+    page-break-inside: avoid;
+  }
+  
+  // ─── Print Footer ───
+  @page {
+    margin: 1in;
+    
+    @bottom-center {
+      content: "© 2026 Flux. All rights reserved.";
+      font-size: 8pt;
+      color: #999;
+    }
+    
+    @bottom-right {
+      content: "Page " counter(page) " of " counter(pages);
+      font-size: 8pt;
+      color: #999;
+    }
+  }
+  
+  // ─── Print-Specific Classes ───
+  .print-only {
+    display: block !important;
+  }
+  
+  .screen-only {
+    display: none !important;
+  }
+  
+  // ─── Letter/Document Print Format ───
+  .print-format {
+    font-family: 'Georgia', serif;
+    
+    .letter-head {
+      text-align: center;
+      margin-bottom: 30pt;
+      
+      img {
+        max-width: 200pt;
+      }
+    }
+    
+    .letter-body {
+      font-size: 11pt;
+      line-height: 1.6;
+    }
+    
+    .letter-footer {
+      margin-top: 40pt;
+      border-top: 0.5pt solid #ccc;
+      padding-top: 10pt;
+      font-size: 9pt;
+      color: #666;
+    }
+  }
+}
+
+// ─── Screen Print Preview ───
+.print-preview {
+  background: #f0f0f0;
+  padding: 20px;
+  
+  .print-preview-container {
+    background: white;
+    max-width: 8.5in;
+    margin: 0 auto;
+    padding: 1in;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+}

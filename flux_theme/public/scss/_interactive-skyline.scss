@@ -1,0 +1,96 @@
+/* ─── FLUX Interactive Skyline Tooltip ─── */
+
+.flux-skyline-tooltip {
+  position: fixed;
+  z-index: 9999;
+  background: var(--flux-dark, #2D3436);
+  color: #fff;
+  border-radius: 12px;
+  padding: 16px 20px;
+  min-width: 260px;
+  max-width: 340px;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.3), 0 0 0 1px rgba(221,164,111,0.2);
+  opacity: 0;
+  transform: translateY(8px) scale(0.96);
+  transition: opacity 0.25s, transform 0.25s cubic-bezier(0.175,0.885,0.32,1.275);
+  pointer-events: auto;
+  font-family: var(--flux-font-body, 'Poppins', sans-serif);
+}
+
+.flux-skyline-tooltip.visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.flux-skyline-tooltip-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.flux-skyline-tooltip-icon {
+  font-size: 28px;
+  line-height: 1;
+}
+
+.flux-skyline-tooltip-name {
+  font-family: var(--flux-font-heading, 'Open Sans', sans-serif);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--flux-green, #09B474);
+}
+
+.flux-skyline-tooltip-name-ar {
+  font-size: 13px;
+  opacity: 0.7;
+  direction: rtl;
+  font-family: var(--flux-font-heading, 'Open Sans', sans-serif);
+}
+
+.flux-skyline-tooltip-bar {
+  height: 2px;
+  background: linear-gradient(90deg, var(--flux-green, #09B474), transparent);
+  margin-bottom: 10px;
+  border-radius: 2px;
+}
+
+.flux-skyline-tooltip-stats {
+  display: flex;
+  gap: 16px;
+  font-size: 12px;
+  margin-bottom: 8px;
+  opacity: 0.85;
+}
+
+.flux-skyline-tooltip-fact {
+  font-size: 12px;
+  line-height: 1.6;
+  margin: 0;
+  opacity: 0.9;
+}
+
+/* Hotspot hover glow */
+.flux-skyline-hotspot:hover ~ * {
+  filter: drop-shadow(0 0 4px rgba(221,164,111,0.3));
+}
+
+/* Dark mode */
+[data-theme="flux-dark"] .flux-skyline-tooltip {
+  background: #0f1720;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.5), 0 0 0 1px rgba(221,164,111,0.3);
+}
+
+/* RTL */
+[dir="rtl"] .flux-skyline-tooltip-header {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .flux-skyline-tooltip-name-ar {
+  direction: rtl;
+  text-align: right;
+}
+
+[dir="rtl"] .flux-skyline-tooltip-bar {
+  background: linear-gradient(270deg, var(--flux-green, #09B474), transparent);
+}

@@ -1,0 +1,193 @@
+// ============================================================
+// FLUX Theme - Mobile Bottom Navigation
+// Bottom nav bar for mobile devices (< 768px)
+// ============================================================
+
+// ─── Bottom Nav Container ───
+.flux-mobile-nav {
+  display: none; // Hidden on desktop
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1050;
+  background: var(--flux-dark, #2D3436);
+  border-top: 1px solid rgba(9, 180, 116, 0.15);
+  padding: 0;
+  padding-bottom: env(safe-area-inset-bottom, 0); // iPhone notch
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.15);
+  transform: translateY(0);
+  transition: transform 0.3s ease;
+
+  // Green shimmer at top
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(9, 180, 116, 0.5), transparent);
+  }
+
+  // Hide when scrolling down
+  &.flux-nav-hidden {
+    transform: translateY(100%);
+  }
+}
+
+// ─── Nav Items Grid ───
+.flux-mobile-nav-items {
+  display: flex;
+  justify-content: space-around;
+  align-items: stretch;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+// ─── Nav Item ───
+.flux-mobile-nav-item {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  a,
+  button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    padding: 10px 4px 8px;
+    width: 100%;
+    border: none;
+    background: transparent;
+    color: rgba(240, 245, 243, 0.5);
+    text-decoration: none;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    transition: color 0.2s ease;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+
+    svg {
+      width: 22px;
+      height: 22px;
+      stroke-width: 1.8;
+      transition: all 0.2s ease;
+    }
+
+    // Active state
+    &.active,
+    &[aria-current="page"] {
+      color: var(--flux-green, #09B474);
+
+      svg {
+        stroke: var(--flux-green, #09B474);
+      }
+
+      // Green dot indicator
+      &::after {
+        content: '';
+        display: block;
+        width: 4px;
+        height: 4px;
+        border-radius: 50%;
+        background: var(--flux-green, #09B474);
+        margin-top: 2px;
+      }
+    }
+
+    &:hover,
+    &:active {
+      color: var(--flux-green, #09B474);
+    }
+
+    // Tap ripple effect
+    &:active {
+      transform: scale(0.92);
+    }
+  }
+}
+
+// ─── Nav Label ───
+.flux-mobile-nav-label {
+  font-family: var(--flux-font-body, 'Poppins', sans-serif);
+  white-space: nowrap;
+}
+
+// ─── Notification Badge ───
+.flux-mobile-nav-badge {
+  position: absolute;
+  top: 4px;
+  right: calc(50% - 16px);
+  min-width: 16px;
+  height: 16px;
+  padding: 0 4px;
+  border-radius: 8px;
+  background: var(--flux-danger, #EA2424);
+  color: #fff;
+  font-size: 9px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+// ─── Mobile Only ───
+@media (max-width: 767px) {
+  .flux-mobile-nav {
+    display: block;
+  }
+
+  // Add bottom padding to body so content isn't hidden behind nav
+  body {
+    padding-bottom: 64px !important;
+  }
+
+  // Hide some top navbar items on mobile
+  .navbar .navbar-nav {
+    .flux-darkmode-toggle,
+    .flux-sound-toggle {
+      display: none !important;
+    }
+  }
+
+  // Adjust page container
+  .page-container {
+    margin-bottom: 0;
+  }
+}
+
+// ─── Dark Mode ───
+[data-theme="flux-dark"] {
+  .flux-mobile-nav {
+    background: #0F1419;
+    border-top-color: rgba(9, 180, 116, 0.1);
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.3);
+  }
+}
+
+// ─── RTL ───
+[dir="rtl"] {
+  .flux-mobile-nav-badge {
+    right: auto;
+    left: calc(50% - 16px);
+  }
+}
+
+// ─── Landscape Safety ───
+@media (max-height: 400px) and (max-width: 767px) {
+  .flux-mobile-nav {
+    // Hide in landscape on very small screens
+    display: none !important;
+  }
+
+  body {
+    padding-bottom: 0 !important;
+  }
+}

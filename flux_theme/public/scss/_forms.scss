@@ -1,0 +1,375 @@
+// ============================================================
+// FLUX Theme - Forms
+// ============================================================
+
+// ─── Form Container ───
+.frappe-control,
+.form-group {
+  margin-bottom: 16px;
+}
+
+// ─── Input Base Styles ───
+.form-control,
+.input-with-feedback,
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+input[type="tel"],
+input[type="url"],
+input[type="search"],
+input[type="date"],
+input[type="datetime-local"],
+input[type="time"],
+textarea,
+select {
+  background-color: var(--flux-light);
+  border: 1px solid #E5DDD5;
+  border-radius: var(--flux-radius-md);
+  color: var(--flux-text);
+  font-family: 'Poppins', sans-serif;
+  font-size: 13px;
+  padding: 8px 12px;
+  transition: all var(--flux-transition-fast);
+  width: 100%;
+  
+  &::placeholder {
+    color: var(--flux-text-muted);
+    opacity: 0.7;
+  }
+  
+  &:hover {
+    border-color: #D0C8C0;
+  }
+  
+  &:focus {
+    @include flux-focus-ring;
+    background-color: #fff;
+  }
+  
+  &:disabled,
+  &[readonly],
+  &.disabled {
+    background-color: var(--flux-light-warm);
+    color: var(--flux-text-muted);
+    cursor: not-allowed;
+  }
+}
+
+// ─── Textarea ───
+textarea.form-control {
+  min-height: 100px;
+  resize: vertical;
+}
+
+// ─── Select Dropdowns ───
+select.form-control,
+.frappe-control[data-fieldtype="Select"] select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23DDA46F' d='M2 4l4 4 4-4'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 12px;
+  padding-right: 36px;
+  cursor: pointer;
+}
+
+// ─── Awesomplete / Autocomplete ───
+.awesomplete {
+  > ul {
+    background: var(--flux-light);
+    border: 1px solid #E5DDD5;
+    border-radius: var(--flux-radius-md);
+    box-shadow: var(--flux-shadow-lg);
+    
+    > li {
+      padding: 8px 12px;
+      color: var(--flux-text);
+      
+      &:hover,
+      &[aria-selected="true"] {
+        background-color: var(--flux-light-warm);
+        color: var(--flux-dark);
+      }
+      
+      mark {
+        background-color: var(--flux-green);
+        color: var(--flux-dark);
+        padding: 0 2px;
+        border-radius: 2px;
+      }
+    }
+  }
+}
+
+// ─── Link Field ───
+.frappe-control[data-fieldtype="Link"] {
+  .link-btn {
+    color: var(--flux-green);
+    
+    &:hover {
+      color: var(--flux-green-dark);
+    }
+  }
+  
+  .btn-open {
+    color: var(--flux-green);
+  }
+}
+
+// ─── Checkbox & Radio ───
+.checkbox,
+.frappe-control[data-fieldtype="Check"] {
+  input[type="checkbox"] {
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border: 2px solid var(--flux-dark);
+    border-radius: var(--flux-radius-sm);
+    cursor: pointer;
+    transition: all var(--flux-transition-fast);
+    position: relative;
+    
+    &:checked {
+      background-color: var(--flux-green);
+      border-color: var(--flux-green);
+      
+      &::after {
+        content: "";
+        position: absolute;
+        left: 5px;
+        top: 2px;
+        width: 5px;
+        height: 9px;
+        border: solid var(--flux-dark);
+        border-width: 0 2px 2px 0;
+        transform: rotate(45deg);
+      }
+    }
+    
+    &:focus {
+      @include flux-focus-ring;
+    }
+    
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+}
+
+input[type="radio"] {
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--flux-dark);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all var(--flux-transition-fast);
+  position: relative;
+  
+  &:checked {
+    border-color: var(--flux-green);
+    
+    &::after {
+      content: "";
+      position: absolute;
+      left: 4px;
+      top: 4px;
+      width: 8px;
+      height: 8px;
+      background-color: var(--flux-green);
+      border-radius: 50%;
+    }
+  }
+  
+  &:focus {
+    @include flux-focus-ring;
+  }
+}
+
+// ─── Required Indicator ───
+.reqd,
+.mandatory,
+label.reqd::after,
+.control-label.reqd::after {
+  color: var(--flux-green);
+}
+
+.has-error .control-label::after {
+  color: var(--flux-green);
+  content: " *";
+}
+
+// ─── Form Sections ───
+.form-section,
+.section-body {
+  .section-head {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 500;
+    color: var(--flux-dark);
+    border-bottom: 1px solid var(--flux-green);
+    padding-bottom: 8px;
+    margin-bottom: 16px;
+  }
+}
+
+.form-column {
+  padding: 0 15px;
+}
+
+// ─── Read-only Fields ───
+.like-disabled-input,
+.form-control[disabled],
+.form-control[readonly] {
+  background-color: var(--flux-light-warm);
+  color: var(--flux-text-muted);
+  border-color: transparent;
+}
+
+// ─── Date Picker ───
+.datepicker {
+  background: var(--flux-light);
+  border: 1px solid #E5DDD5;
+  border-radius: var(--flux-radius-md);
+  box-shadow: var(--flux-shadow-lg);
+  
+  .datepicker-days {
+    .day {
+      color: var(--flux-text);
+      
+      &:hover {
+        background: var(--flux-light-warm);
+      }
+      
+      &.active,
+      &.active:hover {
+        background: var(--flux-green);
+        color: var(--flux-dark);
+      }
+      
+      &.today {
+        border-color: var(--flux-green);
+      }
+    }
+  }
+}
+
+// ─── Time Picker ───
+.timepicker {
+  background: var(--flux-light);
+  border: 1px solid #E5DDD5;
+  
+  .btn {
+    color: var(--flux-dark);
+    
+    &:hover {
+      background: var(--flux-light-warm);
+    }
+  }
+}
+
+// ─── File Upload ───
+.file-uploader,
+.attach-btn-change {
+  border: 2px dashed #E5DDD5;
+  border-radius: var(--flux-radius-md);
+  background: var(--flux-light-cool);
+  padding: 20px;
+  text-align: center;
+  transition: all var(--flux-transition-fast);
+  
+  &:hover {
+    border-color: var(--flux-green);
+    background: var(--flux-light);
+  }
+  
+  .btn {
+    color: var(--flux-green);
+  }
+}
+
+// ─── HTML Editor / Text Editor ───
+.ql-toolbar.ql-snow,
+.ql-container.ql-snow {
+  border-color: #E5DDD5;
+}
+
+.ql-toolbar.ql-snow {
+  background: var(--flux-light-cool);
+  border-radius: var(--flux-radius-md) var(--flux-radius-md) 0 0;
+}
+
+.ql-container.ql-snow {
+  background: var(--flux-light);
+  border-radius: 0 0 var(--flux-radius-md) var(--flux-radius-md);
+}
+
+// ─── Search Input ───
+.search-bar,
+.input-group.search-group {
+  input {
+    background: var(--flux-light);
+    border-color: #E5DDD5;
+    
+    &:focus {
+      @include flux-focus-ring;
+    }
+  }
+  
+  .search-icon {
+    color: var(--flux-text-muted);
+  }
+}
+
+// ─── Comment Box ───
+.comment-box {
+  background: var(--flux-light-warm);
+  border-radius: var(--flux-radius-md);
+  padding: 12px;
+  
+  textarea {
+    background: var(--flux-light);
+  }
+}
+
+// ─── Validation States ───
+.has-error {
+  .form-control,
+  input,
+  select,
+  textarea {
+    border-color: var(--flux-danger);
+    
+    &:focus {
+      border-color: var(--flux-danger);
+      box-shadow: 0 0 0 3px rgba(155, 27, 48, 0.15);
+    }
+  }
+  
+  .help-block {
+    color: var(--flux-danger);
+  }
+}
+
+.has-success {
+  .form-control,
+  input,
+  select,
+  textarea {
+    border-color: var(--flux-success);
+  }
+}
+
+// ─── Form Actions ───
+.form-footer {
+  background: var(--flux-light-cool);
+  border-top: 1px solid #E5DDD5;
+  padding: 12px 16px;
+  
+  .btn-primary {
+    background: var(--flux-green);
+    border-color: var(--flux-green);
+    color: var(--flux-dark);
+  }
+}

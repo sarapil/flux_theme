@@ -1,0 +1,137 @@
+// ============================================================
+// FLUX Theme - Variables & CSS Custom Properties
+// Modern Co-Working Space Brand System
+// ============================================================
+
+// ─── Primary Palette ───
+$flux-green: #09B474;
+$flux-green-light: #3DD99A;
+$flux-green-dark: #067A4E;
+$flux-olive: #067A4E;
+$flux-dark: #2D3436;
+$flux-dark-light: #3D4F51;
+$flux-dark-deep: #1A2526;
+$flux-light: #F0F5F3;
+$flux-light-warm: #E0EDE7;
+$flux-light-cool: #F5FAF8;
+$flux-black: #000000;
+$flux-text: #333333;
+$flux-text-muted: #868686;
+
+// ─── Accent Colors ───
+$flux-red: #EA2424;
+$flux-accent: #EA2424;           // Red accent for links/hover (like fluxcoworking.space)
+$flux-accent-light: #FF4444;
+$flux-accent-dark: #C41E1E;
+$flux-blue: #0074A2;
+
+// ─── Semantic Colors ───
+$flux-success: #09B474;
+$flux-danger: #EA2424;
+$flux-warning: #F0AD4E;
+$flux-info: #0074A2;
+
+// ─── Transitions ───
+$flux-transition-fast: 150ms ease;
+$flux-transition-base: 250ms ease;
+$flux-transition-slow: 400ms ease-out;
+
+// ─── Shadows ───
+$flux-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
+$flux-shadow-md: 0 4px 6px rgba(0, 0, 0, 0.06);
+$flux-shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.08);
+
+// ─── Border Radius ───
+$flux-radius-sm: 4px;
+$flux-radius-md: 6px;
+$flux-radius-lg: 8px;
+$flux-radius-full: 9999px;
+
+// ─── CSS Custom Properties (Runtime Theming) ───
+:root {
+  // Primary Palette
+  --flux-green: #{$flux-green};
+  --flux-green-light: #{$flux-green-light};
+  --flux-green-dark: #{$flux-green-dark};
+  --flux-olive: #{$flux-olive};
+  --flux-dark: #{$flux-dark};
+  --flux-dark-light: #{$flux-dark-light};
+  --flux-dark-deep: #{$flux-dark-deep};
+  --flux-light: #{$flux-light};
+  --flux-light-warm: #{$flux-light-warm};
+  --flux-light-cool: #{$flux-light-cool};
+  --flux-black: #{$flux-black};
+  --flux-text: #{$flux-text};
+  --flux-text-muted: #{$flux-text-muted};
+  --flux-red: #{$flux-red};
+  --flux-accent: #{$flux-accent};
+  --flux-accent-light: #{$flux-accent-light};
+  --flux-accent-dark: #{$flux-accent-dark};
+  --flux-blue: #{$flux-blue};
+  
+  // Semantic Tokens
+  --flux-success: #{$flux-success};
+  --flux-danger: #{$flux-danger};
+  --flux-warning: #{$flux-warning};
+  --flux-info: #{$flux-info};
+  
+  // Surfaces
+  --flux-surface: var(--flux-light);
+  --flux-surface-raised: rgba(255, 255, 255, 0.03);
+  --flux-surface-overlay: rgba(45, 52, 54, 0.7);
+  
+  // Transitions
+  --flux-transition-fast: #{$flux-transition-fast};
+  --flux-transition-base: #{$flux-transition-base};
+  --flux-transition-slow: #{$flux-transition-slow};
+  
+  // Shadows
+  --flux-shadow-sm: #{$flux-shadow-sm};
+  --flux-shadow-md: #{$flux-shadow-md};
+  --flux-shadow-lg: #{$flux-shadow-lg};
+  
+  // Border Radius
+  --flux-radius-sm: #{$flux-radius-sm};
+  --flux-radius-md: #{$flux-radius-md};
+  --flux-radius-lg: #{$flux-radius-lg};
+  --flux-radius-full: #{$flux-radius-full};
+  
+  // Component-specific
+  --navbar-height: 48px;
+  --sidebar-width: 220px;
+  --sidebar-collapsed-width: 60px;
+}
+
+// ─── Utility Mixins ───
+@mixin flux-glass {
+  background: rgba(45, 52, 54, 0.8);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+@mixin flux-card-elevated {
+  background: var(--flux-light);
+  box-shadow: var(--flux-shadow-md);
+  border-radius: var(--flux-radius-md);
+}
+
+@mixin flux-green-glow {
+  box-shadow: 0 0 20px rgba(9, 180, 116, 0.3);
+}
+
+@mixin flux-focus-ring {
+  outline: none;
+  border-color: var(--flux-green);
+  box-shadow: 0 0 0 3px rgba(9, 180, 116, 0.15);
+}
+
+// ─── Reduced Motion Support ───
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
