@@ -73,4 +73,8 @@ app_logo_url = "/assets/flux_theme/images/logo-login.png"
 boot_session = "flux_theme.boot.boot_session"
 
 # Required for frappe compatibility
+
+# ─── Post-Migration Seed ───
+after_migrate = ["flux_theme.flux_theme.seed.seed_data"]
+
 required_apps = ["frappe"]
