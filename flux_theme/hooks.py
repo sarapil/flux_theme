@@ -78,3 +78,17 @@ boot_session = "flux_theme.boot.boot_session"
 after_migrate = ["flux_theme.flux_theme.seed.seed_data"]
 
 required_apps = ["frappe"]
+
+# CAPS Integration — Capability-Based Access Control
+# ------------------------------------------------------------
+caps_capabilities = [
+    {"name": "FT_manage_theme", "category": "Module", "description": "Configure Flux Theme settings"},
+    {"name": "FT_customize_design", "category": "Action", "description": "Customize design tokens and styles"},
+    {"name": "FT_manage_assets", "category": "Action", "description": "Upload and manage theme assets"},
+]
+
+# Fixtures
+# --------------------------------------------------------
+fixtures = [
+    {"dt": "Custom Field", "filters": [["module", "=", "Flux Theme"]]},
+]
