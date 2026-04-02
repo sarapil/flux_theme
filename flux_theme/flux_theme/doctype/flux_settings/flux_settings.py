@@ -23,6 +23,7 @@ class FLUXSettings(Document):
 @frappe.whitelist()
 def get_flux_settings():
 	"""Return FLUX settings as dict for boot/JS consumption."""
+	frappe.only_for(["System Manager"])
 	try:
 		doc = frappe.get_single("FLUX Settings")
 		return {

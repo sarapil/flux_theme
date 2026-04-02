@@ -107,3 +107,8 @@ docker-compose.override.yml
 
 # ─── Media uploads (if any) ───
 flux_theme/public/files/
+
+# AI Tools
+.aider*
+.copilot/
+.cursor/
