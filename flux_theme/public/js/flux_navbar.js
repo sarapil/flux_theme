@@ -16,8 +16,9 @@
 	flux.navbar = {
 		/* ──────────────────────────── bootstrap ─── */
 		init: function () {
-			// Wait for Frappe toolbar to render the navbar
-			if (!document.querySelector("header.navbar")) {
+			// v16: Wait for sidebar or toolbar to render.
+			// The navbar is minimal in v16 — sidebar is the primary nav.
+			if (!document.querySelector(".body-sidebar") && !document.querySelector("header.navbar")) {
 				setTimeout(function () { flux.navbar.init(); }, 200);
 				return;
 			}
@@ -48,46 +49,66 @@
 		   ═══════════════════════════════════════════ */
 		wrapSearchBar: function () {
 			var bar = document.querySelector(".search-bar");
-			if (!bar) return;
-
-			// Hide the original search bar (keep it in DOM so Frappe's
-			// AwesomeBar instance still works when we focus it).
-			bar.style.cssText =
-				"position:fixed!important;top:-200px!important;left:50%!important;" +
-				"transform:translateX(-50%)!important;width:500px!important;" +
-				"opacity:0!important;pointer-events:none!important;z-index:-1!important;";
-			bar.classList.remove("hidden");
-
-			// Insert a search icon button into the correct .navbar-nav
-			// IMPORTANT: Frappe has TWO .navbar-nav elements:
-			//   1) ul#navbar-breadcrumbs.nav.navbar-nav  (breadcrumbs — wrong one)
-			//   2) ul.navbar-nav inside .navbar-collapse  (nav items — correct one)
-			// We must target the one inside .navbar-collapse, NOT the breadcrumbs.
-			var navbarNav = document.querySelector(".navbar-collapse .navbar-nav");
-			if (!navbarNav) {
-				navbarNav = document.querySelector(".navbar .collapse .navbar-nav");
+			if (bar) {
+				// Hide the original search bar (keep it in DOM so Frappe's
+				// AwesomeBar instance still works when we focus it).
+				bar.style.cssText =
+					"position:fixed!important;top:-200px!important;left:50%!important;" +
+					"transform:translateX(-50%)!important;width:500px!important;" +
+					"opacity:0!important;pointer-events:none!important;z-index:-1!important;";
+				bar.classList.remove("hidden");
 			}
-			if (!navbarNav) return;
 
 			// Don't insert if already present
 			if (document.querySelector(".flux-search-trigger")) return;
 
-			var searchLi = document.createElement("li");
-			searchLi.className = "nav-item flux-search-trigger";
-			// Use inline SVG instead of <use href> for reliability
-			searchLi.innerHTML =
-				'<button class="btn-reset nav-link flux-search-btn" title="Search (Ctrl+G)">' +
-				'<svg class="flux-search-svg" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" ' +
-				'style="width:18px;height:18px;stroke:#F0F5F3;fill:none;stroke-width:1.5;">' +
-				'<path d="M7.389 12.278a4.889 4.889 0 1 0 0-9.778 4.889 4.889 0 0 0 0 9.778z' +
-				'M13.5 13.5l-2.658-2.658" stroke-linecap="round" stroke-linejoin="round"/>' +
-				'</svg></button>';
-			navbarNav.insertBefore(searchLi, navbarNav.firstChild);
+			// v16: Primary navigation is in the sidebar (.body-sidebar-bottom).
+			// The traditional navbar is minimal/hidden on desktop.
+			// Insert search trigger into sidebar bottom area.
+			var sidebarBottom = document.querySelector(".body-sidebar-bottom");
+			var navbarNav = document.querySelector(".navbar-collapse .navbar-nav");
 
-			searchLi.querySelector("button").addEventListener("click", function (e) {
-				e.preventDefault();
-				flux.navbar.openSearch();
-			});
+			if (sidebarBottom) {
+				// v16 sidebar injection
+				var searchDiv = document.createElement("div");
+				searchDiv.className = "flux-search-trigger flux-sidebar-action";
+				searchDiv.innerHTML =
+					'<a class="item-anchor flux-search-btn" title="Search (Ctrl+G)" role="button">' +
+					'<span class="sidebar-item-icon">' +
+					'<svg class="flux-search-svg" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" ' +
+					'style="width:16px;height:16px;stroke:var(--text-muted);fill:none;stroke-width:1.5;">' +
+					'<path d="M7.389 12.278a4.889 4.889 0 1 0 0-9.778 4.889 4.889 0 0 0 0 9.778z' +
+					'M13.5 13.5l-2.658-2.658" stroke-linecap="round" stroke-linejoin="round"/>' +
+					'</svg></span>' +
+					'<span class="sidebar-item-label">Search</span>' +
+					'</a>';
+				var collapseLink = sidebarBottom.querySelector(".collapse-sidebar-link");
+				if (collapseLink) {
+					sidebarBottom.insertBefore(searchDiv, collapseLink);
+				} else {
+					sidebarBottom.insertBefore(searchDiv, sidebarBottom.firstChild);
+				}
+				searchDiv.querySelector(".flux-search-btn").addEventListener("click", function (e) {
+					e.preventDefault();
+					flux.navbar.openSearch();
+				});
+			} else if (navbarNav) {
+				// Fallback: mobile/legacy navbar
+				var searchLi = document.createElement("li");
+				searchLi.className = "nav-item flux-search-trigger";
+				searchLi.innerHTML =
+					'<button class="btn-reset nav-link flux-search-btn" title="Search (Ctrl+G)">' +
+					'<svg class="flux-search-svg" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" ' +
+					'style="width:18px;height:18px;stroke:#F0F5F3;fill:none;stroke-width:1.5;">' +
+					'<path d="M7.389 12.278a4.889 4.889 0 1 0 0-9.778 4.889 4.889 0 0 0 0 9.778z' +
+					'M13.5 13.5l-2.658-2.658" stroke-linecap="round" stroke-linejoin="round"/>' +
+					'</svg></button>';
+				navbarNav.insertBefore(searchLi, navbarNav.firstChild);
+				searchLi.querySelector("button").addEventListener("click", function (e) {
+					e.preventDefault();
+					flux.navbar.openSearch();
+				});
+			}
 		},
 
 		_searchOpen: false,
@@ -276,6 +297,7 @@
 		   HELP — hide completely
 		   ═══════════════════════════════════════════ */
 		hideHelp: function () {
+			// v16: .dropdown-help may be in sidebar or navbar (mobile)
 			var helpItems = document.querySelectorAll(".dropdown-help");
 			helpItems.forEach(function (el) {
 				el.style.display = "none";
@@ -292,8 +314,9 @@
 		   NOTIFICATIONS — animate bell
 		   ═══════════════════════════════════════════ */
 		patchNotifications: function () {
-			// Watch for the .notifications-unseen indicator becoming visible
-			var notifLi = document.querySelector(".dropdown-notifications");
+			// v16: notifications are in the sidebar (.body-sidebar .dropdown-notifications)
+			var notifLi = document.querySelector(".body-sidebar .dropdown-notifications") ||
+			              document.querySelector(".dropdown-notifications");
 			if (!notifLi) return;
 
 			// Add FLUX class for styling
@@ -320,6 +343,7 @@
 		   CHAT — restyle icon
 		   ═══════════════════════════════════════════ */
 		patchChat: function () {
+			// v16: chat icon may be in sidebar or absent
 			var chatLi = document.querySelector(".dropdown-message");
 			if (!chatLi) return;
 			chatLi.classList.add("flux-chat");

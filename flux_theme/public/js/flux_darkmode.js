@@ -121,41 +121,76 @@
          * Inject moon/sun toggle into the navbar.
          */
         _injectToggle: function() {
-            // Wait for navbar to render
-            var navbarNav = document.querySelector('.navbar-collapse .navbar-nav');
-            if (!navbarNav) {
-                var self = this;
-                setTimeout(function() { self._injectToggle(); }, 300);
-                return;
-            }
-
             // Don't inject twice
             if (document.querySelector('.flux-darkmode-toggle')) return;
 
-            var li = document.createElement('li');
-            li.className = 'nav-item flux-darkmode-toggle';
+            // v16: Primary navigation is in the sidebar (.body-sidebar-bottom).
+            // The traditional navbar is minimal/hidden on desktop.
+            var sidebarBottom = document.querySelector('.body-sidebar-bottom');
+            var navbarNav = document.querySelector('.navbar-collapse .navbar-nav');
 
-            var btn = document.createElement('button');
-            btn.className = 'btn-reset nav-link flux-darkmode-btn';
-            btn.title = 'Toggle Dark Mode';
-            btn.setAttribute('aria-label', 'Toggle dark mode');
-            btn.innerHTML = this._getIcon();
+            if (sidebarBottom) {
+                // v16 sidebar injection
+                var div = document.createElement('div');
+                div.className = 'flux-darkmode-toggle flux-sidebar-action';
 
-            var self = this;
-            btn.addEventListener('click', function(e) {
-                e.preventDefault();
-                e.stopPropagation();
-                self.toggle();
-            });
+                var btn = document.createElement('a');
+                btn.className = 'item-anchor flux-darkmode-btn';
+                btn.title = 'Toggle Dark Mode';
+                btn.setAttribute('aria-label', 'Toggle dark mode');
+                btn.setAttribute('role', 'button');
+                btn.innerHTML =
+                    '<span class="sidebar-item-icon">' + this._getIcon() + '</span>' +
+                    '<span class="sidebar-item-label">' +
+                    (this.isDark() ? 'Light Mode' : 'Dark Mode') + '</span>';
 
-            li.appendChild(btn);
+                var self = this;
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    self.toggle();
+                    // Update label
+                    var label = btn.querySelector('.sidebar-item-label');
+                    if (label) label.textContent = self.isDark() ? 'Light Mode' : 'Dark Mode';
+                });
 
-            // Insert after search trigger (or at beginning)
-            var searchTrigger = navbarNav.querySelector('.flux-search-trigger');
-            if (searchTrigger) {
-                searchTrigger.parentNode.insertBefore(li, searchTrigger.nextSibling);
-            } else {
+                div.appendChild(btn);
+
+                // Insert before collapse link
+                var collapseLink = sidebarBottom.querySelector('.collapse-sidebar-link');
+                var searchTrigger = sidebarBottom.querySelector('.flux-search-trigger');
+                if (searchTrigger) {
+                    sidebarBottom.insertBefore(div, searchTrigger.nextSibling);
+                } else if (collapseLink) {
+                    sidebarBottom.insertBefore(div, collapseLink);
+                } else {
+                    sidebarBottom.insertBefore(div, sidebarBottom.firstChild);
+                }
+            } else if (navbarNav) {
+                // Fallback: mobile/legacy navbar
+                var li = document.createElement('li');
+                li.className = 'nav-item flux-darkmode-toggle';
+
+                var btn = document.createElement('button');
+                btn.className = 'btn-reset nav-link flux-darkmode-btn';
+                btn.title = 'Toggle Dark Mode';
+                btn.setAttribute('aria-label', 'Toggle dark mode');
+                btn.innerHTML = this._getIcon();
+
+                var self = this;
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    self.toggle();
+                });
+
+                li.appendChild(btn);
                 navbarNav.insertBefore(li, navbarNav.firstChild);
+            } else {
+                // Neither found yet, retry
+                var self = this;
+                setTimeout(function() { self._injectToggle(); }, 300);
+                return;
             }
         },
 

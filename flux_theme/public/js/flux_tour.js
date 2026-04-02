@@ -16,28 +16,28 @@
 
         TOUR_STEPS: [
             {
-                selector: '.navbar-brand',
+                selector: '.body-sidebar .sidebar-items, .navbar-brand',
                 title: 'Welcome to FLUX',
                 titleAr: 'مرحباً بك في تافيرا',
                 text: 'Your modern co-working space ERP experience starts here. This guided tour will show you around.',
-                position: 'bottom'
+                position: 'right'
             },
             {
-                selector: '.search-bar, .navbar .search-bar-section',
+                selector: '.flux-search-trigger, .search-bar',
                 title: 'Smart Search',
                 titleAr: 'البحث الذكي',
                 text: 'Press Ctrl+K to quickly search across documents, pages, and settings.',
-                position: 'bottom'
+                position: 'right'
             },
             {
-                selector: '#navbar-breadcrumbs, .page-head',
+                selector: '.page-head, #navbar-breadcrumbs',
                 title: 'Navigation',
                 titleAr: 'التنقل',
                 text: 'Breadcrumbs and page headers help you navigate through the system efficiently.',
                 position: 'bottom'
             },
             {
-                selector: '.main-sidebar, .desk-sidebar',
+                selector: '.body-sidebar-container, .body-sidebar',
                 title: 'Sidebar',
                 titleAr: 'الشريط الجانبي',
                 text: 'Access all modules, shortcuts, and your workspace from the sidebar.',

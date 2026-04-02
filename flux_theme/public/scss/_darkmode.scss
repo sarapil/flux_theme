@@ -392,6 +392,8 @@ $dark-text-muted: rgba(232, 240, 236, 0.45);
   }
 
   // ─── Workspace — keep dark skyline as-is ───
+  // v16: #page-Workspaces is gone; target .page-main-content
+  .page-main-content,
   #page-Workspaces {
     .widget-body {
       background: rgba(15, 20, 25, 0.65) !important;
@@ -409,10 +411,76 @@ $dark-text-muted: rgba(232, 240, 236, 0.45);
     }
   }
 
-  // ─── Sidebar — deepen slightly ───
+  // ─── Sidebar — dark metallic for dark mode ───
   .layout-side-section {
-    background: linear-gradient(180deg, #0B0F14 0%, #1A2526 60%, #0F1419 100%) !important;
+    background:
+      linear-gradient(175deg,
+        #18191C 0%,
+        #1E2024 18%,
+        #1A1C20 35%,
+        #222428 52%,
+        #1C1E22 68%,
+        #1F2125 85%,
+        #18191D 100%) !important;
     border-right-color: $dark-border !important;
+
+    &::before {
+      background: linear-gradient(105deg,
+        transparent 35%,
+        rgba(9, 180, 116, 0.02) 42%,
+        rgba(9, 180, 116, 0.05) 48%,
+        rgba(9, 180, 116, 0.02) 54%,
+        transparent 61%);
+    }
+
+    .desk-sidebar, .standard-sidebar {
+      .sidebar-label, .sidebar-section-head {
+        color: rgba(9, 180, 116, 0.35) !important;
+      }
+      .standard-sidebar-item {
+        a, .item-anchor, .sidebar-item-label {
+          color: rgba(240, 245, 243, 0.6) !important;
+        }
+        .sidebar-item-icon, .sidebar-icon {
+          --icon-stroke: rgba(240, 245, 243, 0.45);
+          svg { stroke: rgba(240, 245, 243, 0.45); }
+        }
+        &:hover {
+          a, .item-anchor, .sidebar-item-label { color: #F0F5F3 !important; }
+          .sidebar-item-icon svg { stroke: #F0F5F3; }
+        }
+        &.selected {
+          a, .item-anchor, .sidebar-item-label { color: #F0F5F3 !important; }
+        }
+      }
+    }
+
+    .filter-section {
+      .filter-label, label, span { color: rgba(240, 245, 243, 0.45) !important; }
+      input, select, .form-control {
+        background: rgba(240, 245, 243, 0.04) !important;
+        border-color: rgba(9, 180, 116, 0.08) !important;
+        color: rgba(240, 245, 243, 0.85) !important;
+      }
+    }
+  }
+
+  // v16: Body sidebar dark mode
+  .body-sidebar {
+    background: linear-gradient(180deg, #0A0A0A 0%, #111111 50%, #181818 100%) !important;
+    border-right-color: $dark-border !important;
+  }
+
+  // Sidebar header in dark mode
+  .sidebar-header .sidebar-item-icon {
+    background-color: rgba(234, 36, 36, 0.06) !important;
+    border-color: rgba(234, 36, 36, 0.08);
+  }
+
+  // Sidebar bottom user dropdown in dark mode
+  .body-sidebar-bottom .dropdown-navbar-user .dropdown-menu {
+    background: rgba(10, 10, 10, 0.98) !important;
+    border-color: rgba(234, 36, 36, 0.06) !important;
   }
 
   // ─── Footer ───

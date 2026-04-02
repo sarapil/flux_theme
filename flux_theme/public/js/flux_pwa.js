@@ -63,7 +63,7 @@
             if (!('serviceWorker' in navigator)) return;
 
             navigator.serviceWorker.register('/assets/flux_theme/sw.js', {
-                scope: '/app'
+                scope: '/desk'
             }).then(function(reg) {
                 console.log('[FLUX] Service worker registered:', reg.scope);
             }).catch(function(err) {
@@ -104,9 +104,22 @@
             var self = this;
             btn.onclick = function() { self.promptInstall(); };
 
+            // v16: navbar is minimal — try sidebar first, then navbar as fallback
+            var sidebarBottom = document.querySelector('.body-sidebar-bottom');
             var navbar = document.querySelector('.navbar .navbar-nav:last-child') ||
                          document.querySelector('.navbar-right');
-            if (navbar) {
+
+            if (sidebarBottom) {
+                var div = document.createElement('div');
+                div.className = 'flux-pwa-install-btn flux-sidebar-action';
+                div.innerHTML =
+                    '<a class="item-anchor" role="button" title="Install FLUX App">' +
+                    '<span class="sidebar-item-icon">📲</span>' +
+                    '<span class="sidebar-item-label">Install App</span></a>';
+                div.querySelector('a').onclick = function() { self.promptInstall(); };
+                sidebarBottom.insertBefore(div, sidebarBottom.firstChild);
+                this._installBtn = div;
+            } else if (navbar) {
                 var li = document.createElement('li');
                 li.className = 'nav-item';
                 li.appendChild(btn);

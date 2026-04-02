@@ -1,6 +1,6 @@
 /**
  * FLUX Theme - Theme Initializer & Coordinator
- * Modern Co-Working Space Theme for Frappe 15
+ * Modern Co-Working Space Theme for Frappe 16
  * 
  * This is the main entry point that coordinates all theme modules.
  */
@@ -13,7 +13,7 @@
 
     // Theme Configuration
     flux.config = {
-        version: '1.0.0',
+        version: '16.0.0',
         brandName: 'FLUX',
         paths: {
             logo: '/assets/flux_theme/images/logo.png',

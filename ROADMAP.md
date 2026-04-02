@@ -1,12 +1,78 @@
-# FLUX Theme — Roadmap & Feature Proposals
+# 🗺️ FLUX Theme — Roadmap & Feature Proposals
 
-> Feature proposals organized by priority. Completed items are moved to the
-> [✅ Completed](#-completed-features) section at the bottom and documented
-> in the app's documentation files.
+> All original 25 roadmap features are ✅ **COMPLETED**. This file now tracks
+> new proposals discovered during development. Completed items remain in the
+> [✅ Completed](#-completed-features) section below.
 
 ---
 
-## 🔴 Critical Priority
+## 🆕 New Proposals (Discovered During Development)
+
+> These ideas emerged during the development process and chat sessions.
+> They are organized by priority and ready for implementation.
+
+### 🔴 High Priority
+
+#### P1. Theme Selector in Site Settings
+**Description:** Currently `site_config.json` has `"theme": "tavira_theme"`. Need a way to switch between tavira_theme and flux_theme from the UI, or auto-detect based on the arkspace/fluxcoworking site being used.
+**Status:** 📋 Proposed
+**Discovered:** During session debugging when site_config still pointed to tavira_theme
+
+#### P2. Flux-Specific Workspace Widgets
+**Description:** Create custom workspace widgets specifically for co-working space management — occupancy display, meeting room availability, member check-in/out status.
+**Status:** 📋 Proposed
+**Discovered:** Natural evolution of the flux_workspace.js module
+
+#### P3. WhatsApp/Telegram Theme Integration
+**Description:** Apply FLUX styling to the arrowz omni-channel chat panels and contact sessions to maintain brand consistency.
+**Status:** 📋 Proposed
+**Discovered:** Arrowz app is in the same bench and shares the same UI
+
+### 🟠 Medium Priority
+
+#### P4. Custom Notification Sounds for Co-Working
+**Description:** Replace generic notification sounds with co-working-specific ones — coffee machine, door chime, meeting start bell.
+**Status:** 📋 Proposed
+**Discovered:** flux_sounds.js and flux_ambient.js already have the Web Audio infrastructure
+
+#### P5. Member Dashboard Page
+**Description:** A branded `/desk/flux-dashboard` page showing member stats, space utilization, booking calendar, and announcements — all styled with FLUX theme.
+**Status:** 📋 Proposed
+**Discovered:** Natural companion to the arkspace co-working app
+
+#### P6. Booking System Theme Integration
+**Description:** Style the meeting room and desk booking interfaces (if arkspace has them) with FLUX branding — calendar views, time slots, availability indicators.
+**Status:** 📋 Proposed
+
+#### P7. Multi-Tenancy Theme Switching
+**Description:** Support different theme variations per tenant/site in a multi-site Frappe setup. Each co-working location could have slightly different colors.
+**Status:** 📋 Proposed
+
+### 🟢 Low Priority
+
+#### P8. Theme Analytics Dashboard
+**Description:** Track which features are most used (dark mode, presets, ambient sounds) to guide future development priorities.
+**Status:** 📋 Proposed
+
+#### P9. Custom Report Templates
+**Description:** Branded report templates for co-working space metrics — occupancy reports, revenue per desk, member engagement.
+**Status:** 📋 Proposed
+
+#### P10. Slack/Discord Integration Theme
+**Description:** Match FLUX theme colors in Slack/Discord webhook messages sent from the system.
+**Status:** 📋 Proposed
+
+#### P11. PDF Export Branding
+**Description:** Apply FLUX branding to all PDF exports (invoices, reports, contracts) with consistent headers, footers, and color scheme.
+**Status:** 📋 Proposed
+
+#### P12. Custom Onboarding Flow for New Members
+**Description:** Extended onboarding beyond the 6-step tour — a multi-page wizard for new co-working space members to set up their profile, preferences, and workspace.
+**Status:** 📋 Proposed
+
+---
+
+## 🔴 Critical Priority (ORIGINAL — ALL COMPLETED)
 
 ### 1. Dark Mode Toggle
 **Description:** Add a user-toggleable dark mode that deepens the navy palette and adjusts cream backgrounds to darker surfaces. Should persist via `localStorage` and respect `prefers-color-scheme: dark`.
@@ -175,7 +241,7 @@
 **Files:** `flux_loading.js` (145 lines), `_splash.scss` (CSS rule)
 **Description:** Branded loading overlay with splash logo and spinning gold ring. Overrides `frappe.dom.freeze/unfreeze`. Periodically cleans stuck `#freeze` elements and orphaned modal-backdrops. CSS `#freeze { display: none !important }` prevents Frappe's native freeze from being visible.
 **Key Learnings:**
-- `frappe.request.on()` does not exist in Frappe 15
+- `frappe.request.on()` does not exist in Frappe
 - jQuery `ajaxSend/ajaxComplete` fire for heartbeat/polling — unusable for loading overlay
 - Frappe's `#freeze` div can persist if created before our JS loads
 **Documentation:** README.md § JavaScript Modules, CONTEXT.md § 4.2, § 8

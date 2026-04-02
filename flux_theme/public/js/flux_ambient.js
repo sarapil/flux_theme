@@ -343,35 +343,63 @@
         _injectToggle: function() {
             var self = this;
 
-            // Wait for navbar
+            // v16: try sidebar first, navbar as fallback
             var check = setInterval(function() {
+                if (document.querySelector('.flux-ambient-toggle')) {
+                    clearInterval(check);
+                    return;
+                }
+
+                var sidebarBottom = document.querySelector('.body-sidebar-bottom');
                 var navRight = document.querySelector('.navbar-right, .navbar-nav:last-child');
-                if (!navRight || document.querySelector('.flux-ambient-toggle')) return;
-                clearInterval(check);
 
-                var btn = document.createElement('li');
-                btn.className = 'nav-item flux-ambient-toggle';
-                btn.innerHTML =
-                    '<a class="nav-link" title="' + __('Ambient Sounds') + '" aria-label="Ambient Sounds">' +
-                    '  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' +
-                    '    <path d="M9 18V5l12-2v13"/>' +
-                    '    <circle cx="6" cy="18" r="3"/>' +
-                    '    <circle cx="18" cy="16" r="3"/>' +
-                    '  </svg>' +
-                    '</a>';
-
-                btn.querySelector('a').addEventListener('click', function(e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    self._togglePanel();
-                });
-
-                // Insert before last few items
-                var items = navRight.querySelectorAll('.nav-item');
-                if (items.length > 2) {
-                    navRight.insertBefore(btn, items[items.length - 2]);
-                } else {
-                    navRight.appendChild(btn);
+                if (sidebarBottom) {
+                    clearInterval(check);
+                    var div = document.createElement('div');
+                    div.className = 'flux-ambient-toggle flux-sidebar-action';
+                    div.innerHTML =
+                        '<a class="item-anchor" title="' + __('Ambient Sounds') + '" role="button" aria-label="Ambient Sounds">' +
+                        '  <span class="sidebar-item-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' +
+                        '    <path d="M9 18V5l12-2v13"/>' +
+                        '    <circle cx="6" cy="18" r="3"/>' +
+                        '    <circle cx="18" cy="16" r="3"/>' +
+                        '  </svg></span>' +
+                        '  <span class="sidebar-item-label">' + __('Ambient Sounds') + '</span>' +
+                        '</a>';
+                    div.querySelector('a').addEventListener('click', function(e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        self._togglePanel();
+                    });
+                    var collapseLink = sidebarBottom.querySelector('.collapse-sidebar-link');
+                    if (collapseLink) {
+                        sidebarBottom.insertBefore(div, collapseLink);
+                    } else {
+                        sidebarBottom.appendChild(div);
+                    }
+                } else if (navRight) {
+                    clearInterval(check);
+                    var btn = document.createElement('li');
+                    btn.className = 'nav-item flux-ambient-toggle';
+                    btn.innerHTML =
+                        '<a class="nav-link" title="' + __('Ambient Sounds') + '" aria-label="Ambient Sounds">' +
+                        '  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' +
+                        '    <path d="M9 18V5l12-2v13"/>' +
+                        '    <circle cx="6" cy="18" r="3"/>' +
+                        '    <circle cx="18" cy="16" r="3"/>' +
+                        '  </svg>' +
+                        '</a>';
+                    btn.querySelector('a').addEventListener('click', function(e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        self._togglePanel();
+                    });
+                    var items = navRight.querySelectorAll('.nav-item');
+                    if (items.length > 2) {
+                        navRight.insertBefore(btn, items[items.length - 2]);
+                    } else {
+                        navRight.appendChild(btn);
+                    }
                 }
             }, 1000);
         },

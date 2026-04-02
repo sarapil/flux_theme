@@ -6,8 +6,9 @@
 // The JS handles creation, animation, and guaranteed removal.
 
 // ─── Override Frappe's .centered class for our splash ───
-// Frappe defines .centered { position:absolute; top:50%; left:50%;
-// transform:translate(-50%,-50%) } which breaks our fixed full-viewport splash.
+// Frappe's HTML splash (.centered.splash in splash_screen.html) persists
+// until frappe.app.hide_startup_page() runs. We auto-hide it via CSS animation
+// after 2s so it never gets stuck as a transparent overlay.
 .centered.splash {
   position: fixed !important;
   top: 0 !important;
@@ -26,6 +27,24 @@
   margin: 0 !important;
   padding: 0 !important;
   overflow: hidden !important;
+  // AUTO-HIDE: CSS animation fades out then sets display:none
+  animation: flux-splash-autohide 0.5s ease 2s forwards !important;
+  pointer-events: none !important;
+
+  // Constrain the image inside Frappe's splash
+  img {
+    max-width: 160px !important;
+    max-height: 160px !important;
+    width: auto !important;
+    height: auto !important;
+    object-fit: contain !important;
+  }
+}
+
+// CSS-only auto-hide for Frappe splash — guaranteed to work even if JS fails
+@keyframes flux-splash-autohide {
+  0%   { opacity: 1; visibility: visible; }
+  100% { opacity: 0; visibility: hidden; z-index: -1; }
 }
 
 // ─── Splash Spinner (can be used elsewhere) ───

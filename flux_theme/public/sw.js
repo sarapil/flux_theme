@@ -2,9 +2,9 @@
  * FLUX Theme — Service Worker
  * Minimal offline caching for PWA support
  */
-var CACHE_NAME = 'flux-v2';
+var CACHE_NAME = 'flux-v3';
 var PRECACHE_URLS = [
-    '/app',
+    '/desk',
     '/assets/flux_theme/css/flux.css'
 ];
 
@@ -39,7 +39,7 @@ self.addEventListener('fetch', function(event) {
     if (event.request.url.includes('/flux')) return;
 
     // Skip navigation requests to non-app pages (website/portal pages)
-    if (event.request.mode === 'navigate' && !event.request.url.includes('/app')) return;
+    if (event.request.mode === 'navigate' && !event.request.url.includes('/desk')) return;
 
     event.respondWith(
         fetch(event.request).then(function(response) {

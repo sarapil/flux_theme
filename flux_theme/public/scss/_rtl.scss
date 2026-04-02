@@ -92,6 +92,7 @@
     }
 
     .desk-sidebar,
+    .body-sidebar,
     .standard-sidebar {
       .standard-sidebar-item {
         a {
@@ -118,6 +119,25 @@
     // Filter section
     .filter-section {
       text-align: right;
+    }
+  }
+
+  // ─── v16: Body Sidebar RTL ───
+  .body-sidebar-container {
+    .body-sidebar {
+      border-right: none !important;
+      border-left: 1px solid rgba(234, 36, 36, 0.1) !important;
+    }
+
+    .standard-sidebar-item .item-anchor {
+      text-align: right;
+    }
+
+    // Accent bar on right instead of left
+    .standard-sidebar-item.active-sidebar::after {
+      left: auto;
+      right: 0;
+      border-radius: 3px 0 0 3px;
     }
   }
 
@@ -364,6 +384,8 @@
   }
 
   // ─── Workspace (Home) ───
+  // v16: #page-Workspaces is gone; target .page-main-content
+  .page-main-content,
   #page-Workspaces {
     direction: rtl;
 

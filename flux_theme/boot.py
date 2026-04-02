@@ -3,7 +3,7 @@ import frappe
 def boot_session(bootinfo):
     """Add FLUX theme settings to boot session for JS consumption."""
     settings = _get_settings()
-    settings["version"] = "1.0.0"
+    settings["version"] = "16.0.0"
     bootinfo.flux_theme = settings
 
 

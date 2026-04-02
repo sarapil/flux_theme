@@ -1,10 +1,21 @@
 app_name = "flux_theme"
 app_title = "FLUX Theme"
 app_publisher = "Arkan Labs"
-app_description = "Modern co-working space theme for FLUX — Frappe 15"
+app_description = "Modern co-working space theme for FLUX Co-Working Space — Frappe 16"
 app_email = "info@arkanlabs.com"
 app_license = "MIT"
-app_version = "1.0.0"
+source_link = "https://github.com/ArkAnLabs/flux_theme"
+app_home = "/desk"
+
+# ─── v16 App Launcher ───
+add_to_apps_screen = [
+	{
+		"name": "flux_theme",
+		"logo": "/assets/flux_theme/images/logo-header.png",
+		"title": "FLUX Theme",
+		"route": "/desk/flux-settings",
+	}
+]
 
 # ─── CSS (loads on every desk page) ───
 app_include_css = [
@@ -22,6 +33,7 @@ app_include_js = [
     "/assets/flux_theme/js/flux_sounds.js",
     "/assets/flux_theme/js/flux_workspace.js",
     "/assets/flux_theme/js/flux_navbar.js",
+    "/assets/flux_theme/js/flux_topbar.js",
     "/assets/flux_theme/js/flux_forms.js",
     "/assets/flux_theme/js/flux_mobile.js",
     "/assets/flux_theme/js/flux_shortcuts.js",
@@ -35,6 +47,7 @@ app_include_js = [
     "/assets/flux_theme/js/flux_minigame.js",
     "/assets/flux_theme/js/flux_animated_favicon.js",
     "/assets/flux_theme/js/flux_pwa.js",
+    "/assets/flux_theme/js/flux_desktop.js",
     "/assets/flux_theme/js/flux_welcome_msg.js"
 ]
 

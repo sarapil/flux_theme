@@ -969,10 +969,12 @@
             document.body.appendChild(skyContainer);
 
             // Ensure the page content floats above
-            var pageWorkspaces = document.getElementById('page-Workspaces');
-            if (pageWorkspaces) {
-                pageWorkspaces.style.position = 'relative';
-                pageWorkspaces.style.zIndex = '1';
+            // v16: #page-Workspaces is gone; target the main-section or layout container
+            var mainContent = document.querySelector('.main-section') ||
+                             document.querySelector('.layout-main-section');
+            if (mainContent) {
+                mainContent.style.position = 'relative';
+                mainContent.style.zIndex = '1';
             }
 
             this.create(skyContainer, {
@@ -994,8 +996,8 @@
 
     /**
      * Detect whether the Workspaces page is actually the VISIBLE page.
-     * Frappe keeps all visited page elements in the DOM (just hidden).
-     * We must check the current route, NOT the mere presence of #page-Workspaces.
+     * v16: #page-Workspaces no longer exists. Use route detection and
+     * check for workspace-specific DOM markers.
      */
     function isWorkspaceVisible() {
         // Method 1: Check the current route
@@ -1003,22 +1005,18 @@
             var route = frappe.get_route();
             if (route && route[0] === 'Workspaces') return true;
         }
-        // Method 2: Check if #page-Workspaces is the currently displayed page
-        var wsPage = document.getElementById('page-Workspaces');
-        if (wsPage) {
-            // Frappe hides non-current pages with display:none or removes .page-current
-            if (wsPage.style.display === 'none') return false;
-            if (wsPage.classList.contains('page-current')) return true;
-            // Check computed visibility as last resort
-            var rect = wsPage.getBoundingClientRect();
+        // Method 2: Check for workspace page markers (v16 EditorJS container)
+        var wsContent = document.querySelector('.page-main-content[id="editorjs"]');
+        if (wsContent) {
+            var rect = wsContent.getBoundingClientRect();
             return rect.height > 0;
         }
         return false;
     }
 
     // Auto-inject on Workspace pages (desk), remove when navigating away
-    if (typeof frappe !== 'undefined') {
-        $(document).on('page-change', function() {
+    if (typeof frappe !== 'undefined' && typeof frappe.router !== 'undefined') {
+        frappe.router.on('change', function() {
             setTimeout(function() {
                 // Feature gate: check if skyline is disabled in FLUX Settings
                 if (flux.config && flux.config.features && !flux.config.features.skyline) {

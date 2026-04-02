@@ -27,34 +27,31 @@ body {
   // Navbar is white — icons use dark stroke
 }
 
-// ─── Navbar (Dark Glassmorphism) ───
+// ═══════════════════════════════════════════════════════════════
+// v16 NAVBAR — Minimal on desktop (sidebar is primary nav)
+// Clean white bar; full nav on mobile only
+// ═══════════════════════════════════════════════════════════════
 .sticky-top {
-  // Sticky wrapper itself must be transparent, no spacing
   background: transparent !important;
   margin-bottom: 0 !important;
   padding-bottom: 0 !important;
 
   .navbar,
   header.navbar {
-    background: #FFFFFF !important;
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
-    border-bottom: 1px solid #E8E8E8 !important;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06) !important;
-
-    // White navbar — icons and text use dark colors
-    --icon-stroke: #333333;
+    display: none !important;
   }
 }
 
-// Fallback: direct header.navbar without .sticky-top wrapper
 header.navbar {
-  background: #FFFFFF !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
-  border-bottom: 1px solid #E8E8E8 !important;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06) !important;
-  --icon-stroke: #333333;
+  display: none !important;
+}
+
+// v16 announcement widget
+.navbar .announcement-widget {
+  background: rgba(9, 180, 116, 0.08) !important;
+  border-color: rgba(9, 180, 116, 0.15) !important;
+  color: #2D3436 !important;
+  a { color: var(--flux-green, #09B474) !important; }
 }
 
 // ─── Global navbar icon + text coloring on white background ───
@@ -514,6 +511,55 @@ header.navbar {
   50% { transform: scale(1.25); opacity: 0.7; }
 }
 
+// Sidebar bottom children entrance
+@keyframes flux-sidebar-bottom-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+// Dropdown menu appear
+@keyframes flux-dropdown-appear {
+  from {
+    opacity: 0;
+    transform: translateY(-6px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+// Metallic shimmer sweep for layout-side-section
+@keyframes flux-metallic-sheen {
+  0%, 100% { transform: translateX(-30%); }
+  50% { transform: translateX(30%); }
+}
+
+// Icon hover glow ring
+@keyframes flux-icon-glow {
+  0% { box-shadow: 0 0 0 0 rgba(9, 180, 116, 0.4); }
+  70% { box-shadow: 0 0 0 8px rgba(9, 180, 116, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(9, 180, 116, 0); }
+}
+
+// Rotating border gradient
+@keyframes flux-border-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+// Subtle float for active icons
+@keyframes flux-icon-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-2px); }
+}
+
 // ─── Chat Icon Redesign ───
 .dropdown-message.flux-chat {
   .nav-link, .notifications-icon {
@@ -618,230 +664,1121 @@ header.navbar {
   }
 }
 
-// ─── Sidebar (Dark Navy — matches login visual identity) ───
-// Frappe uses .layout-side-section as a Bootstrap col-lg-2 (NOT fixed)
-// We style it to feel like the login page — dark dark, green accents, light text
+// ═══════════════════════════════════════════════════════════════
+// v16: SIDEBAR — FLUX Dark Tech with Red/Green Accents
+// The sidebar is v16's PRIMARY navigation surface.
+// ═══════════════════════════════════════════════════════════════
 
+// ─── Override Frappe CSS variables for sidebar theming ───
+:root {
+  --sidebar-hover-color: rgba(234, 36, 36, 0.08);
+  --sidebar-active-color: rgba(234, 36, 36, 0.14);
+  --sidebar-border-color: rgba(234, 36, 36, 0.06);
+  --surface-menu-bar: #1A1A1A;
+}
+
+// ─── v16 Body Sidebar Container ───
+.body-sidebar-container {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+  .body-sidebar-placeholder {
+    background: transparent;
+  }
+
+  // ─── Main Sidebar Panel ───
+  .body-sidebar {
+    background: linear-gradient(180deg,
+      #141414 0%,    // Near-black top
+      #1A1A1A 40%,   // Dark mid
+      #222222 100%   // Slightly lighter bottom
+    ) !important;
+    border-right: 1px solid rgba(234, 36, 36, 0.06) !important;
+    z-index: 1020;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+    // Red accent line at top
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg,
+        transparent 0%,
+        rgba(234, 36, 36, 0.1) 20%,
+        rgba(234, 36, 36, 0.45) 50%,
+        rgba(234, 36, 36, 0.1) 80%,
+        transparent 100%
+      );
+      z-index: 1;
+    }
+
+    // Custom scrollbar
+    &::-webkit-scrollbar { width: 4px; }
+    &::-webkit-scrollbar-track { background: transparent; }
+    &::-webkit-scrollbar-thumb {
+      background: rgba(234, 36, 36, 0.15);
+      border-radius: 4px;
+      &:hover { background: rgba(234, 36, 36, 0.3); }
+    }
+  }
+
+  // ─── Sidebar Header (Workspace Logo + Title) ───
+  .sidebar-header {
+    padding: 10px 8px;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    text-decoration: none !important;
+
+    &:hover {
+      background: rgba(234, 36, 36, 0.06);
+    }
+
+    .sidebar-item-icon {
+      border-radius: 8px;
+      background-color: rgba(234, 36, 36, 0.1) !important;
+      border: 1px solid rgba(234, 36, 36, 0.12);
+      transition: all 0.2s ease;
+
+      .header-logo {
+        img, svg { border-radius: 6px; }
+      }
+    }
+
+    .title-container {
+      .header-title {
+        color: #F0F5F3 !important;
+        font-family: 'Open Sans', sans-serif;
+        font-weight: 600;
+        font-size: 14px;
+        letter-spacing: 0.01em;
+      }
+
+      .header-subtitle {
+        color: rgba(234, 36, 36, 0.5) !important;
+        font-size: 11px;
+        font-weight: 400;
+      }
+    }
+
+    .drop-icon {
+      color: rgba(240, 245, 243, 0.4);
+      &:hover { color: var(--flux-accent, #EA2424); }
+    }
+  }
+
+  // ─── Sidebar Top (Scrollable Navigation Items) ───
+  .body-sidebar-top {
+    .divider {
+      border-color: rgba(234, 36, 36, 0.05) !important;
+      margin: 4px 12px;
+    }
+  }
+
+  // ─── Sidebar Items ───
+  .sidebar-items {
+    .sidebar-item-container {
+      margin: 1px 0;
+    }
+
+    .standard-sidebar-item {
+      border-radius: 8px;
+      margin: 1px 4px;
+      transition: all 0.2s ease;
+
+      .item-anchor {
+        color: rgba(240, 245, 243, 0.65) !important;
+        border-radius: 8px;
+        padding: 7px 12px;
+        height: 32px;
+        transition: all 0.2s ease;
+        text-decoration: none !important;
+        gap: 8px;
+      }
+
+      .sidebar-item-icon {
+        opacity: 0.5;
+        transition: all 0.2s ease;
+        --icon-stroke: rgba(240, 245, 243, 0.5);
+        color: rgba(240, 245, 243, 0.5);
+        svg {
+          stroke: rgba(240, 245, 243, 0.5);
+          width: 16px;
+          height: 16px;
+        }
+      }
+
+      .sidebar-item-label {
+        color: rgba(240, 245, 243, 0.65) !important;
+        font-size: 13px;
+        font-weight: 400;
+        letter-spacing: 0.005em;
+        line-height: 1.3;
+      }
+
+      // ─── Hover State ───
+      &:not(.active-sidebar):has(a:not(.section-break)):hover,
+      &:hover:not(.active-sidebar) {
+        background-color: rgba(234, 36, 36, 0.08) !important;
+        border-radius: 8px;
+
+        .item-anchor { color: #F0F5F3 !important; }
+        .sidebar-item-label { color: #F0F5F3 !important; }
+        .sidebar-item-icon {
+          opacity: 0.85;
+          --icon-stroke: #F0F5F3;
+          color: #F0F5F3;
+          svg { stroke: #F0F5F3; }
+        }
+      }
+
+      // ─── Active State (.active-sidebar in v16) ───
+      &.active-sidebar {
+        background: rgba(234, 36, 36, 0.12) !important;
+        border-radius: 8px;
+        box-shadow: none !important;
+        position: relative;
+
+        // Red left accent bar
+        &::after {
+          content: "";
+          position: absolute;
+          left: 0;
+          top: 6px;
+          bottom: 6px;
+          width: 3px;
+          background: linear-gradient(180deg, #EA2424, #FF4444);
+          border-radius: 0 3px 3px 0;
+          z-index: 2;
+          box-shadow: 0 0 8px rgba(234, 36, 36, 0.25);
+        }
+
+        .item-anchor {
+          color: #F0F5F3 !important;
+          font-weight: 500 !important;
+        }
+
+        .sidebar-item-label {
+          color: #F0F5F3 !important;
+          font-weight: 500 !important;
+        }
+
+        .sidebar-item-icon {
+          opacity: 1;
+          --icon-stroke: var(--flux-accent, #EA2424);
+          color: var(--flux-accent, #EA2424);
+          svg { stroke: var(--flux-accent, #EA2424); }
+        }
+      }
+
+      // ─── Section Break Labels ───
+      .item-anchor.section-break {
+        .sidebar-item-label {
+          color: rgba(234, 36, 36, 0.35) !important;
+          font-size: 10px;
+          font-weight: 700;
+          letter-spacing: 0.12em;
+          text-transform: uppercase;
+        }
+      }
+    }
+  }
+
+  // ─── Sidebar Bottom Area (Premium Redesign v3 — Unified Icon Row) ───
+  .body-sidebar-bottom {
+    border-top: 1px solid rgba(9, 180, 116, 0.12);
+    padding: 10px 6px 10px;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    position: relative;
+
+    // Ambient glow behind icon row
+    &::before {
+      content: '';
+      position: absolute;
+      bottom: 4px; left: 8%; right: 8%;
+      height: 70%;
+      background: radial-gradient(ellipse at center bottom,
+        rgba(9, 180, 116, 0.06) 0%,
+        transparent 65%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    // Stagger entrance
+    > * {
+      animation: flux-sidebar-bottom-in 0.5s cubic-bezier(0.22, 1.2, 0.36, 1) both;
+      position: relative;
+      z-index: 1;
+    }
+    > *:nth-child(1) { animation-delay: 0.04s; }
+    > *:nth-child(2) { animation-delay: 0.1s; }
+    > *:nth-child(3) { animation-delay: 0.16s; }
+    > *:nth-child(4) { animation-delay: 0.22s; }
+    > *:nth-child(5) { animation-delay: 0.28s; }
+    > *:nth-child(6) { animation-delay: 0.34s; }
+
+    // ─── Edit Mode Buttons ───
+    .bottom-edit-controls {
+      flex: 0 0 100%;
+      order: -2;
+
+      .btn {
+        border-radius: 8px;
+        font-size: 12px;
+        font-weight: 600;
+        transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+
+        &:hover {
+          transform: translateY(-1px);
+          box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+        }
+
+        &.save-sidebar {
+          background: var(--flux-green, #09B474) !important;
+          border-color: var(--flux-green, #09B474) !important;
+          color: #fff !important;
+        }
+      }
+    }
+
+    // ═══════════════════════════════════════════════════
+    // ─── Unified Action Icon Style ───
+    // Applies to BOTH .collapse-sidebar-link AND .flux-sidebar-action .item-anchor
+    // ═══════════════════════════════════════════════════
+
+    // Collapse/Expand toggle — icon-only, unified style
+    .collapse-sidebar-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex: 0 0 auto;
+      order: 10;
+      width: 36px;
+      height: 36px;
+      padding: 0 !important;
+      border-radius: 50%;
+      color: rgba(240, 245, 243, 0.45) !important;
+      text-decoration: none !important;
+      cursor: pointer;
+      background: rgba(9, 180, 116, 0.04);
+      border: 1.5px solid rgba(9, 180, 116, 0.1);
+      position: relative;
+      overflow: visible;
+      transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+      backdrop-filter: blur(6px);
+
+      // Hide text label always
+      span {
+        display: none !important;
+        width: 0 !important;
+        height: 0 !important;
+        overflow: hidden !important;
+        position: absolute !important;
+        pointer-events: none !important;
+      }
+
+      svg {
+        width: 15px;
+        height: 15px;
+        stroke: rgba(240, 245, 243, 0.4);
+        transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+        flex-shrink: 0;
+        margin: 0 !important;
+      }
+
+      // Hover — glow ring + color shift
+      &:hover {
+        background: rgba(9, 180, 116, 0.12) !important;
+        border-color: rgba(9, 180, 116, 0.35);
+        transform: scale(1.12);
+        animation: flux-icon-glow 0.6s ease-out;
+        box-shadow:
+          0 0 12px rgba(9, 180, 116, 0.2),
+          0 0 4px rgba(9, 180, 116, 0.1) inset;
+
+        svg {
+          stroke: var(--flux-green, #09B474) !important;
+          filter: drop-shadow(0 0 5px rgba(9, 180, 116, 0.5));
+        }
+      }
+
+      // Active press
+      &:active {
+        transform: scale(0.92);
+        transition-duration: 0.1s;
+      }
+    }
+
+    // ─── User Menu (Avatar + Name + Dropdown) ───
+    .dropdown-navbar-user {
+      flex: 0 0 100%;
+      order: -1;
+      border-radius: 12px;
+      transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+
+      > button,
+      > .nav-link {
+        padding: 9px 10px;
+        border-radius: 12px;
+        transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+        overflow: hidden;
+        background: rgba(9, 180, 116, 0.02);
+        border: 1px solid transparent;
+
+        // Radial glow
+        &::after {
+          content: '';
+          position: absolute;
+          inset: 0;
+          border-radius: 12px;
+          background: radial-gradient(circle at 25% 50%,
+            rgba(9, 180, 116, 0.12),
+            transparent 65%);
+          opacity: 0;
+          transition: opacity 0.4s ease;
+          pointer-events: none;
+        }
+
+        &:hover {
+          background: rgba(9, 180, 116, 0.05);
+          border-color: rgba(9, 180, 116, 0.08);
+          &::after { opacity: 1; }
+        }
+      }
+
+      // Avatar ring — animated breathing glow
+      .avatar {
+        border: 2.5px solid rgba(9, 180, 116, 0.25);
+        border-radius: 50%;
+        transition: all 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+        position: relative;
+      }
+
+      &:hover .avatar {
+        border-color: var(--flux-green, #09B474);
+        transform: scale(1.12);
+        box-shadow:
+          0 0 0 4px rgba(9, 180, 116, 0.08),
+          0 0 16px rgba(9, 180, 116, 0.15),
+          0 4px 12px rgba(0, 0, 0, 0.1);
+      }
+
+      // User name + email
+      .avatar-name-email {
+        span {
+          color: rgba(240, 245, 243, 0.75) !important;
+          font-size: 13px;
+          font-weight: 500;
+          transition: all 0.3s ease;
+        }
+
+        .text-secondary {
+          color: rgba(240, 245, 243, 0.3) !important;
+          font-size: 11px;
+          transition: color 0.3s ease;
+        }
+      }
+
+      &:hover .avatar-name-email {
+        span:first-child {
+          color: var(--flux-green, #09B474) !important;
+          letter-spacing: 0.01em;
+        }
+        .text-secondary {
+          color: rgba(240, 245, 243, 0.45) !important;
+        }
+      }
+
+      // User dropdown menu
+      .dropdown-menu {
+        background: rgba(20, 20, 20, 0.97) !important;
+        backdrop-filter: blur(28px) saturate(200%) !important;
+        border: 1px solid rgba(9, 180, 116, 0.1) !important;
+        border-radius: 14px !important;
+        box-shadow:
+          0 24px 70px rgba(0, 0, 0, 0.45),
+          0 0 0 1px rgba(9, 180, 116, 0.04) inset,
+          0 1px 0 rgba(240, 245, 243, 0.02) inset !important;
+        padding: 6px;
+        animation: flux-dropdown-appear 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+
+        .dropdown-item {
+          color: rgba(240, 245, 243, 0.7) !important;
+          border-radius: 8px;
+          padding: 10px 14px;
+          font-size: 13px;
+          font-weight: 450;
+          transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+          position: relative;
+
+          &:hover {
+            background: rgba(9, 180, 116, 0.08) !important;
+            color: #F0F5F3 !important;
+            transform: translateX(4px);
+            padding-left: 18px;
+          }
+
+          // Green dot
+          &::before {
+            content: '';
+            position: absolute;
+            left: 6px;
+            top: 50%;
+            transform: translateY(-50%) scale(0);
+            width: 5px; height: 5px;
+            border-radius: 50%;
+            background: var(--flux-green, #09B474);
+            box-shadow: 0 0 6px rgba(9, 180, 116, 0.4);
+            transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+          }
+
+          &:hover::before {
+            transform: translateY(-50%) scale(1);
+          }
+
+          .dropdown-item-icon {
+            --icon-stroke: rgba(240, 245, 243, 0.45);
+            transition: all 0.25s ease;
+          }
+
+          &:hover .dropdown-item-icon {
+            --icon-stroke: var(--flux-green, #09B474);
+            transform: scale(1.1);
+          }
+        }
+
+        .dropdown-divider {
+          border-color: rgba(9, 180, 116, 0.06);
+          margin: 4px 10px;
+        }
+      }
+    }
+
+    // ─── Theme Sidebar Actions (Search, Darkmode, Ambient, PWA) ───
+    // Unified circular glassmorphism icons matching .collapse-sidebar-link
+    .flux-sidebar-action {
+      flex: 0 0 auto;
+      order: 10;
+      position: relative;
+
+      .item-anchor {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        margin: 0;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        color: rgba(240, 245, 243, 0.45) !important;
+        cursor: pointer;
+        background: rgba(9, 180, 116, 0.04);
+        border: 1.5px solid rgba(9, 180, 116, 0.1);
+        transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+        text-decoration: none !important;
+        overflow: visible;
+        position: relative;
+        backdrop-filter: blur(6px);
+
+        // Hide ALL spans inside the anchor
+        > span:not(.sidebar-item-icon):not(.flux-notif-dot) {
+          display: none !important;
+          width: 0 !important;
+          height: 0 !important;
+          overflow: hidden !important;
+          position: absolute !important;
+          pointer-events: none !important;
+        }
+
+        // Hover — glow ring + scale
+        &:hover {
+          background: rgba(9, 180, 116, 0.12) !important;
+          border-color: rgba(9, 180, 116, 0.35);
+          transform: scale(1.12);
+          animation: flux-icon-glow 0.6s ease-out;
+          box-shadow:
+            0 0 12px rgba(9, 180, 116, 0.2),
+            0 0 4px rgba(9, 180, 116, 0.1) inset;
+          color: #F0F5F3 !important;
+
+          .sidebar-item-icon {
+            opacity: 1;
+            --icon-stroke: var(--flux-green, #09B474);
+
+            svg {
+              stroke: var(--flux-green, #09B474) !important;
+              filter: drop-shadow(0 0 5px rgba(9, 180, 116, 0.5));
+            }
+          }
+
+          // Reveal tooltip on hover
+          > span.sidebar-item-label {
+            display: block !important;
+            width: auto !important;
+            height: auto !important;
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(0) translateY(-50%);
+          }
+        }
+
+        // Active press
+        &:active {
+          transform: scale(0.92);
+          transition-duration: 0.1s;
+        }
+      }
+
+      // Icon: always visible, centered
+      .sidebar-item-icon {
+        opacity: 0.45;
+        width: 16px;
+        height: 16px;
+        flex-shrink: 0;
+        text-align: center;
+        font-size: 15px;
+        transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+
+        svg {
+          width: 15px;
+          height: 15px;
+          stroke: rgba(240, 245, 243, 0.4);
+          transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+      }
+
+      // Label: tooltip, hidden by default
+      .sidebar-item-label {
+        position: absolute !important;
+        left: calc(100% + 10px);
+        top: 50%;
+        transform: translateX(-6px) translateY(-50%);
+        background: linear-gradient(135deg, rgba(20, 20, 20, 0.97), rgba(35, 35, 35, 0.97));
+        color: #F0F5F3 !important;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.03em;
+        padding: 5px 12px;
+        border-radius: 8px;
+        white-space: nowrap;
+        pointer-events: none;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+        z-index: 1050;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(9, 180, 116, 0.1);
+        border: 1px solid rgba(9, 180, 116, 0.15);
+
+        // Tooltip arrow
+        &::before {
+          content: '';
+          position: absolute;
+          right: 100%;
+          top: 50%;
+          transform: translateY(-50%);
+          border: 5px solid transparent;
+          border-right-color: rgba(20, 20, 20, 0.97);
+        }
+      }
+    }
+
+    // ─── Thin separator between icons ───
+    .flux-sidebar-action + .flux-sidebar-action::before,
+    .flux-sidebar-action + .collapse-sidebar-link::before {
+      content: '';
+      position: absolute;
+      left: -4px;
+      top: 25%;
+      height: 50%;
+      width: 1px;
+      background: rgba(9, 180, 116, 0.1);
+      pointer-events: none;
+    }
+
+    // ─── Notification dot indicator (unseen badge) ───
+    .flux-notif-dot {
+      position: absolute;
+      top: 3px;
+      right: 3px;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #EA2424;
+      border: 1.5px solid rgba(45, 52, 54, 0.9);
+      opacity: 0;
+      transform: scale(0);
+      transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+      pointer-events: none;
+      z-index: 2;
+
+      &.active {
+        opacity: 1;
+        transform: scale(1);
+        box-shadow: 0 0 6px rgba(234, 36, 36, 0.6), 0 0 12px rgba(234, 36, 36, 0.25);
+        animation: flux-notif-pulse 2s ease-in-out infinite;
+      }
+    }
+
+    @keyframes flux-notif-pulse {
+      0%, 100% { box-shadow: 0 0 6px rgba(234, 36, 36, 0.6), 0 0 12px rgba(234, 36, 36, 0.25); }
+      50% { box-shadow: 0 0 10px rgba(234, 36, 36, 0.9), 0 0 20px rgba(234, 36, 36, 0.4); }
+    }
+
+    // ─── Hide Frappe's sidebar-top notification (moved to bottom) ───
+    .sidebar-notification {
+      display: none !important;
+    }
+  }
+
+  // ─── Collapsed State (50px — icons only, NOTHING overflows) ───
+  &:not(.expanded) {
+    // Hard clip on the sidebar panel itself
+    .body-sidebar {
+      width: 50px !important;
+      min-width: 50px !important;
+      max-width: 50px !important;
+      overflow: hidden !important;
+      box-sizing: border-box !important;
+
+      // Constrain the accent pseudo-element
+      &::before {
+        width: 50px !important;
+        max-width: 50px !important;
+      }
+
+      // Every direct child must respect the 50px boundary
+      > * {
+        max-width: 50px !important;
+        overflow: hidden !important;
+        box-sizing: border-box !important;
+      }
+    }
+
+    // Placeholder also 50px
+    .body-sidebar-placeholder {
+      width: 50px !important;
+      min-width: 50px !important;
+      max-width: 50px !important;
+    }
+
+    // Hide ALL text labels, spans, names when collapsed
+    .sidebar-item-label,
+    .collapse-sidebar-link span,
+    .avatar-name-email,
+    .header-title,
+    .header-subtitle,
+    .title-container,
+    .drop-icon,
+    .sidebar-item-suffix {
+      display: none !important;
+      width: 0 !important;
+      height: 0 !important;
+      overflow: hidden !important;
+      visibility: hidden !important;
+    }
+
+    // Center all anchors
+    .item-anchor {
+      justify-content: center !important;
+      padding: 8px 0 !important;
+      text-align: center;
+      overflow: hidden !important;
+      max-width: 50px !important;
+    }
+
+    // Section break: hidden
+    .item-anchor.section-break {
+      display: none !important;
+    }
+
+    // Sidebar header: constrain logo to fit inside 50px
+    .sidebar-header {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 8px 4px;
+      overflow: hidden !important;
+      max-width: 50px !important;
+      box-sizing: border-box !important;
+
+      .sidebar-item-icon {
+        margin: 0 auto;
+        flex-shrink: 0;
+        width: 30px !important;
+        height: 30px !important;
+        max-width: 30px !important;
+        max-height: 30px !important;
+        min-width: 30px !important;
+        overflow: hidden !important;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .header-logo {
+          width: 28px !important;
+          height: 28px !important;
+          max-width: 28px !important;
+          overflow: hidden !important;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          img, svg {
+            width: 100% !important;
+            height: 100% !important;
+            max-width: 28px !important;
+            max-height: 28px !important;
+            object-fit: contain;
+          }
+        }
+      }
+    }
+
+    // All sidebar icons: constrain
+    .sidebar-item-icon {
+      flex-shrink: 0;
+      width: 20px !important;
+      min-width: 16px;
+      max-width: 20px !important;
+      text-align: center;
+      overflow: hidden !important;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    // Sidebar item containers: constrain width
+    .sidebar-item-container,
+    .standard-sidebar-item {
+      max-width: 50px !important;
+      overflow: hidden !important;
+    }
+
+    // Flux sidebar action items: icon-only, centered, circular in collapsed
+    .flux-sidebar-action {
+      max-width: 50px !important;
+      overflow: visible !important;
+
+      .item-anchor {
+        justify-content: center;
+        padding: 0 !important;
+        width: 30px !important;
+        height: 30px !important;
+        border-radius: 50% !important;
+        max-width: 30px !important;
+        overflow: visible !important;
+        margin: 0 auto;
+        background: rgba(9, 180, 116, 0.04);
+        border: 1.5px solid rgba(9, 180, 116, 0.08);
+
+        // Kill every span including label
+        > span:not(.sidebar-item-icon) {
+          display: none !important;
+          width: 0 !important;
+          height: 0 !important;
+        }
+
+        &:hover {
+          animation: flux-icon-glow 0.6s ease-out;
+        }
+      }
+
+      .sidebar-item-label {
+        display: none !important;
+        width: 0 !important;
+        height: 0 !important;
+        visibility: hidden !important;
+      }
+
+      .sidebar-item-icon {
+        width: 14px !important;
+        height: 14px !important;
+
+        svg {
+          width: 13px !important;
+          height: 13px !important;
+        }
+      }
+    }
+
+    // Dividers: tighter
+    .divider {
+      margin: 2px 8px !important;
+    }
+
+    // Body-sidebar-top / bottom: constrain width
+    .body-sidebar-top,
+    .body-sidebar-bottom {
+      overflow: hidden !important;
+      max-width: 50px !important;
+      box-sizing: border-box !important;
+    }
+
+    // Collapsed: revert bottom to column so icons stack vertically in 50px
+    .body-sidebar-bottom {
+      flex-direction: column !important;
+      flex-wrap: nowrap !important;
+      align-items: center !important;
+      padding: 6px 2px !important;
+      gap: 2px !important;
+    }
+
+    // User menu: just avatar, centered
+    .dropdown-navbar-user {
+      max-width: 50px !important;
+      overflow: hidden !important;
+      flex: 0 0 auto !important;
+
+      > button,
+      > .nav-link {
+        justify-content: center !important;
+        padding: 8px 4px !important;
+        overflow: hidden !important;
+        max-width: 50px !important;
+      }
+
+      .avatar {
+        margin: 0 auto;
+      }
+
+      .avatar-name-email {
+        display: none !important;
+      }
+    }
+
+    // Collapse link: circular in collapsed
+    .collapse-sidebar-link {
+      justify-content: center;
+      padding: 0 !important;
+      overflow: visible !important;
+      max-width: 50px !important;
+      width: 30px !important;
+      height: 30px !important;
+      border-radius: 50% !important;
+      background: rgba(9, 180, 116, 0.04);
+      border: 1.5px solid rgba(9, 180, 116, 0.08);
+
+      svg {
+        margin: 0 auto;
+        width: 13px !important;
+        height: 13px !important;
+      }
+
+      &:hover {
+        animation: flux-icon-glow 0.6s ease-out;
+      }
+    }
+
+    // Sidebar actions: compact circular in collapsed
+    .flux-sidebar-action {
+      .item-anchor {
+        width: 30px !important;
+        height: 30px !important;
+        padding: 0 !important;
+        margin: 0 auto !important;
+        border-radius: 50% !important;
+      }
+    }
+  }
+
+  // ─── Expanded State ───
+  &.expanded {
+    .body-sidebar {
+      box-shadow: 6px 0 24px rgba(0, 0, 0, 0.25);
+    }
+  }
+
+  // ─── Mobile Overlay ───
+  .overlay {
+    background-color: rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(2px);
+    z-index: 1021;
+  }
+}
+
+// ─── Notifications inside Sidebar ───
+.body-sidebar .dropdown-notifications {
+  .notifications-list {
+    background: rgba(20, 20, 20, 0.97) !important;
+    backdrop-filter: blur(20px) !important;
+    border: 1px solid rgba(234, 36, 36, 0.1) !important;
+    border-radius: 10px !important;
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.35) !important;
+
+    .notification-list-header {
+      border-bottom: 1px solid rgba(234, 36, 36, 0.06);
+      .header-items { color: #F0F5F3; }
+    }
+
+    .notification-list-body {
+      .notification-item, .activity-item {
+        color: rgba(240, 245, 243, 0.8);
+        border-bottom: 1px solid rgba(234, 36, 36, 0.04);
+        &:hover { background: rgba(234, 36, 36, 0.06); }
+        .text-muted { color: rgba(240, 245, 243, 0.35) !important; }
+        a { color: var(--flux-accent, #EA2424); }
+      }
+    }
+  }
+}
+
+// ─── v15 Layout Side Section — Metallic Silver/Green ───
 .layout-side-section {
-  background: linear-gradient(180deg, #1A2526 0%, #2D3436 60%, #1a2332 100%) !important;
-  border-right: 1px solid rgba(234, 36, 36, 0.15) !important;
+  background:
+    linear-gradient(175deg,
+      #E5E7EA 0%,
+      #D0D3D8 18%,
+      #DCDFE3 35%,
+      #C8CCD2 52%,
+      #D5D8DD 68%,
+      #E0E3E7 85%,
+      #CBCFD5 100%) !important;
+  border-right: 1px solid rgba(150, 155, 162, 0.35) !important;
+  border-left: 1px solid rgba(9, 180, 116, 0.1) !important;
   min-height: calc(100vh - var(--navbar-height, 56px));
   position: relative;
-  
-  // Subtle red shimmer accent at top
+  overflow: hidden;
+
+  // Animated metallic shimmer overlay
   &::before {
-    content: "";
+    content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(234, 36, 36, 0.4), transparent);
+    top: 0; left: -50%;
+    width: 200%; height: 100%;
+    background: linear-gradient(105deg,
+      transparent 35%,
+      rgba(255, 255, 255, 0.05) 42%,
+      rgba(255, 255, 255, 0.12) 48%,
+      rgba(255, 255, 255, 0.05) 54%,
+      transparent 61%);
+    animation: flux-metallic-sheen 8s ease-in-out infinite;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  > * {
+    position: relative;
+    z-index: 1;
   }
 
   .desk-sidebar,
   .standard-sidebar {
     background: transparent;
     padding: 8px 6px;
-    
-    .sidebar-label,
-    .sidebar-section-head {
-      color: rgba(240, 245, 243, 0.4);
+
+    .sidebar-label, .sidebar-section-head {
+      color: rgba(9, 130, 90, 0.5) !important;
       font-size: 10px;
-      font-weight: 600;
-      letter-spacing: 0.1em;
+      font-weight: 700;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
-      padding: 20px 12px 8px;
+      padding: 16px 12px 6px;
     }
-    
-    // ─── Sidebar Items ───
+
     .standard-sidebar-item {
-      // Base link styling
-      a,
-      .item-anchor {
-        color: rgba(240, 245, 243, 0.75) !important;
+      a, .item-anchor {
+        color: rgba(45, 52, 54, 0.75) !important;
         border-radius: 8px;
-        padding: 9px 14px;
+        padding: 7px 12px;
         margin: 1px 4px;
-        transition: all 0.2s ease;
-        position: relative;
-        overflow: hidden;
+        transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
         font-size: 13px;
-        font-weight: 400;
-        letter-spacing: 0.01em;
-      }
-      
-      .sidebar-item-icon,
-      .sidebar-icon {
-        opacity: 0.6;
-        --icon-stroke: rgba(240, 245, 243, 0.6);
-        svg { stroke: rgba(240, 245, 243, 0.6); }
       }
 
-      .sidebar-item-label {
-        color: rgba(240, 245, 243, 0.75) !important;
+      .sidebar-item-icon, .sidebar-icon {
+        opacity: 0.55;
+        --icon-stroke: rgba(45, 52, 54, 0.5);
+        svg { stroke: rgba(45, 52, 54, 0.5); }
       }
-      
-      // ─── Hover state ───
-      // Frappe applies :hover on .standard-sidebar-item div, not on <a>
+
+      .sidebar-item-label { color: rgba(45, 52, 54, 0.75) !important; }
+
       &:hover {
-        background-color: rgba(234, 36, 36, 0.12) !important;
-        
-        a,
-        .item-anchor {
-          color: #fff !important;
-          text-decoration: none !important;
-        }
-        
-        .sidebar-item-label {
-          color: #fff !important;
-        }
-        
-        .sidebar-item-icon,
-        .sidebar-icon {
-          opacity: 1;
-          --icon-stroke: #fff;
-          svg { stroke: #fff; }
+        background-color: rgba(9, 180, 116, 0.08) !important;
+        a, .item-anchor, .sidebar-item-label { color: var(--flux-dark, #2D3436) !important; }
+        .sidebar-item-icon, .sidebar-icon {
+          opacity: 0.9;
+          --icon-stroke: var(--flux-dark, #2D3436);
+          svg { stroke: var(--flux-dark, #2D3436); }
         }
       }
 
-      // ─── Selected / active state ───
-      // Frappe puts .selected on .standard-sidebar-item div
       &.selected {
-        background-color: rgba(234, 36, 36, 0.18) !important;
+        background-color: rgba(9, 180, 116, 0.12) !important;
         position: relative;
-        
-        // Red left accent bar
         &::after {
           content: "";
           position: absolute;
-          left: 0;
-          top: 4px;
-          bottom: 4px;
-          width: 3px;
-          background: var(--flux-accent, #EA2424);
+          left: 0; top: 6px; bottom: 6px; width: 3px;
+          background: linear-gradient(180deg, #09B474, #067A4E);
           border-radius: 0 3px 3px 0;
-          z-index: 1;
         }
-        
-        a,
-        .item-anchor {
-          color: #F0F5F3 !important;
+        a, .item-anchor, .sidebar-item-label {
+          color: var(--flux-dark, #2D3436) !important;
           font-weight: 600 !important;
         }
-        
-        .sidebar-item-label {
-          color: #F0F5F3 !important;
-          font-weight: 600 !important;
-        }
-        
-        .sidebar-item-icon,
-        .sidebar-icon {
+        .sidebar-item-icon, .sidebar-icon {
           opacity: 1;
-          --icon-stroke: #F0F5F3;
-          svg { stroke: #F0F5F3; }
+          --icon-stroke: var(--flux-green, #09B474);
+          svg { stroke: var(--flux-green, #09B474); }
         }
       }
     }
   }
-  
-  // Override any Frappe text colors inside sidebar (but NOT selected items)
-  .sidebar-menu {
-    a, span {
-      color: rgba(240, 245, 243, 0.75);
-    }
-    
-    // Selected items must stay bright
-    .standard-sidebar-item.selected a,
-    .standard-sidebar-item.selected span,
-    .standard-sidebar-item.selected .item-anchor,
-    .standard-sidebar-item.selected .sidebar-item-label {
-      color: #F0F5F3 !important;
-    }
-    
-    // Hovered items must stay bright
-    .standard-sidebar-item:hover a,
-    .standard-sidebar-item:hover span,
-    .standard-sidebar-item:hover .item-anchor,
-    .standard-sidebar-item:hover .sidebar-item-label {
-      color: #fff !important;
-    }
-  }
-  
-  // ─── Fix: sidebar-label & sidebar-section on dark bg ───
-  .sidebar-label,
-  .sidebar-section-head {
-    color: rgba(240, 245, 243, 0.45) !important;
-  }
-  
-  // ─── Fix: filter-section on dark bg ───
-  .sidebar-section.filter-section,
-  .filter-section {
-    border-top: 1px solid rgba(234, 36, 36, 0.1);
-    
-    .filter-label,
-    label,
-    span {
-      color: rgba(240, 245, 243, 0.6) !important;
-    }
-    
+
+  .sidebar-section.filter-section, .filter-section {
+    border-top: 1px solid rgba(150, 155, 162, 0.2);
+    .filter-label, label, span { color: rgba(45, 52, 54, 0.6) !important; }
     input, select, .form-control {
-      background: rgba(240, 245, 243, 0.06) !important;
-      border-color: rgba(234, 36, 36, 0.15) !important;
-      color: rgba(240, 245, 243, 0.85) !important;
-      
-      &::placeholder {
-        color: rgba(240, 245, 243, 0.35) !important;
-      }
+      background: rgba(255, 255, 255, 0.5) !important;
+      border-color: rgba(150, 155, 162, 0.3) !important;
+      color: var(--flux-dark, #2D3436) !important;
+      &::placeholder { color: rgba(45, 52, 54, 0.35) !important; }
     }
   }
-  
-  // ─── Fix: list-sidebar-button on dark bg ───
-  .btn.btn-default.btn-sm.list-sidebar-button,
+
   .list-sidebar-button {
-    background: rgba(234, 36, 36, 0.08) !important;
-    border: 1px solid rgba(234, 36, 36, 0.15) !important;
-    color: rgba(240, 245, 243, 0.8) !important;
-    font-size: 12px;
+    background: rgba(9, 180, 116, 0.08) !important;
+    border: 1px solid rgba(9, 180, 116, 0.15) !important;
+    color: rgba(45, 52, 54, 0.7) !important;
     border-radius: 6px;
     transition: all 0.2s ease;
-    
     &:hover {
-      background: rgba(234, 36, 36, 0.18) !important;
-      border-color: rgba(234, 36, 36, 0.3) !important;
-      color: var(--flux-accent, #EA2424) !important;
+      background: rgba(9, 180, 116, 0.15) !important;
+      color: var(--flux-green-dark, #067A4E) !important;
     }
-  }
-}
-
-// ─── High-specificity sidebar selected/hover override ───
-// Ensures nothing in Frappe (global.scss, desktop.scss) can override our text colors
-.layout-side-section .desk-sidebar .desk-sidebar-item.standard-sidebar-item.selected,
-.layout-side-section .standard-sidebar .standard-sidebar-item.selected {
-  background-color: rgba(234, 36, 36, 0.18) !important;
-  
-  a, .item-anchor, .sidebar-item-label, span:not(.sidebar-item-icon):not(.indicator) {
-    color: #F0F5F3 !important;
-    font-weight: 600 !important;
-  }
-}
-
-.layout-side-section .desk-sidebar .desk-sidebar-item.standard-sidebar-item:hover,
-.layout-side-section .standard-sidebar .standard-sidebar-item:hover {
-  background-color: rgba(234, 36, 36, 0.12) !important;
-  
-  a, .item-anchor, .sidebar-item-label, span:not(.sidebar-item-icon):not(.indicator) {
-    color: #fff !important;
   }
 }
 
 // ─── Page Container — transparent to let body bg show through ───
 .page-container {
   background-color: transparent !important;
+  padding-top: 0 !important;
 }
 
-// ─── Page Head (Dark #333333 — matches Flux website) ───
+#page-desktop {
+  padding-top: 0 !important;
+}
+
+// ─── Page Head (Dark #333333 — FIXED below topbar) ───
 .page-head {
+  position: fixed !important;
+  top: 48px !important;                     // Always below the 48px topbar
+  left: 50px !important;                    // Sidebar collapsed width (default)
+  right: 0 !important;
+  width: auto !important;
+  z-index: 1019 !important;                 // Below sidebar (1020) but above content
+  transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important; // Smooth sidebar resize
   background: #333333 !important;
   backdrop-filter: none !important;
   -webkit-backdrop-filter: none !important;
@@ -851,6 +1788,11 @@ header.navbar {
   margin-top: 0 !important;
   margin-bottom: 0 !important;
   padding-top: 0 !important;
+
+  // Mobile: sidebar is hidden, full width
+  @media (max-width: 575.98px) {
+    left: 0 !important;
+  }
   
   // No metallic sheen on dark header
   &::after {
@@ -925,6 +1867,11 @@ header.navbar {
   --icon-stroke: rgba(255, 255, 255, 0.8);
 }
 
+// ─── Page Head shifts when sidebar expands (50px → 220px) ───
+.body-sidebar-container.expanded ~ .main-section .page-head {
+  left: var(--sidebar-width, 220px) !important;
+}
+
 // ─── Main Content Area ───
 .layout-main-section {
   background: rgba(255, 255, 255, 0.95);
@@ -962,6 +1909,8 @@ header.navbar {
   }
 }
 
+// v16: #page-Workspaces is gone; use .page-main-content for workspace styling
+.page-main-content,
 #page-Workspaces {
   position: relative;
   z-index: 1;
@@ -984,6 +1933,8 @@ header.navbar {
 }
 
 // ─── Widget Visibility Fixes (workspace dark bg) ───
+// v16: #page-Workspaces is gone; .page-main-content is the new workspace container
+.page-main-content,
 #page-Workspaces {
   // Widget itself — transparent (remove Frappe's var(--card-bg))
   .widget {
@@ -1156,29 +2107,23 @@ footer.web-footer,
 
 // ─── Mobile Responsive ───
 @media (max-width: 991px) {
-  // Hide sidebar by default on small screens
   .layout-side-section {
     display: none !important;
   }
 
-  // Show sidebar when toggled open via sidebar-toggle-btn
   .layout-side-section.opened {
     display: block !important;
     position: fixed !important;
-    top: 0;
-    left: 0;
-    bottom: 0;
+    top: 0; left: 0; bottom: 0;
     width: 260px;
-    background: linear-gradient(180deg, #1A2526 0%, #2D3436 100%) !important;
-    box-shadow: 4px 0 24px rgba(0, 0, 0, 0.4);
+    background: linear-gradient(180deg, #141414 0%, #1A1A1A 50%, #222222 100%) !important;
+    box-shadow: 6px 0 30px rgba(0, 0, 0, 0.45);
     z-index: 1050;
-    border-right: 1px solid rgba(234, 36, 36, 0.15) !important;
+    border-right: 1px solid rgba(234, 36, 36, 0.06) !important;
     overflow-y: auto;
-    
-    .standard-sidebar-item a {
-      color: rgba(240, 245, 243, 0.75);
-    }
   }
+
+  .navbar .navbar-brand { display: flex !important; }
 }
 
 // ─── Dark Theme Override ───
@@ -1238,4 +2183,689 @@ button.btn-reset.dropdown-item,
   .flux-workspace-skyline .flux-skyline-svg {
     opacity: 0.65;
   }
+}
+
+// ═══════════════════════════════════════════════════════════════
+// v15-STYLE TOP NAVBAR (FLUX TOPBAR)
+// Classic horizontal navbar at the very top of the screen
+// ═══════════════════════════════════════════════════════════════
+
+// ─── Topbar Height Variable ───
+$flux-topbar-height: 48px;
+
+// ─── Push sidebar down when topbar is present ───
+.has-flux-topbar {
+  .body-sidebar-container {
+    .body-sidebar {
+      top: $flux-topbar-height !important;
+      height: calc(100vh - #{$flux-topbar-height}) !important;
+    }
+    .body-sidebar-placeholder {
+      top: $flux-topbar-height !important;
+      height: calc(100vh - #{$flux-topbar-height}) !important;
+    }
+  }
+
+  // Also adjust overlay backdrop
+  .body-sidebar-container .overlay {
+    top: $flux-topbar-height !important;
+    height: calc(100vh - #{$flux-topbar-height}) !important;
+  }
+}
+
+// ─── Topbar Container ───
+.flux-topbar {
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: $flux-topbar-height;
+  z-index: 1030; // Above sidebar (1020) and page-head (1019)
+  background: #FFFFFF;
+  border-bottom: 1px solid #E2E2E2;
+  box-shadow:
+    0 1px 4px rgba(0, 0, 0, 0.06),
+    0 0 1px rgba(0, 0, 0, 0.04);
+  display: flex;
+  align-items: center;
+  font-family: 'Open Sans', sans-serif;
+  overflow: hidden; // Safety: prevent any child from overflowing
+
+  // Subtle green accent line at bottom
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg,
+      transparent 0%,
+      rgba(9, 180, 116, 0.15) 20%,
+      rgba(9, 180, 116, 0.5) 50%,
+      rgba(9, 180, 116, 0.15) 80%,
+      transparent 100%
+    );
+  }
+
+  .topbar-container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    padding: 0 16px;
+    gap: 12px;
+  }
+
+  // ── Left: Brand ──
+  .topbar-left {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    min-width: 140px;
+
+    .topbar-brand {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      gap: 10px;
+      padding: 4px 8px;
+      border-radius: 6px;
+      transition: background 0.2s ease;
+
+      &:hover {
+        background: rgba(9, 180, 116, 0.06);
+      }
+    }
+
+    .topbar-logo {
+      height: 28px !important;
+      max-height: 28px !important;
+      max-width: 120px !important;
+      width: auto !important;
+      object-fit: contain !important;
+      display: block;
+    }
+
+    .topbar-brand-text {
+      font-size: 15px;
+      font-weight: 700;
+      color: #2D3436;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+  }
+
+  // ── Center: Search ──
+  .topbar-center {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    max-width: 560px;
+    margin: 0 auto;
+  }
+
+  .topbar-search {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    max-width: 480px;
+    height: 34px;
+    padding: 0 14px;
+    background: #F4F5F6;
+    border: 1px solid #E2E2E2;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+
+    &:hover {
+      background: #EAECEE;
+      border-color: rgba(9, 180, 116, 0.3);
+      box-shadow: 0 0 0 2px rgba(9, 180, 116, 0.08);
+    }
+
+    .topbar-search-icon {
+      width: 15px;
+      height: 15px;
+      stroke: #868686;
+      fill: none;
+      stroke-width: 1.5;
+      flex-shrink: 0;
+    }
+
+    .topbar-search-text {
+      font-size: 13px;
+      color: #868686;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .topbar-search-kbd {
+      margin-left: auto;
+      font-size: 11px;
+      font-family: 'Open Sans', monospace;
+      color: #999;
+      background: #FFFFFF;
+      border: 1px solid #E2E2E2;
+      border-radius: 4px;
+      padding: 1px 6px;
+      line-height: 1.4;
+      flex-shrink: 0;
+    }
+  }
+
+  // ── Right: Actions ──
+  .topbar-right {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    gap: 4px;
+  }
+
+  .topbar-icon-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border: none;
+    background: transparent;
+    border-radius: 6px;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.2s ease;
+
+    svg {
+      width: 17px;
+      height: 17px;
+      fill: #666666;
+      stroke: none;
+      transition: fill 0.2s ease;
+    }
+
+    &:hover {
+      background: rgba(9, 180, 116, 0.08);
+      svg { fill: #09B474; }
+    }
+  }
+
+  // Notification badge dot
+  .topbar-notif-badge {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #EA2424;
+    border: 1.5px solid #FFFFFF;
+    display: none;
+    animation: flux-notif-pulse 2s ease-in-out infinite;
+
+    &.active {
+      display: block;
+    }
+  }
+
+  @keyframes flux-notif-pulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.3); opacity: 0.7; }
+  }
+
+  // ── User Dropdown ──
+  .topbar-user-wrap {
+    position: relative;
+  }
+
+  .topbar-user-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 8px 4px 4px;
+    border: none;
+    background: transparent;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+    min-width: 0;
+
+    &:hover {
+      background: rgba(9, 180, 116, 0.06);
+    }
+  }
+
+  .topbar-avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+    background: linear-gradient(135deg, #09B474, #067A4E);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1.5px solid rgba(9, 180, 116, 0.25);
+
+    .topbar-avatar-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .topbar-avatar-abbr {
+      font-size: 12px;
+      font-weight: 700;
+      color: #FFFFFF;
+      line-height: 1;
+    }
+  }
+
+  .topbar-username {
+    font-size: 13px;
+    font-weight: 600;
+    color: #2D3436;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 120px;
+  }
+
+  .topbar-chevron {
+    width: 14px;
+    height: 14px;
+    stroke: #868686;
+    fill: none;
+    stroke-width: 2;
+    flex-shrink: 0;
+  }
+
+  // ── User Dropdown Menu ──
+  .topbar-user-dropdown {
+    min-width: 200px;
+    background: #FFFFFF !important;
+    border: 1px solid #E2E2E2 !important;
+    border-radius: 8px !important;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12) !important;
+    padding: 6px 0 !important;
+    margin-top: 6px !important;
+
+    .dropdown-item {
+      color: #2D3436 !important;
+      padding: 8px 16px !important;
+      font-size: 13px;
+      transition: all 0.15s ease;
+
+      &:hover {
+        background: rgba(9, 180, 116, 0.06) !important;
+        color: #09B474 !important;
+      }
+    }
+
+    .dropdown-divider {
+      border-color: #F0F0F0 !important;
+      margin: 4px 0 !important;
+    }
+  }
+
+  // ─── Responsive ───
+  @media (max-width: 767.98px) {
+    .topbar-center {
+      display: none; // Hide search bar on small screens
+    }
+    .topbar-username {
+      display: none; // Hide username, show avatar only
+    }
+    .topbar-brand-text {
+      display: none;
+    }
+  }
+
+  @media (max-width: 575.98px) {
+    .topbar-left {
+      min-width: auto;
+    }
+    .topbar-settings-btn {
+      display: none;
+    }
+  }
+}
+
+
+/* ═══════════════════════════════════════════════════
+   FLUX LCD DESKTOP — Monitor Frame + Animations
+   ═══════════════════════════════════════════════════ */
+
+// ─── LCD Wrapper (contains monitor + stand + particles) ───
+.flux-lcd-wrap {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 16px;
+  min-height: calc(100vh - 48px);
+  background: transparent !important;
+  animation: flux-lcd-fadeIn 0.8s ease-out both;
+}
+
+@keyframes flux-lcd-fadeIn {
+  from { opacity: 0; transform: translateY(16px) scale(0.98); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+// ─── Ambient Particle Canvas ───
+.flux-lcd-particles {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.7;
+}
+
+// ─── Monitor Body ───
+.flux-lcd-monitor {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 1200px;
+  min-height: 380px;
+  border-radius: 18px;
+  box-shadow:
+    0 8px 40px rgba(0, 0, 0, 0.4),
+    0 2px 12px rgba(0, 0, 0, 0.25),
+    inset 0 1px 0 rgba(9, 180, 116, 0.05);
+  transition: box-shadow 0.5s ease;
+
+  &:hover {
+    box-shadow:
+      0 12px 52px rgba(0, 0, 0, 0.45),
+      0 4px 16px rgba(0, 0, 0, 0.3),
+      0 0 30px rgba(9, 180, 116, 0.05),
+      inset 0 1px 0 rgba(9, 180, 116, 0.07);
+  }
+}
+
+// ─── SVG Bezel — BEHIND screen (z-index 0) ───
+.flux-lcd-bezel-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+// ─── Screen Area ───
+.flux-lcd-screen {
+  position: relative;
+  z-index: 2;
+  margin: 18px 18px 34px;
+  border-radius: 8px;
+  overflow: hidden;
+  background: transparent;
+  box-shadow: inset 0 0 12px rgba(10, 18, 15, 0.08);
+
+  // ★ page-wrapper: HIGHEST z-index inside screen — always visible!
+  .page-wrapper {
+    position: relative;
+    z-index: 20 !important;
+    max-height: calc(100vh - 200px);
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 12px 12px 48px 12px;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(9, 180, 116, 0.35) rgba(45, 52, 54, 0.12);
+
+    // ═══ LCD Neon Scrollbar — Green Rail ═══
+    &::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: linear-gradient(
+        180deg,
+        rgba(45, 52, 54, 0.05) 0%,
+        rgba(45, 52, 54, 0.15) 50%,
+        rgba(45, 52, 54, 0.05) 100%
+      );
+      border-radius: 10px;
+      border-left: 1px solid rgba(9, 180, 116, 0.06);
+      border-right: 1px solid rgba(9, 180, 116, 0.06);
+      box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.15);
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: linear-gradient(
+        180deg,
+        rgba(9, 180, 116, 0.15) 0%,
+        rgba(9, 180, 116, 0.4) 30%,
+        rgba(9, 180, 116, 0.5) 50%,
+        rgba(9, 180, 116, 0.4) 70%,
+        rgba(9, 180, 116, 0.15) 100%
+      );
+      border-radius: 10px;
+      border: 1px solid rgba(9, 180, 116, 0.12);
+      box-shadow:
+        0 0 4px rgba(9, 180, 116, 0.2),
+        0 0 8px rgba(9, 180, 116, 0.08),
+        inset 0 0 3px rgba(9, 180, 116, 0.1);
+      transition: all 0.3s ease;
+
+      &:hover {
+        background: linear-gradient(
+          180deg,
+          rgba(9, 180, 116, 0.3) 0%,
+          rgba(9, 180, 116, 0.6) 30%,
+          rgba(9, 180, 116, 0.7) 50%,
+          rgba(9, 180, 116, 0.6) 70%,
+          rgba(9, 180, 116, 0.3) 100%
+        );
+        box-shadow:
+          0 0 6px rgba(9, 180, 116, 0.35),
+          0 0 14px rgba(9, 180, 116, 0.15),
+          0 0 20px rgba(9, 180, 116, 0.06),
+          inset 0 0 4px rgba(9, 180, 116, 0.15);
+      }
+
+      &:active {
+        background: linear-gradient(
+          180deg,
+          rgba(9, 180, 116, 0.4) 0%,
+          rgba(9, 180, 116, 0.75) 50%,
+          rgba(9, 180, 116, 0.4) 100%
+        );
+        box-shadow:
+          0 0 8px rgba(9, 180, 116, 0.5),
+          0 0 18px rgba(9, 180, 116, 0.25),
+          0 0 28px rgba(9, 180, 116, 0.08);
+      }
+    }
+
+    &::-webkit-scrollbar-corner {
+      background: transparent;
+    }
+
+    // ═══ Suppress ALL inner scrollbars — LCD screen is the only scroller ═══
+    *, *::before, *::after {
+      &::-webkit-scrollbar { width: 0 !important; height: 0 !important; }
+      scrollbar-width: none !important;
+    }
+
+    .layout-main,
+    .layout-main-section,
+    .layout-side-section,
+    .workspace-sidebar,
+    .page-content,
+    .widget-group,
+    .shortcut-widget-box,
+    .widget-body {
+      overflow: visible !important;
+      max-height: none !important;
+    }
+  }
+}
+
+// ─── CRT Scanline — very subtle texture, BELOW content ───
+.flux-lcd-scanline {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.015) 2px,
+    rgba(0, 0, 0, 0.015) 4px
+  );
+  opacity: 0.4;
+}
+
+// ─── Interactive Glare — BELOW content ───
+.flux-lcd-glare {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  border-radius: 8px;
+  transition: background 0.3s ease;
+}
+
+// ─── Vignette — very soft edge darkening, BELOW content ───
+.flux-lcd-vignette {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  border-radius: 8px;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 65%,
+    rgba(10, 18, 15, 0.15) 100%
+  );
+}
+
+// ─── Power LED ───
+.flux-lcd-led {
+  position: absolute;
+  bottom: 10px;
+  right: 28px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #09B474;
+  z-index: 5;
+  box-shadow: 0 0 6px rgba(9, 180, 116, 0.7), 0 0 12px rgba(9, 180, 116, 0.3);
+  animation: flux-led-breathe 3s ease-in-out infinite;
+}
+
+@keyframes flux-led-breathe {
+  0%, 100% { opacity: 1; box-shadow: 0 0 6px rgba(9, 180, 116, 0.7), 0 0 12px rgba(9, 180, 116, 0.3); }
+  50%      { opacity: 0.5; box-shadow: 0 0 3px rgba(9, 180, 116, 0.4), 0 0 6px rgba(9, 180, 116, 0.15); }
+}
+
+// ─── Chin Brand ───
+.flux-lcd-chin-brand {
+  position: absolute;
+  bottom: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 5;
+  pointer-events: none;
+
+  span {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: rgba(9, 180, 116, 0.22);
+    text-shadow: 0 0 8px rgba(9, 180, 116, 0.06);
+  }
+}
+
+// ─── Monitor Stand ───
+.flux-lcd-stand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 1;
+}
+
+.flux-lcd-neck {
+  width: 40px;
+  height: 32px;
+  background: linear-gradient(180deg, #2D3436, #1e2527);
+  border-left: 1px solid rgba(9, 180, 116, 0.06);
+  border-right: 1px solid rgba(9, 180, 116, 0.06);
+  box-shadow: 2px 0 8px rgba(0,0,0,0.2), -2px 0 8px rgba(0,0,0,0.2);
+  position: relative;
+  &::after {
+    content: '';
+    position: absolute;
+    left: 50%; top: 4px; bottom: 4px;
+    width: 1px;
+    background: rgba(9, 180, 116, 0.10);
+  }
+}
+
+.flux-lcd-base {
+  width: 120px;
+  height: 10px;
+  border-radius: 0 0 8px 8px;
+  background: linear-gradient(180deg, #2D3436, #141a1c);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.35), inset 0 1px 0 rgba(9,180,116,0.04);
+  position: relative;
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -6px; left: 10%; right: 10%;
+    height: 4px;
+    background: radial-gradient(ellipse at center, rgba(9,180,116,0.04) 0%, transparent 70%);
+    border-radius: 50%;
+    filter: blur(2px);
+  }
+}
+
+// ─── Body class active adjustments ───
+.flux-lcd-active {
+  // Show background scene
+  background-color: #1a2332 !important;
+  background-image: none !important;
+
+  // Main scroll container: transparent + no scrollbar-gutter offset
+  .main-section {
+    background: transparent !important;
+    scrollbar-gutter: auto !important;
+  }
+
+  // The workspace page-container: push below topbar, transparent
+  [data-page-route="Workspaces"],
+  #page-Workspaces {
+    padding-top: 48px !important;
+    background: transparent !important;
+  }
+
+  [data-page-route="Workspaces"] .page-body,
+  #page-Workspaces .page-body {
+    padding: 0 !important;
+    margin: 0 !important;
+    max-width: 100% !important;
+    width: 100% !important;
+    background: transparent !important;
+  }
+}
+
+// ─── Responsive ───
+@media (max-width: 767.98px) {
+  .flux-lcd-wrap { padding: 8px 4px 20px; }
+  .flux-lcd-monitor { border-radius: 10px; min-height: auto; }
+  .flux-lcd-screen { margin: 10px 10px 24px; }
+  .flux-lcd-stand,
+  .flux-lcd-bezel-svg,
+  .flux-lcd-chin-brand { display: none; }
 }

@@ -10,7 +10,7 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### 🎉 Initial Release
 
-The first public release of FLUX Theme — a modern co-working space theme for Frappe 15 / Frappe 15.
+The first public release of FLUX Theme — a modern co-working space theme for Frappe 16 / ERPNext 16.
 
 ### Added
 
@@ -60,7 +60,7 @@ The first public release of FLUX Theme — a modern co-working space theme for F
 
 ### Fixed
 - **Loading overlay persistence** — Resolved through 7 iterations:
-  - Discovered `frappe.request.on()` doesn't exist in Frappe 15 (silent failure)
+  - Discovered `frappe.request.on()` doesn't exist in Frappe (silent failure)
   - Discovered jQuery `ajaxSend/ajaxComplete` fire for heartbeat/polling (never disappears)
   - Final solution: CSS `#freeze { display: none !important }` + periodic cleanup of stuck `#freeze` elements + 3s safety timer
 

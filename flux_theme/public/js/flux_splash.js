@@ -42,9 +42,10 @@
             }
 
             // Don't show on non-desk pages (website, portal)
-            if (!document.querySelector('.desk-page') && 
-                !document.querySelector('#page-Workspaces') &&
-                !window.location.pathname.match(/^\/app\//)) {
+            // v16: .desk-page is only on EditorJS container; #page-Workspaces is gone
+            // Use sidebar presence and /desk route to detect desk context
+            if (!document.querySelector('.body-sidebar, .page-main-content, [data-page-name]') && 
+                !window.location.pathname.match(/^\/desk/)) {
                 return;
             }
 

@@ -20,7 +20,8 @@
   }
 
   // Sidebar greeting accent
-  .sidebar-menu .desk-sidebar .standard-sidebar-label {
+  .sidebar-menu .desk-sidebar .standard-sidebar-label,
+  .body-sidebar .sidebar-items .section-break .sidebar-item-label {
     color: var(--flux-season-accent, #09B474);
   }
 
@@ -122,7 +123,8 @@
   }
 
   // Cool-toned sidebar
-  .desk-sidebar {
+  .desk-sidebar,
+  .body-sidebar {
     border-right-color: rgba(#8BA7C5, 0.08);
   }
 }

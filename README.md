@@ -1,6 +1,6 @@
 # 🏙️ FLUX Theme
 
-> **modern Brand Theme for Frappe 15 / Frappe 15**
+> **modern Brand Theme for Frappe 16 / ERPNext 16**
 > *FLUX Co-Working Space — modern Living, Refined*
 
 ![FLUX Theme](flux_theme/public/images/logo.png)
@@ -32,7 +32,8 @@ A premium, immersive brand theme that transforms ERPNext into a modern co-workin
 
 ### Prerequisites
 
-- Frappe v15+ / ERPNext v15+
+- Frappe v16+ / ERPNext v16+
+- Python 3.14+
 - A working Frappe bench setup
 - Node.js (for SCSS compilation, if customizing)
 
@@ -231,7 +232,7 @@ Branded loading overlay that replaces Frappe's default `#freeze` mechanism.
 - **Cleanup:** Every 2 seconds, `_cleanupFrappeFreeze()` removes stuck `#freeze` elements and orphaned `.modal-backdrop` divs
 - **CSS Rule:** `#freeze { display: none !important }` in `_splash.scss` prevents Frappe's native freeze from being visible
 - **Safety:** 3-second auto-remove timeout; fade-out animation (250ms)
-- **Critical Insight:** Frappe 15's `frappe.request` is a plain object, NOT an event emitter — `frappe.request.on()` does nothing
+- **Critical Insight:** Frappe's `frappe.request` is a plain object, NOT an event emitter — `frappe.request.on()` does nothing
 
 ### 6. `flux_navbar.js` — Navbar Enhancements (341 lines)
 
@@ -411,7 +412,7 @@ MIT License — see [license.txt](license.txt)
 |---|---|
 | **Publisher** | Arkan Labs |
 | **Email** | info@arkanlabs.com |
-| **Framework** | Frappe v15 / ERPNext v15 |
+| **Framework** | Frappe v16 / ERPNext v16 |
 | **Design** | Dubai modern co-working space aesthetic |
 | **Fonts** | [Rubik](https://fonts.google.com/specimen/Rubik) · [Poppins](https://fonts.google.com/specimen/Poppins) |
 | **License** | MIT |

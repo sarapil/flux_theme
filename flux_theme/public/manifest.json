@@ -2,7 +2,7 @@
   "name": "FLUX Coworking Space",
   "short_name": "FLUX",
   "description": "Modern co-working space management powered by Frappe",
-  "start_url": "/app",
+  "start_url": "/desk",
   "display": "standalone",
   "orientation": "any",
   "background_color": "#2D3436",

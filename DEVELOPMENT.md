@@ -23,8 +23,8 @@
 
 ### Prerequisites
 
-- Frappe Bench with Frappe v15+ installed
-- Node.js 18+ (for SCSS compilation)
+- Frappe Bench with Frappe v16+ installed
+- Python 3.14+ / Node.js 24+
 - A running Frappe site in developer mode (`developer_mode: 1`)
 
 ### First-Time Setup
@@ -296,7 +296,7 @@ All JS files follow this pattern:
    if (flux.prefersReducedMotion && flux.prefersReducedMotion()) return;
    ```
 
-5. **Never use `frappe.request.on()`** — it doesn't exist in Frappe 15.
+5. **Never use `frappe.request.on()`** — it doesn't exist in Frappe.
 
 ### Available Frappe APIs
 
@@ -367,7 +367,7 @@ Edit `boot.py` to add data accessible via `frappe.boot.flux_theme`:
 ```python
 def boot_session(bootinfo):
     bootinfo.flux_theme = {
-        "version": "1.0.0",
+        "version": "16.0.0",
         "my_new_field": "value"
     }
 ```
@@ -512,10 +512,9 @@ bench restart
 
 ### Version Bump
 
-Update version in three places:
-1. `hooks.py` → `app_version`
-2. `boot.py` → `bootinfo.flux_theme.version`
-3. `flux_theme.js` → `flux.config.version`
+Update version in two places:
+1. `boot.py` → `bootinfo.flux_theme.version`
+2. `flux_theme.js` → `flux.config.version`
 
 ---
 
@@ -523,7 +522,7 @@ Update version in three places:
 
 ### Why IIFEs instead of ES Modules?
 
-Frappe 15's `app_include_js` concatenates and serves files as-is. ES modules would require import/export support which Frappe's build system doesn't handle for included JS files. IIFEs provide isolation without build tool dependency.
+Frappe's `app_include_js` concatenates and serves files as-is. ES modules would require import/export support which Frappe's build system doesn't handle for included JS files. IIFEs provide isolation without build tool dependency.
 
 ### Why override `frappe.dom.freeze()` instead of CSS-only?
 
@@ -541,6 +540,25 @@ MutationObserver on the Awesomplete results caused infinite loops — cloning re
 
 `sessionStorage` is per-tab and cleared on tab close. This means the splash shows once when opening a new tab — a premium experience without being annoying on every page load. `localStorage` would show it only once ever, which loses the branding benefit.
 
+### Why Dual-Target Injection (v16)?
+
+Frappe v16 gutted the navbar on desktop (it only renders an announcement widget). All UI controls — search trigger, dark mode, ambient sounds, PWA install — previously injected into `.navbar-collapse .navbar-nav` which no longer exists on desktop.
+
+The solution is **sidebar-first injection**: each control tries `.body-sidebar-bottom` first, creating sidebar-style markup with `.flux-sidebar-action` class. If the sidebar isn't found (e.g., during early boot or on mobile), it falls back to the navbar.
+
+This dual-target approach ensures:
+1. Controls appear in the v16 sidebar on desktop
+2. Controls still work on mobile where navbar is full
+3. Backward compatibility if running on v15
+
+### Why `.page-main-content` + `#page-Workspaces` Dual Selectors?
+
+Frappe v16 removed `#page-Workspaces` — workspace content now uses `.page-main-content`. All SCSS rules use both selectors (`comma-separated`) for backward compatibility. This costs nothing in CSS (dead selectors are ignored) but ensures the theme works on both v15 and v16.
+
+### Why `.active-sidebar` Alongside `.selected`?
+
+Frappe v16 uses `.active-sidebar` for the selected navigation item, while v15 used `.selected`. Both are styled to ensure the accent bar appears regardless of version.
+
 ---
 
-*Last updated: 2025*
+*Last updated: 2025 — v16 compatible*
