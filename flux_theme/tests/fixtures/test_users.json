@@ -1,0 +1,10 @@
+{
+  "_comment": "Test users for Flux Theme",
+  "users": [
+    {
+      "email": "test_flux_theme@example.com",
+      "first_name": "Test",
+      "roles": []
+    }
+  ]
+}

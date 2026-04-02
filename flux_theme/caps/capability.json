@@ -1,0 +1,17 @@
+[
+  {
+    "name": "FT_manage_theme",
+    "category": "Module",
+    "description": "Configure Flux Theme settings"
+  },
+  {
+    "name": "FT_customize_design",
+    "category": "Action",
+    "description": "Customize design tokens and styles"
+  },
+  {
+    "name": "FT_manage_assets",
+    "category": "Action",
+    "description": "Upload and manage theme assets"
+  }
+]

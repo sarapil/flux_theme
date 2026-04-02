@@ -92,3 +92,9 @@ caps_capabilities = [
 fixtures = [
     {"dt": "Custom Field", "filters": [["module", "=", "Flux Theme"]]},
 ]
+
+app_icon = "/assets/flux_theme/images/flux_theme-logo.svg"
+app_color = "#7C3AED"
+app_logo_url = "/assets/flux_theme/images/flux_theme-logo.svg"
+
+after_install = "flux_theme.install.after_install"

@@ -1,0 +1,11 @@
+[
+  {
+    "name": "FT_full_access",
+    "capabilities": [
+      "FT_manage_theme",
+      "FT_customize_design",
+      "FT_manage_assets"
+    ],
+    "description": "Full Flux Theme access"
+  }
+]

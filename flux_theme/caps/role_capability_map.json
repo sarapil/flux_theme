@@ -1,0 +1,10 @@
+[
+  {
+    "role": "System Manager",
+    "capabilities": [
+      "FT_manage_theme",
+      "FT_customize_design",
+      "FT_manage_assets"
+    ]
+  }
+]

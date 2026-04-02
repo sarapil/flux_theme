@@ -1,0 +1,62 @@
+/* Flux Theme — Design Tokens / CSS Variables
+ * Brand color palette and design system tokens.
+ * Prefix: --ft-
+ */
+
+:root {
+  /* Primary */
+  --ft-primary: #7C3AED;
+  --ft-primary-light: #7C3AED22;
+  --ft-primary-dark: #7C3AEDDD;
+
+  /* Secondary & Accent */
+  --ft-secondary: #64748B;
+  --ft-accent: #7C3AED;
+
+  /* Semantic */
+  --ft-success: #10B981;
+  --ft-warning: #F59E0B;
+  --ft-danger: #EF4444;
+  --ft-info: #3B82F6;
+
+  /* Surfaces */
+  --ft-bg: #FFFFFF;
+  --ft-bg-subtle: #F8FAFC;
+  --ft-text: #1E293B;
+  --ft-text-muted: #64748B;
+  --ft-border: #E2E8F0;
+
+  /* Spacing */
+  --ft-space-xs: 0.25rem;
+  --ft-space-sm: 0.5rem;
+  --ft-space-md: 1rem;
+  --ft-space-lg: 1.5rem;
+  --ft-space-xl: 2rem;
+
+  /* Border radius */
+  --ft-radius-sm: 0.375rem;
+  --ft-radius-md: 0.5rem;
+  --ft-radius-lg: 0.75rem;
+  --ft-radius-xl: 1rem;
+
+  /* Shadows */
+  --ft-shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+  --ft-shadow-md: 0 4px 6px rgba(0,0,0,0.07);
+  --ft-shadow-lg: 0 10px 15px rgba(0,0,0,0.1);
+
+  /* Typography */
+  --ft-font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+  --ft-font-family-ar: "IBM Plex Sans Arabic", "Tajawal", sans-serif;
+}
+
+/* Dark mode overrides */
+[data-theme="dark"] {
+  --ft-bg: #0F172A;
+  --ft-bg-subtle: #1E293B;
+  --ft-text: #F1F5F9;
+  --ft-text-muted: #94A3B8;
+  --ft-border: #334155;
+  --ft-shadow-sm: 0 1px 2px rgba(0,0,0,0.3);
+  --ft-shadow-md: 0 4px 6px rgba(0,0,0,0.4);
+  --ft-shadow-lg: 0 10px 15px rgba(0,0,0,0.5);
+}
