@@ -1,0 +1,12 @@
+{
+  "app": "flux_theme",
+  "name": "Flux Theme",
+  "icon": "sparkles",
+  "color": "#E91E63",
+  "languages": [
+    "en",
+    "ar"
+  ],
+  "default_language": "en",
+  "fallback_language": "en"
+}

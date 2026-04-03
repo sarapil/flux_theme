@@ -77,7 +77,7 @@ boot_session = "flux_theme.boot.boot_session"
 # ─── Post-Migration Seed ───
 after_migrate = ["flux_theme.seed.seed_data"]
 
-required_apps = ["frappe"]
+required_apps = ["frappe", "frappe_visual"]
 
 # CAPS Integration — Capability-Based Access Control
 # ------------------------------------------------------------
