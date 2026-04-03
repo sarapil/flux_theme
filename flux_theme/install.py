@@ -9,7 +9,15 @@ from frappe import _
 
 def after_install():
     """Post-installation setup for Flux Theme."""
-    inject_desktop_icon()
+    # ── Desktop Icon injection (Frappe v16 /desk) ──
+    from flux_theme.desktop_utils import inject_app_desktop_icon
+    inject_app_desktop_icon(
+        app="flux_theme",
+        label="FLUX Theme",
+        route="/desk/flux-settings",
+        logo_url="/assets/flux_theme/images/flux_theme-logo.svg",
+        bg_color="#7C3AED",
+    )
     print(f"✅ {_("Flux Theme")}: post-install complete")
 
 
