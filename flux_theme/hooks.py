@@ -77,7 +77,7 @@ boot_session = "flux_theme.boot.boot_session"
 # ─── Post-Migration Seed ───
 after_migrate = ["flux_theme.seed.seed_data"]
 
-required_apps = ["frappe", "frappe_visual"]
+required_apps = ["frappe", "frappe_visual", "arkan_help"]
 
 # CAPS Integration — Capability-Based Access Control
 # ------------------------------------------------------------
@@ -90,7 +90,9 @@ caps_capabilities = [
 # Fixtures
 # --------------------------------------------------------
 fixtures = [
-    {"dt": "Custom Field", "filters": [["module", "=", "Flux Theme"]]},
+    {"dt": "Custom Field", "filters": [["module", "=", "FLUX Theme"]]},
+    {"dt": "Desktop Icon", "filters": [["app", "=", "flux_theme"]]},
+    {"dt": "Workspace", "filters": [["module", "like", "FLUX Theme%"]]},
 ]
 
 app_icon = "/assets/flux_theme/images/flux_theme-logo.svg"
