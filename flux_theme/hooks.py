@@ -1,3 +1,8 @@
+# Copyright (c) 2024, Moataz M Hassan (Arkan Lab)
+# Developer Website: https://arkan.it.com
+# License: MIT
+# For license information, please see license.txt
+
 app_name = "flux_theme"
 app_title = "FLUX Theme"
 app_publisher = "Arkan Labs"
@@ -48,7 +53,8 @@ app_include_js = [
     "/assets/flux_theme/js/flux_animated_favicon.js",
     "/assets/flux_theme/js/flux_pwa.js",
     "/assets/flux_theme/js/flux_desktop.js",
-    "/assets/flux_theme/js/flux_welcome_msg.js"
+    "/assets/flux_theme/js/flux_welcome_msg.js",
+    "/assets/flux_theme/js/fv_integration.js",
 ]
 
 # ─── Website / Portal pages (includes login) ───

@@ -1,3 +1,8 @@
+// Copyright (c) 2024, Moataz M Hassan (Arkan Lab)
+// Developer Website: https://arkan.it.com
+// License: MIT
+// For license information, please see license.txt
+
 /**
  * FLUX Theme - Workspace Enhancements
  * Welcome banner, quick actions, enhanced widget styling.
