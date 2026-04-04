@@ -1,0 +1,55 @@
+{% extends "templates/web.html" %}
+
+{% block title %}{{ _("FLUX Theme Onboarding") }}{% endblock %}
+
+{% block page_content %}
+<div id="flux_theme-onboarding-container" data-page="flux_theme-onboarding"></div>
+
+<style>
+  #flux_theme-onboarding-container { min-height: 80vh; padding: 24px 0; }
+  .ft-onboard-hero { text-align: center; padding: 60px 20px; }
+  .ft-onboard-hero h1 { font-size: 2rem; font-weight: 700; color: var(--text-color); margin-bottom: 16px; }
+  .ft-onboard-hero p { color: var(--text-muted); font-size: 1.1rem; max-width: 500px; margin: 0 auto 32px; }
+  .ft-onboard-steps { max-width: 700px; margin: 0 auto; padding: 0 20px; }
+  .ft-step { display: flex; gap: 16px; padding: 20px 0; border-bottom: 1px solid var(--border-color); }
+  .ft-step-num { width: 40px; height: 40px; border-radius: 50%; background: rgba(124, 58, 237, 0.1); color: #7C3AED; display: flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0; }
+  .ft-step h3 { font-size: 1rem; font-weight: 600; margin-bottom: 4px; }
+  .ft-step p { font-size: 0.9rem; color: var(--text-muted); }
+  .ft-onboard-footer { text-align: center; padding: 40px 20px; }
+  .ft-onboard-footer a { display: inline-block; padding: 12px 32px; border-radius: 8px; background: #7C3AED; color: white; text-decoration: none; font-weight: 600; transition: opacity 0.2s; }
+  .ft-onboard-footer a:hover { opacity: 0.9; }
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const container = document.getElementById('flux_theme-onboarding-container');
+  const steps = [
+    { title: __("Install Theme"), desc: __("FLUX Theme activates automatically — modern co-working aesthetic with purple/gradient palette.") },
+    { title: __("Customize Colors"), desc: __("Adjust primary gradient, card styles, and community-focused layout settings.") },
+    { title: __("Workspace Cards"), desc: __("Theme enhances workspace tiles with gradient overlays and animated hover effects.") },
+    { title: __("Member Portal"), desc: __("Verify member-facing pages use FLUX branding — bookings, community, events.") },
+    { title: __("RTL Support"), desc: __("Confirm Arabic layout with modern typography and proper gradient directions.") }
+  ];
+  container.innerHTML = `
+    <div class="ft-onboard-hero">
+      <h1>🚀 ${__("Get Started with FLUX Theme")}</h1>
+      <p>${__("Follow these steps to set up and start using FLUX Theme.")}</p>
+    </div>
+    <div class="ft-onboard-steps">
+      ${steps.map((s, i) => `
+        <div class="ft-step">
+          <div class="ft-step-num">${i + 1}</div>
+          <div>
+            <h3>${s.title}</h3>
+            <p>${s.desc}</p>
+          </div>
+        </div>
+      `).join('')}
+    </div>
+    <div class="ft-onboard-footer">
+      <a href="/app">${__("Go to Dashboard →")}</a>
+    </div>
+  `;
+});
+</script>
+{% endblock %}

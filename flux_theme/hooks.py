@@ -104,5 +104,7 @@ after_install = "flux_theme.install.after_install"
 # Website Route Rules
 # --------------------------------------------------------
 website_route_rules = [
+    {"from_route": "/flux-theme-about", "to_route": "flux_theme_about"},
+    {"from_route": "/عن-flux-theme", "to_route": "flux_theme_about"},
     {"from_route": "/flux-theme/<path:app_path>", "to_route": "flux-theme/<app_path>"},
 ]

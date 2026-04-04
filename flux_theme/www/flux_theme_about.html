@@ -1,0 +1,52 @@
+{% extends "templates/web.html" %}
+
+{% block title %}{{ _("About FLUX Theme") }}{% endblock %}
+
+{% block page_content %}
+<div id="flux-theme-about-container" data-page="flux-theme-about"></div>
+
+<style>
+  :root { --fx-primary: #7C3AED; --fx-gradient: linear-gradient(135deg, #7C3AED, #6D28D9); }
+  #flux-theme-about-container { min-height: 80vh; padding: 24px 0; }
+  .fx-about-hero { text-align: center; padding: 60px 20px; }
+  .fx-about-hero img { width: 140px; height: 140px; margin-bottom: 24px; }
+  .fx-about-hero h1 { font-size: 2.5rem; font-weight: 800; background: var(--fx-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 12px; }
+  .fx-about-hero p { font-size: 1.15rem; color: var(--text-muted); max-width: 600px; margin: 0 auto 32px; }
+  .fx-features { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; padding: 40px 20px; max-width: 900px; margin: 0 auto; }
+  .fx-feature-card { padding: 28px; border-radius: 16px; background: var(--card-bg); border: 1px solid var(--border-color); transition: transform 0.2s; }
+  .fx-feature-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(124, 58, 237, 0.12); }
+  .fx-feature-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 8px; }
+  .fx-feature-card p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; }
+  .fx-footer { text-align: center; padding: 40px 20px; color: var(--text-muted); font-size: 0.85rem; }
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const container = document.getElementById('flux-theme-about-container');
+  container.innerHTML = `
+    <div class="fx-about-hero">
+      <img src="/assets/flux_theme/images/flux_theme-logo.svg" alt="FLUX Theme" onerror="this.style.display='none'">
+      <h1>${__("FLUX Theme")}</h1>
+      <p>${__("Modern Co-Working Space Theme — Vibrant design with gradient accents, contemporary typography, and a dynamic visual language for FLUX Co-Working on Frappe 16.")}</p>
+    </div>
+    <div class="fx-features">
+      <div class="fx-feature-card">
+        <h3>🎨 ${__("Vibrant Design")}</h3>
+        <p>${__("Bold purple gradients, dynamic card layouts, and modern typography that reflects the energy of a co-working environment.")}</p>
+      </div>
+      <div class="fx-feature-card">
+        <h3>🏢 ${__("Workspace Focused")}</h3>
+        <p>${__("Designed for co-working operations — space booking interfaces, member portals, and community dashboards with clean visual hierarchy.")}</p>
+      </div>
+      <div class="fx-feature-card">
+        <h3>✨ ${__("Modern Effects")}</h3>
+        <p>${__("Glassmorphism cards, smooth transitions, gradient accents, and contemporary UI patterns that create a polished user experience.")}</p>
+      </div>
+    </div>
+    <div class="fx-footer">
+      <p>${__("Built by")} <strong>Arkan Lab</strong> • ${__("Powered by")} <strong>Frappe Framework</strong></p>
+    </div>
+  `;
+});
+</script>
+{% endblock %}
